@@ -15,8 +15,13 @@ import java.awt.RenderingHints;//             View internal
 import java.awt.Color;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 public class Main{
     public static Main INSTANCE;//            stelt sicher das es nur eine Instaz gibt
+	static final Logger log = LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) {
 		INSTANCE = new Main();
 		INSTANCE.init();
@@ -42,7 +47,6 @@ public class Main{
         canvas = new Canvas();
         frame.add(canvas);                                                        //füge Malfläche zu Anzeige hinzu
         frame.setBounds(0, 0, (int) width, (int) height);                         // setze Anzeigfläche größe auf maximum
-        frame.createBufferStrategy(2);
         canvas.addKeyListener(new KeyListener() {                                 //Tastatur abfrage erstellen
             @Override
             public void keyPressed(KeyEvent e) {
@@ -62,6 +66,10 @@ public class Main{
                 
             }
 		});
+        frame.setVisible(true);
+		canvas.createBufferStrategy(2);
+		canvas.requestFocus();
+        log.debug("created Frame");
     }
 
     public static void render(Canvas canvas, BufferedImage img) {
