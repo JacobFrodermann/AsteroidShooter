@@ -26,13 +26,17 @@ public class Main {
     BufferedImage bg;
     public static Main INSTANCE;//            stelt sicher das es nur eine Instaz gibt
 	static final Logger log = LoggerFactory.getLogger(Main.class);
+    int skin = 0;
     public static void main(String[] args) throws IOException {
 		INSTANCE = new Main();
 		INSTANCE.init();
-        while(true) {
-            render(INSTANCE.canvas, INSTANCE.draw(INSTANCE.canvas.getSize()));
-            try {Thread.sleep(1000 / 60);} catch (InterruptedException e) {System.out.println("crashed");}//Führe 60 mal/s Main.draw aus
-        }
+        try {
+        //Thread.sleep(10l);
+            while(true) {
+                render(INSTANCE.canvas, INSTANCE.draw(INSTANCE.canvas.getSize()));
+                Thread.sleep(1000 / 60);//Führe 60 mal/s Main.draw aus
+            }
+        } catch (InterruptedException e) {System.out.println("crashed");}
     }
 
     private JFrame frame;
@@ -57,14 +61,12 @@ public class Main {
         canvas.addKeyListener(new KeyListener() {                                 //Tastatur abfrage erstellen
             @Override
             public void keyPressed(KeyEvent e) {
-                // TODO Auto-generated method stub
-                
+                current.press(e);
             }
 
             @Override
             public void keyReleased(KeyEvent e) {                                  //Methoden werden aufgerufen wenn Taste gedrückt losgelassen oder getippt 
-                // TODO Auto-generated method stub
-                
+                current.release(e);
             }
 
             @Override
