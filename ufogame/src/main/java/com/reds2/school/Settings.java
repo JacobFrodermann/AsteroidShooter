@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 public class Settings implements State{
-
+    int xV=2, yv=2,asteriods=1;
     @Override
     public BufferedImage draw() {
         // TODO Auto-generated method stub

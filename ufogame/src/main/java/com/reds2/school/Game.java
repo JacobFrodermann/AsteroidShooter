@@ -75,7 +75,7 @@ public class Game implements State{
 
     @Override
     public void release(KeyEvent e) {
-        keys.remove(e.getKeyCode());
+        keys.remove((Object)e.getKeyCode());
     }
 
     @Override
