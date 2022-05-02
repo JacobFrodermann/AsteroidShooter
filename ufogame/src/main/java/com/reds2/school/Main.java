@@ -19,12 +19,12 @@ import java.awt.Color;
 
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.LoggerFactory;//              logging
 
 
 public class Main {
     BufferedImage bg;
-    public static Main INSTANCE;//            stelt sicher das es nur eine Instaz gibt
+    public static Main INSTANCE;//            stelt sicher das es nur eine Instanz gibt
 	static final Logger log = LoggerFactory.getLogger(Main.class);
     int skin = 0;
     public static void main(String[] args) throws IOException {
@@ -121,7 +121,7 @@ public class Main {
 		
 		// hier kann man wie in SAS nur durch awt auf eine Bild im Buffer mahlen das in einer 1/60 s angezeigt wird
         g.drawImage(bg, 0, 0, size.width, size.height,null);
-        g.drawImage(current.draw(),size.width/3,0,size.height/2,size.height,null);
+        g.drawImage(current.draw(),(size.width-size.height/2)/2,0,size.height/2,size.height,null);
         
         
         //g.setColor(Color.red);

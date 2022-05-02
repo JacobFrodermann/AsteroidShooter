@@ -20,6 +20,8 @@ public class Game implements State{
     private double SceneY=0;
     private int x=250,y=800;
     private ArrayList<Integer> keys = new ArrayList<Integer>();
+    private	double xV = 0,yV=0,rot=0;
+
     Game(){
         ship = new BufferedImage[4];
         try {
@@ -49,7 +51,6 @@ public class Game implements State{
         g.drawImage(ship[anim],x,y,80,120,null);
 
         if (new Random().nextInt(50)==1){anim++;anim =anim%4;}
-        try{System.out.println(keys.toArray()[0]);} catch(Exception e){}
         if (keys.contains(38)){
             y-=2;
         }
@@ -75,7 +76,7 @@ public class Game implements State{
 
     @Override
     public void release(KeyEvent e) {
-        keys.remove(e.getKeyCode());
+        keys.remove((Object)e.getKeyCode());
     }
 
     @Override
