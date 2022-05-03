@@ -56,16 +56,16 @@ public class Menu implements State{
         
     }
     @Override
-    public void release(KeyEvent e) {
+    public void release(KeyEvent e) { 
         // TODO Auto-generated method stub
         
     }
 
     @Override
     public void click(MouseEvent e, Dimension d) {
-        int x = e.getX()+d.width/540-d.width/3;
-        int y = e.getY()+d.height/1080;
-        System.out.println(y);
+        int x = (e.getX()-(d.width-d.height/2)/2)*1080/d.height;
+        int y = e.getY()*1080/d.height;
+        System.out.println(x);
         if (startR.contains(new Point(x,y))) {
             Main.INSTANCE.current = new Game();
         }
