@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 public class Settings implements State{
     int xV=2, yv=2,asteriods=1;
+    String name="Test";
     @Override
     public BufferedImage draw() {
         // TODO Auto-generated method stub

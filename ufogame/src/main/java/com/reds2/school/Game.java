@@ -3,6 +3,7 @@ package com.reds2.school;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class Game implements State{
     private BufferedImage bg;
     private int anim=0;
     private double SceneY=0;
-    private int x=250,y=800;
+    double x=250,y=800;
     private ArrayList<Integer> keys = new ArrayList<Integer>();
     private	double xV = 0,yV=0,rot=0;
 
@@ -48,22 +49,31 @@ public class Game implements State{
         g.drawImage(bg,0, (int)SceneY%2160, null);
         SceneY+=0.1;
 
-        g.drawImage(ship[anim],x,y,80,120,null);
+        AffineTransform t = g.getTransform();
+        t.rotate(rot,x+40,y+60);
+        g.setTransform(t);
+        g.drawImage(ship[anim],(int)x,(int)y,80,120,null);
+        g.setTransform(new AffineTransform());
 
         if (new Random().nextInt(50)==1){anim++;anim =anim%4;}
         if (keys.contains(38)){
-            x+=2*Math.cos(rot);
+            xV += 2*Math.cos(rot);
+            yV += 2*Math.sin(rot);
         }
         if (keys.contains(40)){
-            y+=2;
+            xV -= 2*Math.cos(rot);
+            yV -= 2*Math.sin(rot);
         }
         if (keys.contains(37)){
-            x -= 2;
+            rot -= 0.2;
         }
         if (keys.contains(39)){
-            x +=2;
+            rot += 0.1;
         }
-
+        x+=xV;
+        y+=yV;
+        xV=Math.sqrt(xV);
+        yV=Math.sqrt(yV);
         return result;
     }
 
