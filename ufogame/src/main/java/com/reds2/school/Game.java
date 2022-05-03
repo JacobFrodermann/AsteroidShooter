@@ -52,7 +52,7 @@ public class Game implements State{
 
         if (new Random().nextInt(50)==1){anim++;anim =anim%4;}
         if (keys.contains(38)){
-            y-=2;
+            x+=2*Math.cos(rot);
         }
         if (keys.contains(40)){
             y+=2;
