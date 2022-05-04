@@ -1,6 +1,9 @@
 package com.reds2.school;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
@@ -8,11 +11,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
-
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 
 public class Game implements State{
     private BufferedImage[] coin,asteriod,ship;
@@ -22,7 +23,8 @@ public class Game implements State{
     double x=250,y=800;
     private ArrayList<Integer> keys = new ArrayList<Integer>();
     private	double xV = 0,yV=0,rot=0;
-
+    static final double HALF_PI=Math.PI/2;
+    private ArrayList<Beam> beams = new ArrayList<Beam>();
     Game(){
         ship = new BufferedImage[4];
         try {
@@ -50,19 +52,19 @@ public class Game implements State{
         SceneY+=0.1;
 
         AffineTransform t = g.getTransform();
-        t.rotate(rot,x+40,y+60);
+        t.rotate(rot+HALF_PI,x+40,y+60);
         g.setTransform(t);
         g.drawImage(ship[anim],(int)x,(int)y,80,120,null);
         g.setTransform(new AffineTransform());
 
         if (new Random().nextInt(50)==1){anim++;anim =anim%4;}
         if (keys.contains(38)){
-            xV += 2*Math.cos(rot);
-            yV += 2*Math.sin(rot);
+            xV += 1*Math.cos(rot);
+            yV += 1*Math.sin(rot);
         }
         if (keys.contains(40)){
-            xV -= 2*Math.cos(rot);
-            yV -= 2*Math.sin(rot);
+            xV /= 1.5;
+            yV /= 1.5;
         }
         if (keys.contains(37)){
             rot -= 0.2;
@@ -70,11 +72,26 @@ public class Game implements State{
         if (keys.contains(39)){
             rot += 0.1;
         }
-        x+=xV;
-        y+=yV;
-        xV=Math.sqrt(xV);
-        yV=Math.sqrt(yV);
+        x += xV;
+        y += yV;
+        xV /= 1.1;
+        yV /= 1.1;
+
+        if (keys.contains(32)){
+            shoot();
+        }
+        g.setColor(Color.red);
+        beams.forEach(i->{
+            g.setTransform(i.t);
+            g.fill(i.r);
+        });
+        g.setTransform(new AffineTransform());
+        
         return result;
+    }
+
+    private void shoot() {
+        beams.add(new Beam(x,y,rot));
     }
 
     @Override
