@@ -82,8 +82,14 @@ public class Game implements State{
         }
         g.setColor(Color.red);
         beams.forEach(i->{
-            g.setTransform(i.t);
+            if(i.r.x<-35 || i.r.x>575 || i.r.y<-35 || i.r.y>1105){
+                beams.remove(i);
+            } else {
+                            g.setTransform(i.t);
             g.fill(i.r);
+            i.r.x += 4 * Math.cos(i.rot);
+            i.r.y += 4 * Math.sin(i.rot);
+            }
         });
         g.setTransform(new AffineTransform());
         
