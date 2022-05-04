@@ -17,7 +17,6 @@ import java.awt.Graphics2D;//                 View das was zeichnet2
 import java.awt.RenderingHints;//             View internal
 import java.awt.Color;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;//              logging
 
@@ -25,7 +24,7 @@ import org.slf4j.LoggerFactory;//              logging
 public class Main {
     BufferedImage bg;
     public static Main INSTANCE;//            stelt sicher das es nur eine Instanz gibt
-	static final Logger log = LoggerFactory.getLogger(Main.class);
+	private static final Logger log = LoggerFactory.getLogger(Main.class);
     int skin = 0;
     public static void main(String[] args) throws IOException {
 		INSTANCE = new Main();

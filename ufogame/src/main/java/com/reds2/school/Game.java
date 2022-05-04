@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 
@@ -22,9 +21,10 @@ public class Game implements State{
     private double SceneY=0;
     double x=250,y=800;
     private ArrayList<Integer> keys = new ArrayList<Integer>();
-    private	double xV = 0,yV=0,rot=0;
+    private	double xV = 0,yV=0,rot=-HALF_PI;
     static final double HALF_PI=Math.PI/2;
     private ArrayList<Beam> beams = new ArrayList<Beam>();
+    int delay = 0;
     Game(){
         ship = new BufferedImage[4];
         try {
@@ -87,8 +87,8 @@ public class Game implements State{
             } else {
                             g.setTransform(i.t);
             g.fill(i.r);
-            i.r.x += 4 * Math.cos(i.rot);
-            i.r.y += 4 * Math.sin(i.rot);
+            i.r.x += 6 * Math.cos(i.rot);
+            i.r.y += 6 * Math.sin(i.rot);
             }
         });
         g.setTransform(new AffineTransform());
