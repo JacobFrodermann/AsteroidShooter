@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 
@@ -21,10 +20,12 @@ public class Game implements State{
     private int anim=0;
     private double SceneY=0;
     double x=250,y=800;
+    int cV = 0;
     private ArrayList<Integer> keys = new ArrayList<Integer>();
     private	double xV = 0,yV=0,rot=0;
     static final double HALF_PI=Math.PI/2;
     private ArrayList<Beam> beams = new ArrayList<Beam>();
+    Color c = Color.red;
     Game(){
         ship = new BufferedImage[4];
         try {
@@ -80,18 +81,28 @@ public class Game implements State{
         if (keys.contains(32)){
             shoot();
         }
-        g.setColor(Color.red);
+        if (keys.contains(10)){
+            c = new Color(Color.HSBtoRGB((float) (55.0+cV * 2)/100,(float)82.0/100,(float)56.0/100));
+            cV++;
+        }
+        if (keys.contains(92)){
+            beams.clear();
+        }
+        if (keys.contains(90)){
+            beams.remove(beams.size()-1);
+        }
         beams.forEach(i->{
+            g.setColor(i.c);
             g.setTransform(i.t);
             g.fill(i.r);
         });
         g.setTransform(new AffineTransform());
-        
+
         return result;
     }
 
     private void shoot() {
-        beams.add(new Beam(x,y,rot));
+        beams.add(new Beam(x,y,rot,c));
     }
 
     @Override
