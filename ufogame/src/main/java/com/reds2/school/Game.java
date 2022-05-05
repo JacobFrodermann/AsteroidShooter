@@ -35,6 +35,7 @@ public class Game implements State{
 	private int delay = 0;
 	Polygon col;
 	int[] xP = new int[10] ,yP = new int[10];
+	Font f = new Font("h",Font.BOLD,150);
 	Game(){
 		switch(Main.INSTANCE.skin){
 			case 0:
@@ -139,15 +140,14 @@ public class Game implements State{
 		if(x<-75 || x>610 || y < -100 || y>1020){
 			g.setColor(Color.red);
 			g.drawLine(col.xpoints[0], col.ypoints[0], 270, 540);
-			g.setFont(new Font("h",Font.BOLD,150));
-			g.drawString(String.valueOf(Math.floor(Timer)), 100, 400);
-			Timer=Timer-1/60;
-			System.out.println(Timer);
-			if (Timer<0){
+			g.setFont(f);
+			g.drawString(String.valueOf((int)Math.floor(Timer)), 200, 400);
+			Timer -= 1d/60d;
+			if (Timer<=0){
 				death = true;
 				System.out.println("rip");
 			}
-		} else {/*Timer = 10;*/}
+		} else {Timer = 10.9;}
 		
 		//g.fill(col);
 		
