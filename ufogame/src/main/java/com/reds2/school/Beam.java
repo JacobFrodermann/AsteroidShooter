@@ -1,16 +1,16 @@
 package com.reds2.school;
 
 import java.awt.Rectangle;
-import java.awt.geom.AffineTransform;
-
 public class Beam {
     Rectangle r;
-    AffineTransform t;
-    double rot;
-    Beam(double x, double y,double r) {
-        rot = r;
-        this.r = new Rectangle((int)x+40,(int)y+60,10,35);
-        t = new AffineTransform();
-        t.rotate(r+Game.HALF_PI,(double)this.r.x+5,(double)this.r.y+17.5);
+    double xV,yV,rot;
+    private double s;
+
+    Beam(double x, double y,double rot,double shXV,double shYV) {
+        s = Math.sqrt(Math.pow(shXV,2)+Math.pow(shYV,2));
+        xV = (Main.INSTANCE.settings.beamV+s) * Math.cos(rot);
+        yV = (Main.INSTANCE.settings.beamV+s) * Math.sin(rot);
+        this.r = new Rectangle((int)x+35,(int)y+55,35 ,10);
+        this.rot = rot;
     }
 }

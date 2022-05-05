@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 public class Settings implements State{
-    int xV=2, yv=2,asteriods=1;
+    public int xV=2, yV=2,asteriods=1,beamV=7;
     String name="Test";
     @Override
     public BufferedImage draw() {

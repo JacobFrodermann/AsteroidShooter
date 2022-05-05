@@ -42,6 +42,7 @@ public class Main {
     private Canvas canvas;
     double width, height;
     State current;
+    Settings settings = new Settings();
 
     Main() throws IOException{
         bg = ImageIO.read(Main.class.getClassLoader().getResourceAsStream("MainBg.png"));
