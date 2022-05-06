@@ -63,7 +63,6 @@ public class Main {
             public void keyPressed(KeyEvent e) {
                 current.press(e);
             }
-
             @Override
             public void keyReleased(KeyEvent e) {                                  //Methoden werden aufgerufen wenn Taste gedrückt losgelassen oder getippt 
                 current.release(e);

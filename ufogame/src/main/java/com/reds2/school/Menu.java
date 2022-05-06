@@ -65,7 +65,7 @@ public class Menu implements State{
     public void click(MouseEvent e, Dimension d) {
         int x = (e.getX()-(d.width-d.height/2)/2)*1080/d.height;
         int y = e.getY()*1080/d.height;
-        System.out.println(x);
+        //System.out.println(x);
         if (startR.contains(new Point(x,y))) {
             Main.INSTANCE.current = new Game();
         }

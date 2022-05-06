@@ -21,6 +21,9 @@ import java.awt.Stroke;
 import javax.imageio.ImageIO;
 import javax.swing.border.StrokeBorder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Game implements State{
 	private BufferedImage[] coin,asteriod,ship;
 	private BufferedImage bg;
@@ -36,6 +39,7 @@ public class Game implements State{
 	Polygon col;
 	int[] xP = new int[10] ,yP = new int[10];
 	Font f = new Font("h",Font.BOLD,150);
+	private static final Logger log = LoggerFactory.getLogger(Main.class);
 	Game(){
 		switch(Main.INSTANCE.skin){
 			case 0:
@@ -133,10 +137,10 @@ public class Game implements State{
 		if (keys.contains(32)){
 			if (delay<0){
 				delay = 10;
-				shoot();
+				shoot(rot);
 			}
-			delay--;
 		}
+		delay--;
 		if(x<-75 || x>610 || y < -100 || y>1020){
 			g.setColor(Color.red);
 			g.drawLine(col.xpoints[0], col.ypoints[0], 270, 540);
@@ -154,8 +158,8 @@ public class Game implements State{
 		return result;
 	}
 
-	private void shoot() {
-		beams.add(new Beam(x,y,rot,xV,yV));
+	private void shoot(double rotation) {
+		beams.add(new Beam(x,y,rotation,xV,yV));
 		if(debug){System.out.println("Debug: Beam rotation, resulting x y Vel"+rot+" "+beams.get(beams.size()-1).xV+" "+beams.get(beams.size()-1).yV);}
 		System.out.println(col.xpoints[0]);
 	}
@@ -174,8 +178,17 @@ public class Game implements State{
 
 	@Override
 	public void click(MouseEvent e, Dimension d) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("");
+		int x = (e.getX()-(d.width-d.height/2)/2)*1080/d.height;
+        int y = e.getY()*1080/d.height;
+		log.debug(String.valueOf(x-this.x));
+		log.debug(String.valueOf(y-this.y));
+		log.debug(String.valueOf(Math.tan((x-this.x)/(this.y-y))));
+		double rotation = Math.atan((this.y-y)/(this.x-x));  
+		if (delay<0){
+			delay = 10;
+			shoot(rotation);
+		}
 	}
 
 	@Override
