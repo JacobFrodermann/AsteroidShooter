@@ -185,6 +185,7 @@ public class Game implements State{
 		log.debug(String.valueOf(y-this.y));
 		log.debug(String.valueOf(Math.tan((x-this.x)/(this.y-y))));
 		double rotation = Math.atan((this.y-y)/(this.x-x));  
+		if(x<this.x){rotation+=Math.PI;}
 		if (delay<0){
 			delay = 10;
 			shoot(rotation);
