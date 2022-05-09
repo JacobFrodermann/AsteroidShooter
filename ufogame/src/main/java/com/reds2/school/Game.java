@@ -16,10 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-import java.awt.Stroke;
 
 import javax.imageio.ImageIO;
-import javax.swing.border.StrokeBorder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
