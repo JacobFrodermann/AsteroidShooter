@@ -21,6 +21,4 @@ class Asteriod{
         yV = rng.nextInt(2)+1*Math.sin(rot);
         t = new AffineTransform();
     }
-
-    
 }
