@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Game implements State{
-	private BufferedImage[] coin,asteriod,ship;
+	private BufferedImage[] coin,asteriod = new BufferedImage[1],ship;
 	private BufferedImage bg;
 	private int anim=0;
 	private double SceneY=0;
@@ -38,6 +38,7 @@ public class Game implements State{
 	int[] xP = new int[10] ,yP = new int[10];
 	Font f = new Font("h",Font.BOLD,150);
 	private static final Logger log = LoggerFactory.getLogger(Main.class);
+	List<Asteriod> asteriods = new ArrayList<Asteriod>();
 	Game(){
 		switch(Main.INSTANCE.skin){
 			case 0:
@@ -58,11 +59,11 @@ public class Game implements State{
 		ship = new BufferedImage[4];
 		try {
 			for(int i=0;i<4;i++){
-				System.out.println("Ship"+i+"_"+ Main.INSTANCE.skin+".png");
+				//System.out.println("Ship"+i+"_"+ Main.INSTANCE.skin+".png");
 				ship[i]=ImageIO.read(Game.class.getClassLoader().getResourceAsStream("Ship"+i+"_"+ Main.INSTANCE.skin+".png"));
-				System.out.println(i);
 			}
 			bg  = ImageIO.read(Game.class.getClassLoader().getResourceAsStream("GameBG.png"));
+			asteriod[0]= ImageIO.read(Game.class.getClassLoader().getResourceAsStream("asteriod1.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -127,19 +128,19 @@ public class Game implements State{
 		if (keys.contains(39)){
 			rot += 0.1;
 		}
-		x += xV;
-		y += yV;
-		xV /= 1.1;
-		yV /= 1.1;
-
 		if (keys.contains(32)){
 			if (delay<0){
 				delay = 10;
 				shoot(rot);
 			}
-		}
+		}		x += xV;
+		y += yV;
+		xV /= 1.1;
+		yV /= 1.1;
+
+
 		delay--;
-		if(x<-75 || x>610 || y < -100 || y>1020){
+		if(x<-75 || x>610 || y < -100 || y>1020){//Timer
 			g.setColor(Color.red);
 			g.drawLine(col.xpoints[0], col.ypoints[0], 270, 540);
 			g.setFont(f);
@@ -150,6 +151,19 @@ public class Game implements State{
 				System.out.println("rip");
 			}
 		} else {Timer = 10.9;}
+		if (new Random().nextInt(180)==1){
+			asteriods.add(new Asteriod());
+		}
+		g.setColor(Color.red);
+		asteriods = asteriods.stream().filter(i->!(i.y>1090)).collect(Collectors.toList());
+		asteriods.forEach((i)->{
+			g.setTransform(i.t);
+			g.drawImage(asteriod[0], (int)i.x, (int)i.y,i.s,i.s, null);
+			i.x+=i.xV;
+			i.y+=i.yV;
+			i.t.rotate(i.rot,i.x+i.s/2,i.y+i.s/2);
+		});
+		g.setTransform(new AffineTransform());
 		
 		//g.fill(col);
 		
@@ -159,7 +173,6 @@ public class Game implements State{
 	private void shoot(double rotation) {
 		beams.add(new Beam(x,y,rotation,xV,yV));
 		if(debug){System.out.println("Debug: Beam rotation, resulting x y Vel"+rot+" "+beams.get(beams.size()-1).xV+" "+beams.get(beams.size()-1).yV);}
-		System.out.println(col.xpoints[0]);
 	}
 
 	@Override
@@ -176,12 +189,11 @@ public class Game implements State{
 
 	@Override
 	public void click(MouseEvent e, Dimension d) {
-		System.out.println("");
 		int x = (e.getX()-(d.width-d.height/2)/2)*1080/d.height;
         int y = e.getY()*1080/d.height;
-		log.debug(String.valueOf(x-this.x));
-		log.debug(String.valueOf(y-this.y));
-		log.debug(String.valueOf(Math.tan((x-this.x)/(this.y-y))));
+		//log.debug(String.valueOf(x-this.x));
+		//log.debug(String.valueOf(y-this.y));
+		//log.debug(String.valueOf(Math.tan((x-this.x)/(this.y-y))));
 		double rotation = Math.atan((this.y-y)/(this.x-x));  
 		if(x<this.x){rotation+=Math.PI;}
 		if (delay<0){

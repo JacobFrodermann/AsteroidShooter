@@ -29,6 +29,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 		INSTANCE = new Main();
 		INSTANCE.init();
+  
         try {
         //Thread.sleep(10l);
             while(true) {

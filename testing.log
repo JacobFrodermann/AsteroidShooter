@@ -619,3 +619,262 @@
 [2022-05-06 10:11:12.0607] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -100.0
 [2022-05-06 10:11:12.0608] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 150.0
 [2022-05-06 10:11:12.0608] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.7868428894729773
+[2022-05-10 22:38:15.0405] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 22:38:24.0676] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 22:38:39.0994] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 22:38:43.0611] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 271.0
+[2022-05-10 22:38:43.0612] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -196.0
+[2022-05-10 22:38:43.0612] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 5.252235640726
+[2022-05-10 22:38:44.0618] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -102.0
+[2022-05-10 22:38:44.0618] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -302.0
+[2022-05-10 22:38:44.0618] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -0.3512054851992475
+[2022-05-10 22:38:46.0906] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -20.60607109805261
+[2022-05-10 22:38:46.0906] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -66.61178767853289
+[2022-05-10 22:38:46.0906] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -0.3196062353337233
+[2022-05-10 22:38:47.0884] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -228.15684871463782
+[2022-05-10 22:38:47.0884] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -137.0315650072465
+[2022-05-10 22:38:47.0885] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 10.58446066257951
+[2022-05-10 22:38:49.0026] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 183.23836039452604
+[2022-05-10 22:38:49.0026] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -141.38611634243807
+[2022-05-10 22:38:49.0026] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 3.547183256380605
+[2022-05-10 22:38:49.0594] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 134.36806857768556
+[2022-05-10 22:38:49.0594] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -447.9713423226499
+[2022-05-10 22:38:49.0594] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.3092791778255257
+[2022-05-10 22:38:50.0076] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 201.02923285545134
+[2022-05-10 22:38:50.0076] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -567.2527301014636
+[2022-05-10 22:38:50.0076] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.3700125389396775
+[2022-05-10 22:38:50.0258] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 230.5411835618345
+[2022-05-10 22:38:50.0259] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -516.6777125518469
+[2022-05-10 22:38:50.0259] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.4783759506248217
+[2022-05-10 22:38:50.0434] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 209.95667011499856
+[2022-05-10 22:38:50.0434] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -467.9433604442836
+[2022-05-10 22:38:50.0434] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.4814276775091059
+[2022-05-10 22:38:50.0618] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 136.81086204999838
+[2022-05-10 22:38:50.0618] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -436.8401871035345
+[2022-05-10 22:38:50.0619] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.3238405583463684
+[2022-05-10 22:38:50.0786] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 86.97266574961367
+[2022-05-10 22:38:50.0786] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -451.6679800593356
+[2022-05-10 22:38:50.0786] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.19497464134204318
+[2022-05-10 22:38:50.0930] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 60.407678724778805
+[2022-05-10 22:38:50.0930] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -487.8753532365778
+[2022-05-10 22:38:50.0930] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.12445450209748633
+[2022-05-10 22:38:51.0126] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 68.03857654161112
+[2022-05-10 22:38:51.0126] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -553.5631817838574
+[2022-05-10 22:38:51.0127] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.12353292227253265
+[2022-05-10 22:38:51.0285] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 109.34079111856643
+[2022-05-10 22:38:51.0286] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -585.3435720495676
+[2022-05-10 22:38:51.0286] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.18900105282751437
+[2022-05-10 22:38:51.0458] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 168.24480906166315
+[2022-05-10 22:38:51.0458] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -579.7874868609189
+[2022-05-10 22:38:51.0458] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.2986127262703498
+[2022-05-10 22:38:51.0645] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 214.40506967550357
+[2022-05-10 22:38:51.0645] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -534.7649525894001
+[2022-05-10 22:38:51.0645] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.4238937680161444
+[2022-05-10 22:38:52.0077] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 186.14091872510355
+[2022-05-10 22:38:52.0078] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -396.361697856094
+[2022-05-10 22:38:52.0078] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.5074928184417048
+[2022-05-10 22:38:52.0250] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 126.32655027954058
+[2022-05-10 22:38:52.0250] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -391.82018731964513
+[2022-05-10 22:38:52.0250] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.3340656549280359
+[2022-05-10 22:38:52.0426] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 80.0514129126315
+[2022-05-10 22:38:52.0426] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -438.4647544690105
+[2022-05-10 22:38:52.0426] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.184628006264875
+[2022-05-10 22:38:56.0898] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 63.87098293405646
+[2022-05-10 22:38:56.0899] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -378.21131088469053
+[2022-05-10 22:38:56.0899] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.170500386495248
+[2022-05-10 22:38:57.0339] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 52.59024612293919
+[2022-05-10 22:38:57.0339] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -554.9257232913681
+[2022-05-10 22:38:57.0339] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.09505462633894983
+[2022-05-10 22:38:57.0845] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 33.30690020818513
+[2022-05-10 22:38:57.0845] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -614.3569316015005
+[2022-05-10 22:38:57.0845] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.05426742763989012
+[2022-05-10 22:38:58.0018] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 39.505055878398295
+[2022-05-10 22:38:58.0018] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -562.524889470238
+[2022-05-10 22:38:58.0018] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.07034378590923872
+[2022-05-10 22:38:58.0186] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -3.749283656169254
+[2022-05-10 22:38:58.0186] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -501.3874517029874
+[2022-05-10 22:38:58.0186] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -0.007477956476236077
+[2022-05-10 22:38:58.0338] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -58.28793926704839
+[2022-05-10 22:38:58.0338] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -454.5130406983237
+[2022-05-10 22:38:58.0338] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -0.1289503004524948
+[2022-05-10 22:38:58.0514] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -115.81836089887355
+[2022-05-10 22:38:58.0514] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -434.7809388561021
+[2022-05-10 22:38:58.0515] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -0.2728682407435097
+[2022-05-10 22:38:58.0707] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -129.07686478429298
+[2022-05-10 22:38:58.0707] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -458.97317580373544
+[2022-05-10 22:38:58.0708] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -0.28888612209417625
+[2022-05-10 22:38:58.0882] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -99.18318814819048
+[2022-05-10 22:38:58.0882] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -493.9767280295821
+[2022-05-10 22:38:58.0882] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -0.20352757174801075
+[2022-05-10 22:38:59.0050] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 25.003899194833764
+[2022-05-10 22:38:59.0050] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -518.4610305976452
+[2022-05-10 22:38:59.0050] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.04826457717147669
+[2022-05-10 22:38:59.0210] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 44.962925858378355
+[2022-05-10 22:38:59.0210] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -581.7597416827174
+[2022-05-10 22:38:59.0211] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.07744205087390639
+[2022-05-10 22:38:59.0394] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 41.51382980035885
+[2022-05-10 22:38:59.0394] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -657.4357335393939
+[2022-05-10 22:38:59.0394] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.06322913687880974
+[2022-05-10 22:38:59.0546] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 6.617528861809603
+[2022-05-10 22:38:59.0546] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -707.271899075132
+[2022-05-10 22:38:59.0546] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.009356687268650436
+[2022-05-10 22:38:59.0699] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -54.024419204589094
+[2022-05-10 22:38:59.0700] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -723.4956178977093
+[2022-05-10 22:38:59.0700] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -0.07481047899398956
+[2022-05-10 22:38:59.0866] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -99.78084360658454
+[2022-05-10 22:38:59.0866] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -698.3044265489671
+[2022-05-10 22:38:59.0866] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -0.14387067791162486
+[2022-05-10 22:39:00.0034] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -117.13434687139551
+[2022-05-10 22:39:00.0034] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -649.8748595641384
+[2022-05-10 22:39:00.0034] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -0.18221892130865408
+[2022-05-10 22:39:00.0202] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -93.2123988465014
+[2022-05-10 22:39:00.0203] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -596.4226827893251
+[2022-05-10 22:39:00.0203] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -0.15757080066919743
+[2022-05-10 22:39:00.0410] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -27.239252967565164
+[2022-05-10 22:39:00.0410] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -564.0060716767695
+[2022-05-10 22:39:00.0410] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -0.04833361322039272
+[2022-05-10 22:39:00.0618] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 55.00359876376535
+[2022-05-10 22:39:00.0618] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -538.3322144515299
+[2022-05-10 22:39:00.0619] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.10253112126754128
+[2022-05-10 22:39:00.0786] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 108.27319334962891
+[2022-05-10 22:39:00.0786] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -497.6729185901321
+[2022-05-10 22:39:00.0787] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.2210576895241459
+[2022-05-10 22:39:00.0947] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 131.81840190095434
+[2022-05-10 22:39:00.0947] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -440.9809477420895
+[2022-05-10 22:39:00.0947] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.3081542364228663
+[2022-05-10 22:39:01.0114] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 113.16606460750549
+[2022-05-10 22:39:01.0114] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -380.7348645772671
+[2022-05-10 22:39:01.0114] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.30630447378921577
+[2022-05-10 22:39:01.0290] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 67.43926012263722
+[2022-05-10 22:39:01.0290] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -355.3832943557227
+[2022-05-10 22:39:01.0290] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.1920760086220085
+[2022-05-10 22:39:01.0453] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 11.174295309512729
+[2022-05-10 22:39:01.0453] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -370.93340439469546
+[2022-05-10 22:39:01.0453] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.030133917955702184
+[2022-05-10 22:39:03.0906] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 122.75768147118791
+[2022-05-10 22:39:03.0907] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -368.0074341049593
+[2022-05-10 22:39:03.0907] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.3465230001534355
+[2022-05-10 22:39:04.0146] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 90.88559181679759
+[2022-05-10 22:39:04.0147] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -350.8852366376599
+[2022-05-10 22:39:04.0147] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.26497032111515234
+[2022-05-10 22:39:04.0326] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 81.70995568344031
+[2022-05-10 22:39:04.0326] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -345.95593782270794
+[2022-05-10 22:39:04.0326] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.2406780664347458
+[2022-05-10 22:39:04.0650] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 98.1618216845379
+[2022-05-10 22:39:04.0650] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -349.56023882222075
+[2022-05-10 22:39:04.0651] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.28843711898588476
+[2022-05-10 22:39:04.0938] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 205.59484499724158
+[2022-05-10 22:39:04.0938] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -373.7662506164768
+[2022-05-10 22:39:04.0939] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.6131913823812268
+[2022-05-10 22:39:05.0106] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 274.6336474157589
+[2022-05-10 22:39:05.0106] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -406.9710934796062
+[2022-05-10 22:39:05.0106] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.8001353622450182
+[2022-05-10 22:39:05.0282] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 315.36297893153795
+[2022-05-10 22:39:05.0282] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -466.20700515267924
+[2022-05-10 22:39:05.0283] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.8027969956691494
+[2022-05-10 22:39:05.0458] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 308.9198230597665
+[2022-05-10 22:39:05.0458] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -530.4323202179543
+[2022-05-10 22:39:05.0459] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.6585933427100359
+[2022-05-10 22:39:05.0650] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 254.54290472898248
+[2022-05-10 22:39:05.0650] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -569.157372643991
+[2022-05-10 22:39:05.0650] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.4796403530059244
+[2022-05-10 22:39:05.0994] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 145.11026746144813
+[2022-05-10 22:39:05.0994] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -519.4243348840618
+[2022-05-10 22:39:05.0995] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.28686962864094023
+[2022-05-10 22:39:06.0210] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 66.60910091458658
+[2022-05-10 22:39:06.0210] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -460.2993976177429
+[2022-05-10 22:39:06.0210] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.14572682660666642
+[2022-05-10 22:39:07.0186] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 17.197712232192657
+[2022-05-10 22:39:07.0186] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -819.0696935911576
+[2022-05-10 22:39:07.0186] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.020999726967706835
+[2022-05-10 22:39:07.0370] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 64.60303656128627
+[2022-05-10 22:39:07.0371] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -869.1269348591427
+[2022-05-10 22:39:07.0371] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.0744681550236934
+[2022-05-10 22:39:07.0530] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 113.81996779931947
+[2022-05-10 22:39:07.0530] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -906.6294756898972
+[2022-05-10 22:39:07.0530] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.12620560880182838
+[2022-05-10 22:39:07.0698] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 172.2513830770226
+[2022-05-10 22:39:07.0698] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -914.0320682502936
+[2022-05-10 22:39:07.0698] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.1907152983754855
+[2022-05-10 22:39:07.0876] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 225.42331427238872
+[2022-05-10 22:39:07.0876] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -878.1413129618909
+[2022-05-10 22:39:07.0876] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.2624964991526507
+[2022-05-10 22:39:08.0058] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 234.90572203102175
+[2022-05-10 22:39:08.0058] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -819.5468271542805
+[2022-05-10 22:39:08.0058] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.2947450543451155
+[2022-05-10 22:39:08.0466] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 119.28130780538794
+[2022-05-10 22:39:08.0466] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -727.9669578738616
+[2022-05-10 22:39:08.0466] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.16533773750789596
+[2022-05-10 22:39:08.0666] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 33.368334632852225
+[2022-05-10 22:39:08.0666] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -696.6577633317853
+[2022-05-10 22:39:08.0666] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.0479344057272259
+[2022-05-10 22:39:08.0850] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -42.83361923727085
+[2022-05-10 22:39:08.0850] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -662.3903248520292
+[2022-05-10 22:39:08.0850] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -0.06475551029432298
+[2022-05-10 22:39:09.0050] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -97.01481831083453
+[2022-05-10 22:39:09.0050] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -596.0888152109444
+[2022-05-10 22:39:09.0050] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -0.16420468910391522
+[2022-05-10 22:39:09.0242] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -95.14377597057296
+[2022-05-10 22:39:09.0242] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -529.914546091729
+[2022-05-10 22:39:09.0242] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -0.181500025497409
+[2022-05-10 22:39:09.0434] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -43.278417131662536
+[2022-05-10 22:39:09.0434] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -479.97435218399494
+[2022-05-10 22:39:09.0434] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -0.09041334916636762
+[2022-05-10 22:39:09.0650] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 34.893690928872616
+[2022-05-10 22:39:09.0651] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -449.0543740730768
+[2022-05-10 22:39:09.0651] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.09990762058339746
+[2022-05-10 22:39:09.0866] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 134.26005782170157
+[2022-05-10 22:39:09.0867] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -431.18363662844695
+[2022-05-10 22:39:09.0867] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.32184490989187775
+[2022-05-10 22:39:10.0050] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 206.35780271289389
+[2022-05-10 22:39:10.0050] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -453.4036152378475
+[2022-05-10 22:39:10.0050] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.4893984733024771
+[2022-05-10 22:39:10.0234] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 244.10430440999625
+[2022-05-10 22:39:10.0235] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -508.14726324805235
+[2022-05-10 22:39:10.0235] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.52109523976327
+[2022-05-10 22:39:10.0443] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 228.1162822979749
+[2022-05-10 22:39:10.0443] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : -573.5369836464097
+[2022-05-10 22:39:10.0444] [com.reds2.school.Main/AWT-EventQueue-0/DEBUG] : 0.40521943229330093
+[2022-05-10 23:00:51.0650] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:00:56.0904] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:01:01.0393] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:01:05.0317] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:01:09.0820] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:01:58.0715] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:02:16.0237] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:02:20.0726] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:02:25.0082] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:02:29.0569] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:02:34.0385] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:05:51.0626] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:07:50.0199] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:08:29.0483] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:10:31.0058] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:11:14.0211] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:12:50.0667] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:12:55.0834] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:13:00.0715] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:13:05.0328] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:13:15.0758] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:13:20.0397] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:13:32.0719] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:13:36.0954] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:15:20.0934] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:16:24.0467] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:18:34.0059] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:19:18.0135] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:23:13.0235] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:24:05.0983] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:27:48.0508] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:28:39.0317] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:29:38.0168] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:30:46.0723] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:32:37.0927] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:33:02.0756] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:33:29.0895] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:34:19.0485] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:34:24.0213] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:34:28.0610] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:35:29.0409] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:36:07.0435] [com.reds2.school.Main/main/DEBUG] : created Frame
+[2022-05-10 23:37:02.0237] [com.reds2.school.Main/main/DEBUG] : created Frame
