@@ -55,7 +55,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>Main</mainClass>
+                                <mainClass>com.reds2.school.Main</mainClass>
                             </manifest>
                         </archive>
                         <descriptorRefs>

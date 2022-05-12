@@ -4,13 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,11 +18,8 @@ import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class Game implements State{
-	private BufferedImage[] coin,asteriod = new BufferedImage[1],ship;
+	private BufferedImage[] asteriod = new BufferedImage[1],ship;
 	private BufferedImage bg;
 	private int anim=0;
 	private double SceneY=0;
@@ -36,7 +31,6 @@ public class Game implements State{
 	Boolean debug = false, death = false;
 	private int delay = 0;
 	Font f = new Font("h",Font.BOLD,150), f2 = new Font("g",Font.PLAIN,30);
-	private static final Logger log = LoggerFactory.getLogger(Main.class);
 	private List<Asteriod> asteroids = new ArrayList<Asteriod>();
 	private Rectangle colR  = new Rectangle((int) x+29,(int) y+38, 24, 40);
 	private List<Particle> particles = new ArrayList<Particle>();
@@ -58,6 +52,8 @@ public class Game implements State{
 
 	@Override
 	public BufferedImage draw() {
+		colR.x=(int) x+29;
+		colR.y=(int) y+38;
 		BufferedImage result = new BufferedImage(540, 1080, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = (Graphics2D) result.getGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -140,7 +136,7 @@ public class Game implements State{
 			if (i.hp == 0){
 				Random rng = new Random();
 				for (int n = 0;n<i.s/10;n++){
-					particles.add(new Particle(i.x,i.y,rng.nextDouble()*3-1.5+i.xV/2.5,rng.nextDouble()*3-1.5+i.yV/2.5,40,new Color(38, 37, 36)));
+					particles.add(new Particle(i.x+i.s/2,i.y+i.s/2,rng.nextDouble()*3-1.5+i.xV/2.5,rng.nextDouble()*3-1.5+i.yV/2.5,40,new Color(38, 37, 36)));
 				}
 			}
 		});
@@ -172,6 +168,8 @@ public class Game implements State{
 		g.setColor(Color.white);
 		g.drawString(String.valueOf((int)Math.floor(time)), 460, 30);
 		
+		g.setColor(Color.red);
+		g.draw(colR);
 		return result;
 	}
 
