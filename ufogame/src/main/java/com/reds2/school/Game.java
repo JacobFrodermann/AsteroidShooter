@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -23,7 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Game implements State{
-	private BufferedImage[] coin,asteriod,ship;
+	private BufferedImage[] coin,asteriod = new BufferedImage[1],ship;
 	private BufferedImage bg;
 	private int anim=0;
 	private double SceneY=0;
@@ -39,6 +40,8 @@ public class Game implements State{
 	Font f = new Font("h",Font.BOLD,150);
 	private static final Logger log = LoggerFactory.getLogger(Main.class);
 	private List<Asteriod> asteroids = new ArrayList<Asteriod>();
+	private Rectangle colR  = new Rectangle((int) x+29,(int) y+38, 24, 40);
+	private List<Particle> particles = new ArrayList<Particle>();
 	Game(){
 		switch(Main.INSTANCE.skin){
 			case 0:
@@ -56,19 +59,15 @@ public class Game implements State{
 		}
 		System.arraycopy(col.xpoints,0,xP ,0, 10);
 		System.arraycopy(col.ypoints,0,yP ,0, 10);
-		ship = new BufferedImage[4];
+		ship = new BufferedImage[5];
 		try {
 			for(int i=0;i<ship.length;i++){
 				System.out.println("Ship"+i+"_"+ Main.INSTANCE.skin+".png");
 				ship[i]=ImageIO.read(Game.class.getClassLoader().getResourceAsStream("Ship"+i+"_"+ Main.INSTANCE.skin+".png"));
 				//System.out.println(i);
 			}
-			for(int i=0;i<asteriod.length;i++){
-				System.out.println("Ship"+i+"_"+ Main.INSTANCE.skin+".png");
-				asteriod[i]=ImageIO.read(Game.class.getClassLoader().getResourceAsStream("Asteroid"+i+".png"));
-				//System.out.println(i);
-			}
 			bg  = ImageIO.read(Game.class.getClassLoader().getResourceAsStream("GameBG.png"));
+			asteriod[0]= ImageIO.read(Game.class.getClassLoader().getResourceAsStream("asteriod1.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,6 +76,9 @@ public class Game implements State{
 
 	@Override
 	public BufferedImage draw() {
+		time +=1d/60d;
+		colR.x=(int) x+29;
+		colR.y=(int) y+38;
 		for (int i = 0;i<10;i++){
 			col.xpoints[i]=xP[i]+(int)x;
 			col.ypoints[i]=yP[i]+(int)y;
@@ -91,15 +93,15 @@ public class Game implements State{
 		SceneY+=0.1;
 
 		g.setColor(Color.red);
-		beams = beams.stream().filter(i->!(i.r.x<-35 || i.r.x>575 || i.r.y<-35 || i.r.y>1105)).collect(Collectors.toList());
-		beams.stream().forEach(i->{
+		try{beams = beams.stream().filter(i->!(i.r.x<-35 || i.r.x>575 || i.r.y<-35 || i.r.y>1105)).collect(Collectors.toList());}catch (Exception e){}
+		try{beams.stream().forEach((i)->{
 			AffineTransform trans = new AffineTransform();
 			trans.rotate(i.rot,i.r.getCenterX(),i.r.getCenterY());
 			g.setTransform(trans);
 			g.fill(i.r);
 			i.r.x += i.xV;
 			i.r.y += i.yV;
-		});
+		});}catch(Exception e){}
 		g.setTransform(new AffineTransform());
 
 		AffineTransform t = g.getTransform();
@@ -117,35 +119,38 @@ public class Game implements State{
 		g.setTransform(t);
 		g.drawImage(ship[anim],(int)x,(int)y,80,120,null);
 		g.setTransform(new AffineTransform());
+		if(!death){
+			if (new Random().nextInt(50)==1){anim++;anim =anim%4;}
+			if (keys.contains(38)){
+				xV += 1*Math.cos(rot);
+				yV += 1*Math.sin(rot);
+			}
+			if (keys.contains(40)){
+				xV /= 1.5;
+				yV /= 1.5;
+			}
+			if (keys.contains(37)){
+				rot -= 0.1;
+			}
+			if (keys.contains(39)){
+				rot += 0.1;
+			}
+			if (keys.contains(32)){
+				if (delay<0){
+					delay = 10;
+					shoot(rot);
+				}
+			}
+		} else{anim = 4;}
 
-		if (new Random().nextInt(50)==1){anim++;anim =anim%4;}
-		if (keys.contains(38)){
-			xV += 1*Math.cos(rot);
-			yV += 1*Math.sin(rot);
-		}
-		if (keys.contains(40)){
-			xV /= 1.5;
-			yV /= 1.5;
-		}
-		if (keys.contains(37)){
-			rot -= 0.1;
-		}
-		if (keys.contains(39)){
-			rot += 0.1;
-		}
 		x += xV;
 		y += yV;
 		xV /= 1.1;
 		yV /= 1.1;
 
-		if (keys.contains(32)){
-			if (delay<0){
-				delay = 10;
-				shoot(rot);
-			}
-		}
+
 		delay--;
-		if(x<-75 || x>610 || y < -100 || y>1020){
+		if(x<-75 || x>610 || y < -100 || y>1020){//Timer
 			g.setColor(Color.red);
 			g.drawLine(col.xpoints[0], col.ypoints[0], 270, 540);
 			g.setFont(f);
@@ -153,11 +158,30 @@ public class Game implements State{
 			Timer -= 1d/60d;
 			if (Timer<=0){
 				death = true;
-				System.out.println("rip");
 			}
 		} else {Timer = 10.9;}
-		
 		if (new Random().nextInt(180)==1){
+			asteroids.add(new Asteriod());
+		}
+		g.setColor(Color.red);
+		asteroids = asteroids.stream().filter(i->!(i.y>1090||i.hp==0)).collect(Collectors.toList());
+		asteroids.forEach((i)->{
+			AffineTransform tr = new AffineTransform();
+			tr.rotate(i.rot,i.x+i.s/2,i.y+i.s/2);
+			i.rot +=i.rV;
+			g.setTransform(tr);
+			g.drawImage(asteriod[0], (int)i.x, (int)i.y,i.s,i.s, null);
+			i.x+=i.xV;
+			i.y+=i.yV;
+			i.col.setFrame(i.x, i.y,(int) i.s,(int) i.s);
+			//g.setTransform(new AffineTransform());
+			//g.draw(i.col);
+			if (i.col.intersects(colR))death = true;
+			massCol(i);
+		});
+		g.setTransform(new AffineTransform());
+		
+		if (new Random().nextInt(40)==1){
 			asteroids.add(new Asteriod());
 		}
 
@@ -169,7 +193,6 @@ public class Game implements State{
 	private void shoot(double rotation) {
 		beams.add(new Beam(x,y,rotation,xV,yV));
 		if(debug){System.out.println("Debug: Beam rotation, resulting x y Vel"+rot+" "+beams.get(beams.size()-1).xV+" "+beams.get(beams.size()-1).yV);}
-		System.out.println(col.xpoints[0]);
 	}
 
 	@Override
@@ -186,12 +209,11 @@ public class Game implements State{
 
 	@Override
 	public void click(MouseEvent e, Dimension d) {
-		System.out.println("");
 		int x = (e.getX()-(d.width-d.height/2)/2)*1080/d.height;
         int y = e.getY()*1080/d.height;
-		log.debug(String.valueOf(x-this.x));
-		log.debug(String.valueOf(y-this.y));
-		log.debug(String.valueOf(Math.tan((x-this.x)/(this.y-y))));
+		//log.debug(String.valueOf(x-this.x));
+		//log.debug(String.valueOf(y-this.y));
+		//log.debug(String.valueOf(Math.tan((x-this.x)/(this.y-y))));
 		double rotation = Math.atan((this.y-y)/(this.x-x));  
 		if(x<this.x){rotation+=Math.PI;}
 		if (delay<0){
@@ -208,8 +230,28 @@ public class Game implements State{
 
 	@Override
 	public void m_release(MouseEvent e, Dimension d) {
+
 		// TODO Auto-generated method stub
 		
 	}
 	
+	void massCol(Asteriod x){
+		try {
+			beams.forEach((Beam i)->{
+			if (x.col.intersects(i.r)){particles.add(new Particle(i.r.x,i.r.y,25,new Color(150,0,0))); beams.remove(i);}//true -> concurrent modification excetion
+		});
+		} catch (Exception e) {
+			x.hp --;
+		}
+	}
+	void drawParticle(Graphics2D g,Particle p){
+		Random rng = new Random();
+		for (int i = 0;i>p.stage;i++){
+			g.setColor(new Color(p.color.getRed(), p.color.getGreen(), p.color.getBlue(), rng.nextInt(100)+155));
+			g.drawRect(p.x+rng.nextInt(10)-5, p.y+rng.nextInt(10)-5, rng.nextInt(5)+5, rng.nextInt(5)+5);
+		}
+		p.stage--;
+		p.x+=p.xV;
+		p.y+=p.yV;
+	}
 }

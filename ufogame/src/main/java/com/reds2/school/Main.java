@@ -26,9 +26,11 @@ public class Main {
     public static Main INSTANCE;//            stelt sicher das es nur eine Instanz gibt
 	private static final Logger log = LoggerFactory.getLogger(Main.class);
     int skin = 0;
+    Game game;
     public static void main(String[] args) throws IOException {
 		INSTANCE = new Main();
 		INSTANCE.init();
+  
         try {
         //Thread.sleep(10l);
             while(true) {
@@ -49,6 +51,7 @@ public class Main {
         current = new Menu(new Dimension(bg.getWidth()/3, bg.getHeight()));
     }
     void init(){
+        game = new Game();
         width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
         frame = new JFrame();                                                     

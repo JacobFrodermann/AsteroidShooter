@@ -67,7 +67,7 @@ public class Menu implements State{
         int y = e.getY()*1080/d.height;
         //System.out.println(x);
         if (startR.contains(new Point(x,y))) {
-            Main.INSTANCE.current = new Game();
+            Main.INSTANCE.current = Main.INSTANCE.game;
         }
         if(settingsR.contains(new Point(x,y))){
             Main.INSTANCE.current = new Settings();
