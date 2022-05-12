@@ -37,7 +37,7 @@ public class Game implements State{
 	private int delay = 0;
 	Polygon col;
 	int[] xP = new int[10] ,yP = new int[10];
-	Font f = new Font("h",Font.BOLD,150);
+	Font f = new Font("h",Font.BOLD,150), f2 = new Font("g",Font.PLAIN,20);
 	private static final Logger log = LoggerFactory.getLogger(Main.class);
 	private List<Asteriod> asteroids = new ArrayList<Asteriod>();
 	private Rectangle colR  = new Rectangle((int) x+29,(int) y+38, 24, 40);
@@ -76,7 +76,6 @@ public class Game implements State{
 
 	@Override
 	public BufferedImage draw() {
-		time +=1d/60d;
 		colR.x=(int) x+29;
 		colR.y=(int) y+38;
 		for (int i = 0;i<10;i++){
@@ -122,8 +121,8 @@ public class Game implements State{
 		if(!death){
 			if (new Random().nextInt(50)==1){anim++;anim =anim%4;}
 			if (keys.contains(38)){
-				xV += 1*Math.cos(rot);
-				yV += 1*Math.sin(rot);
+				xV += 1.25d*Math.cos(rot);
+				yV += 1.25d*Math.sin(rot);
 			}
 			if (keys.contains(40)){
 				xV /= 1.5;
@@ -185,6 +184,9 @@ public class Game implements State{
 			asteroids.add(new Asteriod());
 		}
 
+		g.setFont(f2);
+		g.setColor(Color.white);
+		g.drawString(String.valueOf((int)Math.floor(time)), 460, 20);
 
 		time += 1d/60d;		
 		return result;

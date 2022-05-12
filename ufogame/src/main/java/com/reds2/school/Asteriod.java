@@ -16,9 +16,9 @@ class Asteriod{
         aim = new Dimension(rng.nextInt(210)+150,rng.nextInt(60)+500);
         rot = Math.atan((y-aim.height)/(x-aim.width));  
 		if(aim.width<x){rot+=Math.PI;}
-        xV = rng.nextInt(2)+Main.INSTANCE.game.time+1*Math.cos(rot);
-        yV = rng.nextInt(2)+Main.INSTANCE.game.time+1*Math.sin(rot); 
-        rV = rng.nextDouble(.2)/(double)s;
+        xV = (rng.nextDouble(1.5)+Math.sqrt(Main.INSTANCE.game.time)+1)*Math.cos(rot);
+        yV = (rng.nextDouble(1.5)+Math.sqrt(Main.INSTANCE.game.time)+1)*Math.sin(rot); 
+        rV = rng.nextDouble(.5)/(double)Math.sqrt(s);
         col = new Ellipse2D.Double(x,y,(double)s,(double)s);
     }
 }
