@@ -140,7 +140,12 @@ public class Game implements State{
 					shoot(rot);
 				}
 			}
-		} else{anim = 4;}
+		} else{
+			anim = 4;
+			if (keys.contains(10)){
+				reset();
+			}
+		}
 
 		x += xV;
 		y += yV;
@@ -255,5 +260,17 @@ public class Game implements State{
 		p.stage--;
 		p.x+=p.xV;
 		p.y+=p.yV;
+	}
+	void reset(){
+		time = 0;
+		asteroids.clear();
+		beams.clear();
+		x=250;
+		y=800;
+		xV=0;
+		yV=0;
+		rot = -Math.PI/2;
+		death = false;
+		anim=0;
 	}
 }
