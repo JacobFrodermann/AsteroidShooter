@@ -12,8 +12,13 @@ class Asteriod{
     Ellipse2D col;
     Asteriod(){
         x = rng.nextDouble(740)-200;
-        y = -50;
-        aim = new Dimension(rng.nextInt(210)+150,rng.nextInt(60)+500);
+        y = -75;
+        if (rng.nextInt(5)==1){
+            aim = new Dimension((int) Main.INSTANCE.game.x,(int) Main.INSTANCE.game.y);
+            s++;
+        } else {
+            aim = new Dimension(rng.nextInt(400)+50,rng.nextInt(60)+500);
+        }
         rot = Math.atan((y-aim.height)/(x-aim.width));  
 		if(aim.width<x){rot+=Math.PI;}
         xV = (rng.nextDouble(1.5)+Math.sqrt(Main.INSTANCE.game.time)+1)*Math.cos(rot);
