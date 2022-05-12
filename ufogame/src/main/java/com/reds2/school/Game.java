@@ -27,7 +27,7 @@ public class Game implements State{
 	private BufferedImage bg;
 	private int anim=0;
 	private double SceneY=0;
-	double x=250,y=800;
+	double x=250,y=800,time = 0;
 	private ArrayList<Integer> keys = new ArrayList<Integer>();
 	private	double xV = 0,yV=0,rot=-Math.PI/2, Timer = 10;
 	static final double HALF_PI=Math.PI/2,QUARTER_PI=Math.PI/4;
@@ -38,6 +38,7 @@ public class Game implements State{
 	int[] xP = new int[10] ,yP = new int[10];
 	Font f = new Font("h",Font.BOLD,150);
 	private static final Logger log = LoggerFactory.getLogger(Main.class);
+	private List<Asteriod> asteroids = new ArrayList<Asteriod>();
 	Game(){
 		switch(Main.INSTANCE.skin){
 			case 0:
@@ -57,10 +58,15 @@ public class Game implements State{
 		System.arraycopy(col.ypoints,0,yP ,0, 10);
 		ship = new BufferedImage[4];
 		try {
-			for(int i=0;i<4;i++){
+			for(int i=0;i<ship.length;i++){
 				System.out.println("Ship"+i+"_"+ Main.INSTANCE.skin+".png");
 				ship[i]=ImageIO.read(Game.class.getClassLoader().getResourceAsStream("Ship"+i+"_"+ Main.INSTANCE.skin+".png"));
-				System.out.println(i);
+				//System.out.println(i);
+			}
+			for(int i=0;i<asteriod.length;i++){
+				System.out.println("Ship"+i+"_"+ Main.INSTANCE.skin+".png");
+				asteriod[i]=ImageIO.read(Game.class.getClassLoader().getResourceAsStream("Asteroid"+i+".png"));
+				//System.out.println(i);
 			}
 			bg  = ImageIO.read(Game.class.getClassLoader().getResourceAsStream("GameBG.png"));
 		} catch (IOException e) {
@@ -151,8 +157,12 @@ public class Game implements State{
 			}
 		} else {Timer = 10.9;}
 		
-		//g.fill(col);
-		
+		if (new Random().nextInt(180)==1){
+			asteroids.add(new Asteriod());
+		}
+
+
+		time += 1d/60d;		
 		return result;
 	}
 

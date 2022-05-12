@@ -19,6 +19,8 @@ class Asteriod{
 		if(aim.width<x){rot+=Math.PI;}
         xV = rng.nextInt(2)+1*Math.cos(rot);
         yV = rng.nextInt(2)+1*Math.sin(rot);
+        System.out.println(xV+" "+yV);
         t = new AffineTransform();
+        rot = rng.nextDouble(.15);
     }
 }
