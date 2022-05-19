@@ -56,7 +56,7 @@ public class Main {
         height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
         frame = new JFrame();                                                     
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);                     //Wenn geschlossen bennde Programm
-        frame.setBackground(Color.gray);
+        frame.setBackground(Color.WHITE);
         frame.setBounds(0, 0, (int) width, (int) height);                       // setze Anzeigfläche größe auf maximum                     
         frame.setResizable(false);            
         canvas = new Canvas();
