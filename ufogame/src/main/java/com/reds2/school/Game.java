@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 
 public class Game implements State{
-	private BufferedImage[] coin,ship;
+	private BufferedImage[] ship;
 	private BufferedImage bg, menu;
 	private int anim=0;
 	private double SceneY=0;

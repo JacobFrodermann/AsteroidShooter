@@ -3,7 +3,7 @@ package com.reds2.school;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -29,9 +29,16 @@ class Asteriod{
         rV = rng.nextDouble()*0.5/(double)Math.sqrt(s);
         col = new Ellipse2D.Double(x,y,(double)s,(double)s);
     }
-    public static List<Asteriod> clean(List<Asteriod> asteroids) {
-        return asteroids.stream().filter(i->!(i.y>1090||i.hp==0)).collect(Collectors.toList());
-    }
+    public static List<Asteriod> clean(List<Asteriod> asteroids,List<Particle> particles) {
+        try {
+            asteroids.forEach((i)->{
+                if(i.y>1090||i.hp==0){
+                    particles.addAll(asteroids.size(), Particle.Explosion((int)i.x,(int) i.y, new Color(50,50,50), i.s)); 
+                    asteroids.remove(i)
+                }
+            }
+        }catch (Exception e){}    
+    };
     public static void bulkDraw(List<Asteriod> asteroids, Graphics2D g) {
         asteroids.forEach((i)->{
         AffineTransform tr = new AffineTransform();
