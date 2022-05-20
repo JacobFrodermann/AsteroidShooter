@@ -53,7 +53,7 @@ public class Game implements State{
 	@Override
 	public BufferedImage draw() {
 		colR.x=(int) x+29;
-		colR.y=(int) y+38;
+		colR.y=(int) y+33;
 		BufferedImage result = new BufferedImage(540, 1080, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = (Graphics2D) result.getGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -168,8 +168,6 @@ public class Game implements State{
 		g.setColor(Color.white);
 		g.drawString(String.valueOf((int)Math.floor(time)), 460, 30);
 		
-		g.setColor(Color.red);
-		g.draw(colR);
 		return result;
 	}
 
