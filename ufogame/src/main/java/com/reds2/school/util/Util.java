@@ -4,15 +4,15 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-import com.reds2.school.Main;
-
 public class Util {
     public static BufferedImage load(String name){
         name = name+".png";
         try{
-            return ImageIO.read(Main.class.getClassLoader().getResourceAsStream(name));   
+            return ImageIO.read(Util.class.getClassLoader().getResourceAsStream(name));   
         } catch (Exception e){
+            
             e.printStackTrace();
+            System.out.println("while loading: "+name);
         }
         return null;
     }

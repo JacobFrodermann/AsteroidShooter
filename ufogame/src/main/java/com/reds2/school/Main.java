@@ -27,6 +27,8 @@ public class Main {
 	private static final Logger log = LoggerFactory.getLogger(Main.class);
     int skin = 0;
     Game game;
+    public Dimension d;
+
     public static void main(String[] args) throws IOException {
 		INSTANCE = new Main();
 		INSTANCE.init();
@@ -48,7 +50,8 @@ public class Main {
 
     Main() throws IOException{
         bg = ImageIO.read(Main.class.getClassLoader().getResourceAsStream("MainBg.png"));
-        current = new Menu(new Dimension(bg.getWidth()/3, bg.getHeight()));
+        d = new Dimension(bg.getWidth()/3, bg.getHeight());
+        current = new Menu(d);
     }
     void init(){
         game = new Game();

@@ -9,7 +9,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
-import com.reds2.school.util.*;
 
 class Asteriod{
     private Random rng = new Random();
@@ -17,8 +16,9 @@ class Asteriod{
     int s=new Random().nextInt(30)+30+(int) Main.INSTANCE.game.time, hp=s/20;
     private Dimension aim;
     Ellipse2D col;
-    static private BufferedImage img = Util.load("asteriod1");
+    public int type = 0;
     Asteriod(){
+        type = rng.nextInt(7);
         x = rng.nextInt(740)-200;
         y = -50;
         aim = new Dimension(rng.nextInt(210)+150,rng.nextInt(60)+500);
@@ -30,22 +30,23 @@ class Asteriod{
         col = new Ellipse2D.Double(x,y,(double)s,(double)s);
     }
     public static List<Asteriod> clean(List<Asteriod> asteroids,List<Particle> particles) {
+        List<Asteriod> out = asteroids;
         try {
-            asteroids.forEach((i)->{
+            out.forEach((i)->{
                 if(i.y>1090||i.hp==0){
-                    particles.addAll(asteroids.size(), Particle.Explosion((int)i.x,(int) i.y, new Color(50,50,50), i.s)); 
-                    asteroids.remove(i)
-                }
-            }
-        }catch (Exception e){}    
+                    particles.addAll(out.size(), Particle.Explosion((int)i.x,(int) i.y, new Color(50,50,50), i.s)); 
+                    out.remove(i);
+                }});
+                return out;
+            } catch (Exception e){return out;}    
     };
-    public static void bulkDraw(List<Asteriod> asteroids, Graphics2D g) {
+    public static void bulkDraw(List<Asteriod> asteroids, Graphics2D g,BufferedImage[] img) {
         asteroids.forEach((i)->{
         AffineTransform tr = new AffineTransform();
         tr.rotate(i.rot,i.x+i.s/2,i.y+i.s/2);
         i.rot +=i.rV;
         g.setTransform(tr);
-        g.drawImage(img, (int)i.x, (int)i.y,i.s,i.s, null);
+        g.drawImage(img[i.type], (int)i.x, (int)i.y,i.s,i.s, null);
         i.x+=i.xV;
         i.y+=i.yV;
         i.col.setFrame(i.x, i.y,(int) i.s,(int) i.s);

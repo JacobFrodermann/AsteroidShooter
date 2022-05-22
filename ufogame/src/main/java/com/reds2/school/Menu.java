@@ -12,7 +12,6 @@ import java.awt.event.MouseEvent;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-//import java.awt.Color;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
