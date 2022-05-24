@@ -2,7 +2,6 @@ package com.reds2.school;
 
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -18,10 +17,10 @@ class Asteriod{
     Ellipse2D col;
     public int type = 0;
     Asteriod(){
-        type = rng.nextInt(7);
+        type = rng.nextInt(64);
         x = rng.nextInt(740)-200;
         y = -50;
-        aim = new Dimension(rng.nextInt(210)+150,rng.nextInt(60)+500);
+        if(rng.nextInt(10)!=1){aim = new Dimension(rng.nextInt(210)+150,rng.nextInt(60)+500);} else {aim = new Dimension((int) Main.INSTANCE.game.x,(int) Main.INSTANCE.game.y);}
         rot = Math.atan((y-aim.height)/(x-aim.width));  
 		if(aim.width<x){rot+=Math.PI;}
         xV = (rng.nextDouble()*1.5+Math.sqrt(Main.INSTANCE.game.time)+1)*Math.cos(rot);
@@ -40,13 +39,14 @@ class Asteriod{
                 return out;
             } catch (Exception e){return out;}    
     };
-    public static void bulkDraw(List<Asteriod> asteroids, Graphics2D g,BufferedImage[] img) {
+    public static void bulkDraw(List<Asteriod> asteroids, Graphics2D g,BufferedImage[][] imgAr) {
         asteroids.forEach((i)->{
+        BufferedImage img = imgAr[(int)Math.floor(i.type/8)][i.type%8];
         AffineTransform tr = new AffineTransform();
         tr.rotate(i.rot,i.x+i.s/2,i.y+i.s/2);
         i.rot +=i.rV;
         g.setTransform(tr);
-        g.drawImage(img[i.type], (int)i.x, (int)i.y,i.s,i.s, null);
+        g.drawImage(img, (int)i.x, (int)i.y,i.s,i.s, null);
         i.x+=i.xV;
         i.y+=i.yV;
         i.col.setFrame(i.x, i.y,(int) i.s,(int) i.s);

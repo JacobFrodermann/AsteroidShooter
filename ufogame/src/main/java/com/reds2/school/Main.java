@@ -1,47 +1,43 @@
 package com.reds2.school;
                                          
-import java.awt.Canvas;//                     View das vorauf man zeichnet
+import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Dimension;//                  Eine Klasse mit einem x und einem Y Wert
-import java.awt.Graphics;//                   View das was zeichnet
-import java.awt.Graphics2D;//                 View das was zeichnet2
-import java.awt.RenderingHints;//             View internal
-import java.awt.Toolkit;//                    View getWith() und Co
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferStrategy;//       View konzept: zwei Speicher einer wird angezeigt auf dem andereen wind der nächste frame gemahlt siehe Main.java:25
-import java.awt.image.BufferedImage;//        Picture
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;//                  View
+import javax.swing.JFrame;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;//              logging
+import org.slf4j.LoggerFactory;
 
 
 public class Main {
     BufferedImage bg;
-    public static Main INSTANCE;//            stelt sicher das es nur eine Instanz gibt
+    public static Main INSTANCE;
 	private static final Logger log = LoggerFactory.getLogger(Main.class);
     int skin = 0;
     public Dimension d;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 		INSTANCE = new Main();
 		INSTANCE.init();
-  
-        try {
-        //Thread.sleep(10l);
-            while(true) {
-                render(INSTANCE.canvas, INSTANCE.draw(INSTANCE.canvas.getSize()));
-                Thread.sleep(1000 / 60);//Führe 60 mal/s Main.draw aus
-            }
-        } catch (InterruptedException e) {System.out.println("crashed");}
+        while(true) {
+            render(INSTANCE.canvas, INSTANCE.draw(INSTANCE.canvas.getSize()));
+            Thread.sleep(1000 / 60);//Führe 60 mal/s Main.draw aus
+        }
     }
 
     private JFrame frame;
@@ -62,7 +58,8 @@ public class Main {
         game = new Game();
         width = 1920;//Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         height = 1080;//Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-        frame = new JFrame();                                                     
+        frame = new JFrame(); 
+        frame.setIconImage(game.ship[0]);                                                    
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);                     //Wenn geschlossen bennde Programm
         frame.setBackground(Color.WHITE);
         frame.setBounds(0, 0, (int) width, (int) height);                       // setze Anzeigfläche größe auf maximum                     

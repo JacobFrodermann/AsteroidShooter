@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 import com.reds2.school.util.Util;
 
 public class Game implements State{
-	private BufferedImage[] ship,astImg;
+	BufferedImage[] ship;
 	private BufferedImage bg, menu;
 	private int anim=0;
 	private double SceneY=0;
@@ -27,7 +27,8 @@ public class Game implements State{
 	private ArrayList<Integer> keys = new ArrayList<Integer>();
 	private	double xV = 0,yV=0,rot=-Math.PI/2, timer = 10;
 	static final double HALF_PI=Math.PI/2,QUARTER_PI=Math.PI/4;
-	private List<Beam> beams = new ArrayList<Beam>(),beamTemp = new ArrayList<Beam>();
+	private List<Beam> beams = new ArrayList<Beam>();
+	Beam[][] template = new Beam[3][];
 	Boolean debug = false, death = false;
 	private int delay = 0;
 	int[] xP = new int[10] ,yP = new int[10];
@@ -36,6 +37,8 @@ public class Game implements State{
 	Rectangle colR  = new Rectangle((int) x+29,(int) y+38, 24, 40);
 	private List<Particle> particles = new ArrayList<Particle>();
 	private Rectangle[] Buttons = new Rectangle[2];
+	private BufferedImage[][] astAtlas = new BufferedImage[8][8];
+	private int tier = 0;
 	Game(){
 		Buttons[0] = new Rectangle(270,455,60,60);
 		Buttons[1] = new Rectangle(150,535,220,60);
@@ -45,11 +48,40 @@ public class Game implements State{
 			//System.out.println(i);
 		}
 		bg  = Util.load("GameBG");
-		astImg = new BufferedImage[7];
-		for (int i=0; i<astImg.length; i++) {
-			astImg[i] = Util.load("ast"+i);
+		
+		BufferedImage atlas = Util.load("asteriodAtlas");
+		for (int i=0; i<astAtlas.length; i++) {
+			for (int j = 0; j<astAtlas[i].length; j++) {
+				astAtlas[i][j] = atlas.getSubimage(i*102+20, j*105+20, 107, 112);
+			}
 		}
+		/*int n = 0;
+		for (BufferedImage[] i : astAtlas){
+			for (BufferedImage j : i){
+				try {
+					ImageIO.write(j, "png",new File("testing/"+n+".png"));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				n++;
+			}
+		}*/
 
+		template[0] = new Beam[1];
+		template[0][0] = new Beam(0,0,0,0,0);
+
+		template[1] = new Beam[3];
+		template[1][0] = new Beam(0,0,0,0,0);
+		template[1][1] = new Beam(0,0,.261799,0,0);
+		template[1][2] = new Beam(0,0,-.261799,0,0);
+
+		template[2] = new Beam[5];
+		template[2][0] = new Beam(0,0,0,0,0);
+		template[2][1] = new Beam(0,0,.261799,0,0);
+		template[2][2] = new Beam(0,0,-.261799,0,0);
+		template[2][3] = new Beam(0,0,.1309,0,0);
+		template[2][4] = new Beam(0,0,-.1309,0,0);
 	}
 
 	@Override
@@ -107,18 +139,19 @@ public class Game implements State{
 
 		asteroids.forEach((i)->{
 			if(i.hp<0){
-				if(i.type != 0){
+				if(i.type > 3){
 					particles.addAll(Particle.Explosion(i.x,i.y,new Color(200,200,200),i.s));	
 				} else {
 					particles.addAll(Particle.Explosion(i.x,i.y,new Color(235,215,0),i.s));
-					Upgrade();
+				    tier++;
+					tier = tier % 3;
 				}
 
 
 			}
 		});
 		try{asteroids=asteroids.stream().filter(i->!(i.hp<0||i.y>1920)).collect(Collectors.toList());}catch(Exception e){}
-		Asteriod.bulkDraw(asteroids,g,astImg);
+		Asteriod.bulkDraw(asteroids,g,astAtlas);
 		bulkCol();
 		
 		g.setFont(f2);
@@ -131,7 +164,11 @@ public class Game implements State{
 
 
 	private void shoot(double rotation) {
-		if(!death){beams.add(new Beam(x,y,rotation,xV,yV));}
+		if(!death){
+			for (Beam b : template[tier]){
+				beams.add(new Beam(b,x,y,rotation,xV,yV));
+			}
+		}
 	}
 
 	@Override
