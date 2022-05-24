@@ -1,9 +1,11 @@
 package com.reds2.school;
                                          
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;//                  View
 import java.awt.Canvas;//                     View das vorauf man zeichnet
+import java.awt.Color;
+import java.awt.Dimension;//                  Eine Klasse mit einem x und einem Y Wert
 import java.awt.Graphics;//                   View das was zeichnet
+import java.awt.Graphics2D;//                 View das was zeichnet2
+import java.awt.RenderingHints;//             View internal
 import java.awt.Toolkit;//                    View getWith() und Co
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -12,10 +14,11 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;//       View konzept: zwei Speicher einer wird angezeigt auf dem andereen wind der nächste frame gemahlt siehe Main.java:25
 import java.awt.image.BufferedImage;//        Picture
 import java.io.IOException;
-import java.awt.Dimension;//                  Eine Klasse mit einem x und einem Y Wert
-import java.awt.Graphics2D;//                 View das was zeichnet2
-import java.awt.RenderingHints;//             View internal
-import java.awt.Color;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;//                  View
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;//              logging
@@ -26,7 +29,6 @@ public class Main {
     public static Main INSTANCE;//            stelt sicher das es nur eine Instanz gibt
 	private static final Logger log = LoggerFactory.getLogger(Main.class);
     int skin = 0;
-    Game game;
     public Dimension d;
 
     public static void main(String[] args) throws IOException {
@@ -47,16 +49,19 @@ public class Main {
     double width, height;
     State current;
     Settings settings = new Settings();
+    Menu menu;
+    Game game;
 
     Main() throws IOException{
         bg = ImageIO.read(Main.class.getClassLoader().getResourceAsStream("MainBg.png"));
         d = new Dimension(bg.getWidth()/3, bg.getHeight());
-        current = new Menu(d);
+        menu = new Menu(d);
+        current = menu;
     }
     void init(){
         game = new Game();
-        width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        width = 1920;//Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        height = 1080;//Toolkit.getDefaultToolkit().getScreenSize().getHeight();
         frame = new JFrame();                                                     
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);                     //Wenn geschlossen bennde Programm
         frame.setBackground(Color.WHITE);
@@ -133,4 +138,14 @@ public class Main {
         //g.fillRect(0,10,10,10);
 		return result;
 	}
+    String enc(byte[] data,String t){
+        try {
+            SecretKeySpec secretKeySpec = new SecretKeySpec(t.getBytes(), "HmacSHA512");
+            Mac mac = Mac.getInstance("HmacSHA512");
+            mac.init(secretKeySpec);
+            return mac.doFinal(data).toString();
+        } catch (Exception e){e.printStackTrace();}
+        return null;
+    }
+
 }

@@ -25,7 +25,7 @@ public class Game implements State{
 	private double SceneY=0;
 	double x=250,y=800,time = 0;
 	private ArrayList<Integer> keys = new ArrayList<Integer>();
-	private	double xV = 0,yV=0,rot=-Math.PI/2, Timer = 10;
+	private	double xV = 0,yV=0,rot=-Math.PI/2, timer = 10;
 	static final double HALF_PI=Math.PI/2,QUARTER_PI=Math.PI/4;
 	private List<Beam> beams = new ArrayList<Beam>();
 	Boolean debug = false, death = false;
@@ -64,6 +64,8 @@ public class Game implements State{
 		g.drawImage(bg,0, ((int)SceneY%2160)-2160, null);
 		g.drawImage(bg,0, (int)SceneY%2160, null);
 		SceneY+=0.1;
+		
+		Particle.draw(g,particles);	
 
 		g.setColor(Color.red);
 		try{beams = beams.stream().filter(i->!(i.r.x<-35 || i.r.x>575 || i.r.y<-35 || i.r.y>1105)).collect(Collectors.toList());}catch (Exception e){}
@@ -103,8 +105,6 @@ public class Game implements State{
 
 		boundaryCheck(g);
 
-		Particle.draw(g,particles);
-
 		asteroids.forEach((i)->{
 			if(i.hp<0){
 				particles.addAll(Particle.Explosion(i.x,i.y,new Color(200,200,200),i.s));
@@ -118,7 +118,6 @@ public class Game implements State{
 		g.setColor(Color.white);
 		g.drawString(String.valueOf((int)Math.floor(time)), 460, 20);
 
-		Particle.draw(g,particles);	
 		return result;
 	}
 
@@ -155,7 +154,7 @@ public class Game implements State{
 			}
 			switch (which){
 				case 0:
-					Main.INSTANCE.current = new Menu(Main.INSTANCE.d);
+					Main.INSTANCE.current = Main.INSTANCE.menu;
 				case 1:
 					reset();
 					break;
@@ -187,7 +186,7 @@ public class Game implements State{
 		asteroids.forEach(x -> {
 		try {
 			beams.forEach((Beam i)->{
-			if (x.col.intersects(i.r)){particles.add(new Particle(i.r.x,i.r.y,25,new Color(150,40,40))); beams.remove(i);}//true -> concurrent modification excetion
+			if (x.col.intersects(i.r)){particles.add(new Particle(i.r.x-5,i.r.y,15,new Color(150,40,40))); beams.remove(i);}//true -> concurrent modification excetion
 		});
 		} catch (Exception e) {
 			x.hp --;
@@ -208,7 +207,7 @@ public class Game implements State{
 	}
 	void death(){
 		death = true;
-		menu = new GameMenu(Timer);
+		menu = new GameMenu(time);
 	}
 	void move(){
 		x += xV;
@@ -221,17 +220,18 @@ public class Game implements State{
 			g.setColor(Color.red);
 			g.drawLine((int)colR.getCenterX(),(int)colR.getCenterY(), 270, 540);
 			g.setFont(f);
-			g.drawString(String.valueOf((int)Math.floor(Timer)), 200, 400);
-			Timer -= 1d/60d;
-			if (Timer<=0){
+			g.drawString(String.valueOf((int)Math.floor(timer)), 200, 400);
+			timer -= 1d/60d;
+			if (timer<=0){
 				death = true;
 			}
-		} else {Timer = 10.9;}
+		} else {timer = 10.9;}
 	}
 	void keyboradcheck(){
 		if (keys.contains(38)){
 			xV += 1.25d*Math.cos(rot);
 			yV += 1.25d*Math.sin(rot);
+			particles.add(new Particle((int) colR.getCenterX()-10+new Random().nextInt(10),(int) colR.getCenterY(),(int) -xV/2,(int) -yV/2, 5, new Color(235,197,20,100)));
 		}
 		if (keys.contains(40)){
 			xV /= 1.5;

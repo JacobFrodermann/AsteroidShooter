@@ -35,7 +35,7 @@ public class Particle {
 	static void draw(Graphics2D g,Particle p){
 		Random rng = new Random();
 		int r = p.color.getRed(),g_ = p.color.getGreen(), b = p.color.getBlue();
-		for (int i = 0;i<p.stage/4;i++){
+		for (int i = 0;i<p.stage/2;i++){
 			g.setColor(new Color(r+rng.nextInt(20)-10,g_+rng.nextInt(20)-10,b+rng.nextInt(20)-10,rng.nextInt(200)+50));
 			g.fillRect(p.x+rng.nextInt(10)-5, p.y+rng.nextInt(10)-5, rng.nextInt(5)+5, rng.nextInt(5)+5);
 		}
