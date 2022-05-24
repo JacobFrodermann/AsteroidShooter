@@ -27,7 +27,7 @@ public class Game implements State{
 	private ArrayList<Integer> keys = new ArrayList<Integer>();
 	private	double xV = 0,yV=0,rot=-Math.PI/2, timer = 10;
 	static final double HALF_PI=Math.PI/2,QUARTER_PI=Math.PI/4;
-	private List<Beam> beams = new ArrayList<Beam>();
+	private List<Beam> beams = new ArrayList<Beam>(),beamTemp = new ArrayList<Beam>();
 	Boolean debug = false, death = false;
 	private int delay = 0;
 	int[] xP = new int[10] ,yP = new int[10];
@@ -107,7 +107,14 @@ public class Game implements State{
 
 		asteroids.forEach((i)->{
 			if(i.hp<0){
-				particles.addAll(Particle.Explosion(i.x,i.y,new Color(200,200,200),i.s));
+				if(i.type != 0){
+					particles.addAll(Particle.Explosion(i.x,i.y,new Color(200,200,200),i.s));	
+				} else {
+					particles.addAll(Particle.Explosion(i.x,i.y,new Color(235,215,0),i.s));
+					Upgrade();
+				}
+
+
 			}
 		});
 		try{asteroids=asteroids.stream().filter(i->!(i.hp<0||i.y>1920)).collect(Collectors.toList());}catch(Exception e){}
@@ -231,7 +238,7 @@ public class Game implements State{
 		if (keys.contains(38)){
 			xV += 1.25d*Math.cos(rot);
 			yV += 1.25d*Math.sin(rot);
-			particles.add(new Particle((int) colR.getCenterX()-10+new Random().nextInt(10),(int) colR.getCenterY(),(int) -xV/2,(int) -yV/2, 5, new Color(235,197,20,100)));
+			particles.add(new Particle((int) colR.getCenterX()-10+new Random().nextInt(10),(int) colR.getCenterY(),(int) (-xV/2.5),(int) (-yV/2.5), 5, new Color(235,197,20,75)));
 		}
 		if (keys.contains(40)){
 			xV /= 1.5;
@@ -257,5 +264,8 @@ public class Game implements State{
 		if (new Random().nextInt(40)==1){
 			asteroids.add(new Asteriod());
 		}
+	}
+	void Upgrade(){
+
 	}
 }
