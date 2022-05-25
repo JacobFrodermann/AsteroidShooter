@@ -13,15 +13,19 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-
+import com.reds2.school.enc.Encryption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 
 public class Main {
@@ -135,14 +139,28 @@ public class Main {
         //g.fillRect(0,10,10,10);
 		return result;
 	}
-    String enc(byte[] data,String t){
-        try {
-            SecretKeySpec secretKeySpec = new SecretKeySpec(t.getBytes(), "HmacSHA512");
-            Mac mac = Mac.getInstance("HmacSHA512");
-            mac.init(secretKeySpec);
-            return mac.doFinal(data).toString();
-        } catch (Exception e){e.printStackTrace();}
-        return null;
+
+    int loadScore() throws InvalidKeyException, NoSuchAlgorithmException, IOException{
+        BufferedReader reader = null;
+        try{
+            File f = new File("Highscore.txt");
+            reader = new BufferedReader(new FileReader(f));
+            int value = Integer.valueOf(reader.readLine());
+            String timestap = reader.readLine(),mac = reader.readLine();
+        
+            if (Encryption.getString(String.valueOf(value).getBytes(), timestap).equals(mac)) {
+                reader.close();
+                return value;
+            }
+        } catch (Exception e) {
+        } finally {
+            if(reader != null) reader.close();
+        }
+
+        FileWriter w = new FileWriter("Highscore.txt");
+        w.write("0\n"+System.currentTimeMillis()+"\n"+Encryption.getString("0".getBytes(), String.valueOf(System.currentTimeMillis())));
+        w.close();
+        return 0;
     }
 
 }

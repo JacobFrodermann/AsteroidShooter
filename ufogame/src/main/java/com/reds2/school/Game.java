@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 import com.reds2.school.util.Util;
 
+
 public class Game implements State{
 	BufferedImage[] ship;
 	private BufferedImage bg, menu;
@@ -38,8 +39,9 @@ public class Game implements State{
 	private List<Particle> particles = new ArrayList<Particle>();
 	private Rectangle[] Buttons = new Rectangle[2];
 	private BufferedImage[][] astAtlas = new BufferedImage[8][8];
-	private int tier = 0;
+	private int tier = 0,Highscore;
 	Game(){
+		try{Highscore = Main.INSTANCE.loadScore();}catch(Exception e){e.printStackTrace();}
 		Buttons[0] = new Rectangle(270,455,60,60);
 		Buttons[1] = new Rectangle(150,535,220,60);
 		ship = new BufferedImage[5];
