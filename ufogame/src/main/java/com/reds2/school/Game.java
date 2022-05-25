@@ -78,8 +78,8 @@ public class Game implements State{
 
 		template[2] = new Beam[5];
 		template[2][0] = new Beam(0,0,0,0,0);
-		template[2][1] = new Beam(0,0,.261799,0,0);
-		template[2][2] = new Beam(0,0,-.261799,0,0);
+		template[2][1] = new Beam(3,5,.261799,0,0);
+		template[2][2] = new Beam(-3,5,-.261799,0,0);
 		template[2][3] = new Beam(0,0,.1309,0,0);
 		template[2][4] = new Beam(0,0,-.1309,0,0);
 	}
@@ -275,7 +275,7 @@ public class Game implements State{
 		if (keys.contains(38)){
 			xV += 1.25d*Math.cos(rot);
 			yV += 1.25d*Math.sin(rot);
-			particles.add(new Particle((int) colR.getCenterX()-10+new Random().nextInt(10),(int) colR.getCenterY(),(int) (-xV/2.5),(int) (-yV/2.5), 5, new Color(235,197,20,75)));
+			particles.add(new Particle((int) colR.getCenterX()-10+new Random().nextInt(10),(int) colR.getCenterY(),(int) (-xV/2.5),(int) (-yV/2.5), 5, new Color(235,197,21,75)));
 		}
 		if (keys.contains(40)){
 			xV /= 1.5;

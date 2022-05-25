@@ -18,6 +18,6 @@ public class Beam {
         rot = rotation+b.rot;
         xV = (Main.INSTANCE.settings.beamV+s) * Math.cos(rot);//+b.xV;
         yV = (Main.INSTANCE.settings.beamV+s) * Math.sin(rot);//+b.yV;
-        r = new Rectangle((int)x+35,(int)y+55,35 ,10);
+        r = new Rectangle((int)x+b.r.x,(int)y+b.r.y,35 ,10);
     }
 }
