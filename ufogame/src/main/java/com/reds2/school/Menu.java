@@ -12,7 +12,6 @@ import java.awt.event.MouseEvent;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-//import java.awt.Color;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +66,7 @@ public class Menu implements State{
         int y = e.getY()*1080/d.height;
         //System.out.println(x);
         if (startR.contains(new Point(x,y))) {
-            Main.INSTANCE.current = new Game();
+            Main.INSTANCE.current = Main.INSTANCE.game;
         }
         if(settingsR.contains(new Point(x,y))){
             Main.INSTANCE.current = new Settings();

@@ -1,2 +1,5 @@
-com/reds2/school/Main.class
-com/reds2/school/Main$1.class
+com/reds2/school/Settings.class
+com/reds2/school/Particle.class
+com/reds2/school/Beam.class
+com/reds2/school/Asteriod.class
+com/reds2/school/State.class
