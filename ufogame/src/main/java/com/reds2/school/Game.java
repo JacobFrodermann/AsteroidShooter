@@ -40,6 +40,7 @@ public class Game implements State{
 	private Rectangle[] Buttons = new Rectangle[2];
 	private BufferedImage[][] astAtlas = new BufferedImage[8][8];
 	private int tier = 0,Highscore;
+	long frameTime = 0;
 	Game(){
 		try{Highscore = Main.INSTANCE.loadScore();}catch(Exception e){e.printStackTrace();}
 		Buttons[0] = new Rectangle(270,455,60,60);
@@ -88,6 +89,7 @@ public class Game implements State{
 
 	@Override
 	public BufferedImage draw() {
+		frameTime = System.currentTimeMillis();
 		colR.x=(int) x+29;
 		colR.y=(int) y+33;
 		BufferedImage result = new BufferedImage(540, 1080, BufferedImage.TYPE_INT_RGB);
@@ -159,6 +161,9 @@ public class Game implements State{
 		g.setFont(f2);
 		g.setColor(Color.white);
 		g.drawString(String.valueOf((int)Math.floor(time)), 460, 20);
+
+		frameTime = System.currentTimeMillis()-frameTime;
+		System.out.println(frameTime);
 
 		return result;
 	}
