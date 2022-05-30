@@ -16,11 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.reds2.school.util.Util;
 
 
 public class Game implements State{
+	private static final Logger log = LoggerFactory.getLogger(Game.class);
 	BufferedImage[] ship;
 	private BufferedImage bg, menu;
 	private int anim=0;
@@ -144,7 +147,7 @@ public class Game implements State{
 
 		asteroids.forEach((i)->{
 			if(i.hp<0){
-				if(i.type > 3){
+				if(i.type > 2){
 					particles.addAll(Particle.Explosion(i.x,i.y,new Color(200,200,200),i.s));	
 				} else {
 					particles.addAll(Particle.Explosion(i.x,i.y,new Color(235,215,0),i.s));
@@ -258,6 +261,7 @@ public class Game implements State{
 	}
 	void death() throws IOException{
 		if (!death){
+			log.info("died with score of: "+time+" at " + System.currentTimeMillis());
 			death = true;
 			menu = new GameMenu(time,Highscore);
 			if(Highscore<time){
