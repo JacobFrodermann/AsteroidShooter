@@ -164,7 +164,6 @@ public class Game implements State{
 		g.drawString(String.valueOf((int)Math.floor(time)), 460, 20);
 
 		frameTime = System.currentTimeMillis()-frameTime;
-		System.out.println(frameTime);
 
 		return result;
 	}
