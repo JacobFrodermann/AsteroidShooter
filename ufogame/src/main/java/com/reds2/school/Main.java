@@ -14,6 +14,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -161,6 +162,18 @@ public class Main {
         w.write("0\n"+System.currentTimeMillis()+"\n"+Encryption.getString("0".getBytes(), String.valueOf(System.currentTimeMillis())));
         w.close();
         return 0;
+    }
+    void saveHighscore(int score) throws IOException{
+        BufferedWriter writer = null;
+        try{
+            File f = new File("Highscore.txt");
+            long t = System.currentTimeMillis();
+            writer = new BufferedWriter(new FileWriter(f));
+            writer.write(String.valueOf(score)+"\n");
+            writer.write(String.valueOf(t)+"\n");
+            writer.write(Encryption.getString(String.valueOf(score).getBytes(), String.valueOf(t)));
+        } catch (Exception e ){}
+        writer.close();
     }
 
 }

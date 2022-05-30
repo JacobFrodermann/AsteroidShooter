@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -251,9 +252,15 @@ public class Game implements State{
 		death = false;
 		anim=0;
 	}
-	void death(){
-		death = true;
-		menu = new GameMenu(time);
+	void death() throws IOException{
+		if (!death){
+			death = true;
+			menu = new GameMenu(time,Highscore);
+			if(Highscore<time){
+				Highscore = (int) Math.floor(time);
+				Main.INSTANCE.saveHighscore((int) Math.floor(time));
+			}	
+		}
 	}
 	void move(){
 		x += xV;
