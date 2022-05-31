@@ -8,12 +8,11 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 class Asteriod{
     private Random rng = new Random();
     double x,y,xV,yV,rot,rV;
-    int s=new Random().nextInt(30)+30+(int) Main.INSTANCE.game.time, hp=s/20;
+    int s=new Random().nextInt(30)+30+(int) Main.INSTANCE.game.time-Main.INSTANCE.game.reduction, hp=s/20;
     private Dimension aim;
     Ellipse2D col;
     public int type = 0;
@@ -24,8 +23,8 @@ class Asteriod{
         if(rng.nextInt(10)!=1){aim = new Dimension(rng.nextInt(210)+150,rng.nextInt(60)+500);} else {aim = new Dimension((int) Main.INSTANCE.game.x,(int) Main.INSTANCE.game.y);}
         rot = Math.atan((y-aim.height)/(x-aim.width));  
 		if(aim.width<x){rot+=Math.PI;}
-        xV = (rng.nextDouble()*1.5+Math.sqrt(Main.INSTANCE.game.time)+1)*Math.cos(rot);
-        yV = (rng.nextDouble()*1.5+Math.sqrt(Main.INSTANCE.game.time)+1)*Math.sin(rot); 
+        xV = (rng.nextDouble()*1.5+Math.sqrt(Main.INSTANCE.game.time-Main.INSTANCE.game.reduction)+1)*Math.cos(rot);
+        yV = (rng.nextDouble()*1.5+Math.sqrt(Main.INSTANCE.game.time-Main.INSTANCE.game.reduction)+1)*Math.sin(rot); 
         rV = rng.nextDouble()*0.5/(double)Math.sqrt(s);
         col = new Ellipse2D.Double(x,y,(double)s,(double)s);
     }

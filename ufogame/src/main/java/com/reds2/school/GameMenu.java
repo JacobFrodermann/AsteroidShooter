@@ -32,13 +32,13 @@ public class GameMenu extends BufferedImage {
 
         g.drawString("Highscore: " + Highscore, 25, 105);
 
-        g.drawImage(home,180,55,60,60,null);
+        g.drawImage(home,190,55,60,60,null);
         g.drawImage(restart,40,135,null);
 
         if((int) time>Highscore){
             g.setFont(bigFont);
             g.setColor(Color.blue);
-            g.drawString("New Highscore!", 25, 228);
+            g.drawString("New Highscore!", 10, 228);
         }
     }
 }
