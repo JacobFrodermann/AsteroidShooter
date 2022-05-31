@@ -41,7 +41,7 @@ public class Main {
 		INSTANCE.init();
         while(true) {
             render(INSTANCE.canvas, INSTANCE.draw(INSTANCE.canvas.getSize()));
-            try{Thread.sleep(1000 / 60-Main.INSTANCE.game.frameTime);}catch(Exception e){}//Führe 60 mal/s Main.draw aus
+            try{Thread.sleep(1000 / 45-Main.INSTANCE.game.frameTime);}catch(Exception e){}//Führe 60 mal/s Main.draw aus
         }
     }
 
@@ -172,6 +172,7 @@ public class Main {
             writer.write(String.valueOf(score)+"\n");
             writer.write(String.valueOf(t)+"\n");
             writer.write(Encryption.getString(String.valueOf(score).getBytes(), String.valueOf(t)));
+            writer.write("\nby "+System.getProperty("user.name"));
         } catch (Exception e ){}
         writer.close();
     }
