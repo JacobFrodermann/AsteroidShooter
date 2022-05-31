@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.reds2.school.util.Util;
 
@@ -42,6 +44,7 @@ public class Game implements State{
 	private BufferedImage[][] astAtlas = new BufferedImage[8][8];
 	private int tier = 0,Highscore;
 	long frameTime = 0;
+	private static final Logger log = LoggerFactory.getLogger(Main.class);
 	Game(){
 		try{Highscore = Main.INSTANCE.loadScore();}catch(Exception e){e.printStackTrace();}
 		Buttons[0] = new Rectangle(270,455,60,60);
@@ -255,12 +258,15 @@ public class Game implements State{
 		rot = -Math.PI/2;
 		death = false;
 		anim=0;
+		tier=0;
 	}
 	void death() throws IOException{
 		if (!death){
+			log.info("Died at"+(int) System.currentTimeMillis());
 			death = true;
 			menu = new GameMenu(time,Highscore);
 			if(Highscore<time){
+				log.info("New Highscore "+time);
 				Highscore = (int) Math.floor(time);
 				Main.INSTANCE.saveHighscore((int) Math.floor(time));
 			}	
@@ -302,7 +308,7 @@ public class Game implements State{
 		}
 		if (keys.contains(32)){
 			if (delay<0){
-				delay = 10;
+				delay = 9;
 				shoot(rot);
 			}
 		}
