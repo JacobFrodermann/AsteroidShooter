@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 class Asteriod{
     private Random rng = new Random();
@@ -40,20 +41,24 @@ class Asteriod{
             } catch (Exception e){return out;}    
     };
     public static void bulkDraw(List<Asteriod> asteroids, Graphics2D g,BufferedImage[][] imgAr) {
-        asteroids.forEach((i)->{
-        BufferedImage img = imgAr[(int)Math.floor(i.type/8)][i.type%8];
-        AffineTransform tr = new AffineTransform();
-        tr.rotate(i.rot,i.x+i.s/2,i.y+i.s/2);
-        i.rot +=i.rV;
-        g.setTransform(tr);
-        g.drawImage(img, (int)i.x, (int)i.y,i.s,i.s, null);
-        i.x+=i.xV;
-        i.y+=i.yV;
-        i.col.setFrame(i.x, i.y,(int) i.s,(int) i.s);
-        //g.setTransform(new AffineTransform());
-        //g.draw(i.col);
-        if (i.col.intersects(Main.INSTANCE.game.colR)){Main.INSTANCE.game.death();};
-    });
+        try{asteroids.forEach((i)->{
+            BufferedImage img = imgAr[(int)Math.floor(i.type/8)][i.type%8];
+            AffineTransform tr = new AffineTransform();
+            tr.rotate(i.rot,i.x+i.s/2,i.y+i.s/2);
+            i.rot +=i.rV;
+            g.setTransform(tr);
+            g.drawImage(img, (int)i.x, (int)i.y,i.s,i.s, null);
+            i.x+=i.xV;
+            i.y+=i.yV;
+            i.col.setFrame(i.x, i.y,(int) i.s,(int) i.s);
+            //g.setTransform(new AffineTransform());
+            //g.draw(i.col);
+            if (i.col.intersects(Main.INSTANCE.game.colR) && Main.INSTANCE.game.inv<0){
+                try {
+                    Main.INSTANCE.game.death();
+                } catch (Exception e) {}
+            }
+        });}catch(Exception e){};
     g.setTransform(new AffineTransform());
     }
 }

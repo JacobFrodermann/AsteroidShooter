@@ -9,7 +9,6 @@ import javax.crypto.spec.SecretKeySpec;
 public class Encryption {
  
     static public byte[] getOut(byte[] data, String time) throws NoSuchAlgorithmException, InvalidKeyException {
-
         SecretKeySpec spec = new SecretKeySpec(time.getBytes(), "HmacSHA512");
         Mac mac = Mac.getInstance("HmacSHA512");
         mac.init(spec);
@@ -28,7 +27,7 @@ public class Encryption {
         
         StringBuilder sb = new StringBuilder();
         for (byte b : out) {
-            sb.append(String.format("%2x", b).replaceAll(" ", "0"));
+            sb.append(String.format("%2x317a", b).replaceAll(" ", "0"));
         }
         return sb.toString();
     }
