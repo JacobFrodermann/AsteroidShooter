@@ -32,7 +32,7 @@ public class Game implements State{
 	private	double xV = 0,yV=0,rot=-Math.PI/2, timer = 10;
 	static final double HALF_PI=Math.PI/2,QUARTER_PI=Math.PI/4;
 	private List<Beam> beams = new ArrayList<Beam>();
-	Beam[][] template = new Beam[3][];
+	Beam[][] template = new Beam[5][];
 	Boolean debug = false, death = false;
 	private int delay = 0;
 	int[] xP = new int[10] ,yP = new int[10];
@@ -42,7 +42,8 @@ public class Game implements State{
 	private List<Particle> particles = new ArrayList<Particle>();
 	private Rectangle[] Buttons = new Rectangle[2];
 	private BufferedImage[][] astAtlas = new BufferedImage[8][8];
-	private int tier = 0,Highscore;
+	private int tier = 0,Highscore,lives = 3,reduction = 0;
+    int inv=0;
 	long frameTime = 0;
 	private static final Logger log = LoggerFactory.getLogger(Main.class);
 	Game(){
@@ -60,39 +61,39 @@ public class Game implements State{
 		for (int i=0; i<astAtlas.length; i++) {
 			for (int j = 0; j<astAtlas[i].length; j++) {
 				astAtlas[i][j] = atlas.getSubimage(i*102+20, j*105+20, 107, 112);
-			}
+			} 
 		}
-		/*int n = 0;
-		for (BufferedImage[] i : astAtlas){
-			for (BufferedImage j : i){
-				try {
-					ImageIO.write(j, "png",new File("testing/"+n+".png"));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				n++;
-			}
-		}*/
-
 		template[0] = new Beam[1];
 		template[0][0] = new Beam(0,0,0,0,0);
 
-		template[1] = new Beam[3];
+		template[1] = new Beam[2];
 		template[1][0] = new Beam(0,0,0,0,0);
-		template[1][1] = new Beam(0,0,.261799,0,0);
-		template[1][2] = new Beam(0,0,-.261799,0,0);
+		template[1][1] = new Beam(0,0,0,0,0);
 
-		template[2] = new Beam[5];
+		template[2] = new Beam[3];
 		template[2][0] = new Beam(0,0,0,0,0);
-		template[2][1] = new Beam(3,5,.261799,0,0);
-		template[2][2] = new Beam(-3,5,-.261799,0,0);
-		template[2][3] = new Beam(0,0,.1309,0,0);
-		template[2][4] = new Beam(0,0,-.1309,0,0);
+		template[2][1] = new Beam(0,0,.261799,0,0);
+		template[2][2] = new Beam(0,0,-.261799,0,0);
+
+		template[3] = new Beam[5];
+		template[3][0] = new Beam(0,0,0,0,0);
+		template[3][1] = new Beam(3,5,.261799,0,0);
+		template[3][2] = new Beam(-3,5,-.261799,0,0);
+		template[3][3] = new Beam(0,0,.1309,0,0);
+		template[3][4] = new Beam(0,0,-.1309,0,0);
+
+		template[4]=new Beam[6];
+		template[4][0] = new Beam(0,0,0,0,0);
+		template[4][1] = new Beam(0,0,.261799,0,0);
+		template[4][2] = new Beam(0,0,-.261799,0,0);
+		template[4][3] = new Beam(-.1,0,0,0,0);
+		template[4][4] = new Beam(0,0,.265,0,0);
+		template[4][5] = new Beam(0,0,-.265,0,0);
 	}
 
 	@Override
 	public BufferedImage draw() {
+		inv --;
 		frameTime = System.currentTimeMillis();
 		colR.x=(int) x+29;
 		colR.y=(int) y+33;
@@ -105,6 +106,10 @@ public class Game implements State{
 		g.drawImage(bg,0, (int)SceneY%2160, null);
 		SceneY+=0.1;
 		
+		for (int i =0;i<lives;i++){
+			g.drawImage(ship[(anim+i)%4],170+60*i,0, 40,60, null);
+		}
+
 		Particle.draw(g,particles);	
 
 		g.setColor(Color.red);
@@ -119,12 +124,14 @@ public class Game implements State{
 		});}catch(Exception e){}
 		g.setTransform(new AffineTransform());
 
-		AffineTransform t = g.getTransform();
-		t.rotate(rot+HALF_PI,x+40,y+60);
+		if(!(inv>0 && inv%10<5)){
+			AffineTransform t = g.getTransform();
+			t.rotate(rot+HALF_PI,x+40,y+60);
 
-		g.setTransform(t);
-		g.drawImage(ship[anim],(int)x,(int)y,80,120,null);
-		g.setTransform(new AffineTransform());
+			g.setTransform(t);
+			g.drawImage(ship[anim],(int)x,(int)y,80,120,null);
+			g.setTransform(new AffineTransform());
+		}
 
 		if(!death){
 			animate();
@@ -152,7 +159,7 @@ public class Game implements State{
 				} else {
 					particles.addAll(Particle.Explosion(i.x,i.y,new Color(235,215,0),i.s));
 				    tier++;
-					tier = tier % 3;
+					tier = tier % 5;
 				}
 
 
@@ -164,7 +171,8 @@ public class Game implements State{
 		
 		g.setFont(f2);
 		g.setColor(Color.white);
-		g.drawString(String.valueOf((int)Math.floor(time)), 460, 20);
+		g.drawString(String.valueOf((int)time), 460, 20);
+		g.drawString("Highscore: " + Highscore,15,20);
 
 		frameTime = System.currentTimeMillis()-frameTime;
 
@@ -259,17 +267,27 @@ public class Game implements State{
 		death = false;
 		anim=0;
 		tier=0;
+		lives = 3;
 	}
 	void death() throws IOException{
+		particles.addAll(Particle.Explosion(x, y, Color.orange, 15));
 		if (!death){
-			log.info("Died at"+(int) System.currentTimeMillis());
-			death = true;
-			menu = new GameMenu(time,Highscore);
-			if(Highscore<time){
-				log.info("New Highscore "+time);
-				Highscore = (int) Math.floor(time);
-				Main.INSTANCE.saveHighscore((int) Math.floor(time));
-			}	
+			log.info("Died at "+(int) System.currentTimeMillis());
+			if (lives == 0) {
+				death = true;
+				menu = new GameMenu(time,Highscore);
+				if(Highscore<time){
+					log.info("New Highscore "+(int)time);
+					Highscore = (int) Math.floor(time);
+					Main.INSTANCE.saveHighscore((int) Math.floor(time));
+				}	
+			} else {
+				lives --;
+				inv = 120;
+				reduction = 60;
+				if ((time - reduction)<0){reduction=(int)time;}
+			} 
+			
 		}
 	}
 	void move(){
@@ -288,7 +306,7 @@ public class Game implements State{
 			if (timer<=0){
 				death = true;
 			}
-		} else {timer = 10.9;}
+		}
 	}
 	void keyboradcheck(){
 		if (keys.contains(38)){
@@ -320,8 +338,5 @@ public class Game implements State{
 		if (new Random().nextInt(40)==1){
 			asteroids.add(new Asteriod());
 		}
-	}
-	void Upgrade(){
-
 	}
 }

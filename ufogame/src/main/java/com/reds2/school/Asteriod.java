@@ -53,7 +53,7 @@ class Asteriod{
             i.col.setFrame(i.x, i.y,(int) i.s,(int) i.s);
             //g.setTransform(new AffineTransform());
             //g.draw(i.col);
-            if (i.col.intersects(Main.INSTANCE.game.colR)){
+            if (i.col.intersects(Main.INSTANCE.game.colR) && Main.INSTANCE.game.inv<0){
                 try {
                     Main.INSTANCE.game.death();
                 } catch (Exception e) {}
