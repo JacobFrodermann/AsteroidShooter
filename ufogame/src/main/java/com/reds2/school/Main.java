@@ -42,8 +42,7 @@ public class Main {
             render(INSTANCE.canvas, INSTANCE.draw(INSTANCE.canvas.getSize()));
             try{Thread.sleep(1000 / 60 - Main.INSTANCE.game.frameTime);}catch(Exception e){}//Führe 60 mal/s Main.draw aus
         }
-    }
-
+    } 
     private JFrame frame;
     private Canvas canvas;
     double width, height;
