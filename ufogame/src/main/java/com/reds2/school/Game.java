@@ -11,7 +11,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -29,8 +28,7 @@ public class Game implements State{
 	private double SceneY=0;
 	double x=250,y=800,time = 0;
 	private ArrayList<Integer> keys = new ArrayList<Integer>();
-	private	double xV = 0,yV=0,rot=-Math.PI/2, timer = 10;
-	static final double HALF_PI=Math.PI/2,QUARTER_PI=Math.PI/4;
+	private	double xV = 0,yV=0,rot=-Math.PI/2, timer;
 	private List<Beam> beams = new ArrayList<Beam>();
 	Beam[][] template = new Beam[5][];
 	Boolean debug = false, death = false;
@@ -42,7 +40,7 @@ public class Game implements State{
 	private List<Particle> particles = new ArrayList<Particle>();
 	private Rectangle[] Buttons = new Rectangle[2];
 	private BufferedImage[][] astAtlas = new BufferedImage[8][8];
-	private int tier = 0,Highscore,lives = 3;
+	private int tier = 0,Highscore,lives = 2;
 	int reduction = 0;
     int inv=0;
 	long frameTime = 0;
@@ -54,7 +52,6 @@ public class Game implements State{
 		ship = new BufferedImage[5];
 		for(int i=0;i<ship.length;i++){
 			ship[i]=Util.load("Ship"+i+"_"+ Main.INSTANCE.skin);
-			//System.out.println(i);
 		}
 		bg  = Util.load("GameBG");
 		
@@ -107,7 +104,7 @@ public class Game implements State{
 		g.drawImage(bg,0, (int)SceneY%2160, null);
 		SceneY+=0.1;
 		
-		for (int i =0;i<lives;i++){
+		for (int i =0;i<lives+1;i++){
 			g.drawImage(ship[(anim+i)%4],170+60*i,0, 40,60, null);
 		}
 
@@ -127,7 +124,7 @@ public class Game implements State{
 
 		if(!(inv>0 && inv%10<5)){
 			AffineTransform t = g.getTransform();
-			t.rotate(rot+HALF_PI,x+40,y+60);
+			t.rotate(rot+Math.PI/2,x+40,y+60);
 
 			g.setTransform(t);
 			g.drawImage(ship[anim],(int)x,(int)y,80,120,null);
@@ -233,8 +230,7 @@ public class Game implements State{
 
 	@Override
 	public void drag(MouseEvent e, Dimension d) {
-		// TODO Auto-generated method stub
-		
+		click(e,d);
 	}
 
 	@Override
@@ -270,8 +266,8 @@ public class Game implements State{
 		lives = 3;
 		reduction = 0;
 	}
-	void death() throws IOException{
-		particles.addAll(Particle.Explosion(x, y, Color.orange, 15));
+	void death() {
+		particles.addAll(Particle.Explosion(x+20, y+40, new Color(240, 140, 33), 120));
 		if (!death){
 			log.info("Died at "+(int) System.currentTimeMillis());
 			if (lives == 0) {
@@ -307,9 +303,10 @@ public class Game implements State{
 			g.drawString(String.valueOf((int)Math.floor(timer)), 200, 400);
 			timer -= 1d/60d;
 			if (timer<=0){
-				death = true;
+				death();
+				timer = 0.9;
 			}
-		}
+		} else {timer = 3d;}
 	}
 	void keyboradcheck(){
 		if (keys.contains(38)){

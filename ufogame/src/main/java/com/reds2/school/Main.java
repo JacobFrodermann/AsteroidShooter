@@ -50,19 +50,18 @@ public class Main {
     double width, height;
     State current;
     Settings settings = new Settings();
-    Menu menu;
+    Menu menu = new Menu();
     Game game;
 
     Main() throws IOException{
         bg = ImageIO.read(Main.class.getClassLoader().getResourceAsStream("MainBg.png"));
         d = new Dimension(bg.getWidth()/3, bg.getHeight());
-        menu = new Menu(d);
         current = menu;
     }
     void init(){
         game = new Game();
-        width = 1920;//Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        height = 1080;//Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
         frame = new JFrame(); 
         frame.setIconImage(game.ship[0]);                                                    
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);                     //Wenn geschlossen bennde Programm
@@ -163,7 +162,7 @@ public class Main {
         w.close();
         return 0;
     }
-    void saveHighscore(int score) throws IOException{
+    void saveHighscore(int score) {
         BufferedWriter writer = null;
         try{
             File f = new File("Highscore.txt");
@@ -174,7 +173,7 @@ public class Main {
             writer.write(Encryption.getString(String.valueOf(score).getBytes(), String.valueOf(t)));
             writer.write("\nby "+System.getProperty("user.name"));
         } catch (Exception e ){}
-        writer.close();
+        try{writer.close();}catch (Exception e){}
     }
 
 }

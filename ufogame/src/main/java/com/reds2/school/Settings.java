@@ -7,15 +7,20 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import com.reds2.school.util.Util;
+
 public class Settings implements State{
     public int xV=2, yV=2,asteriods=1,beamV=13;
     String name="Test";
+    BufferedImage bg = Util.load("actionfieldBg1");
     @Override
     public BufferedImage draw() {
         BufferedImage result = new BufferedImage(540, 1080, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = (Graphics2D) result.getGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+        g.drawImage(bg, 0, 0, null);
 
         return result;
     }
