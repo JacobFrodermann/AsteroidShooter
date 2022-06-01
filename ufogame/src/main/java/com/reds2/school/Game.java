@@ -152,7 +152,7 @@ public class Game implements State{
 
 		asteroids.forEach((i)->{
 			if(i.hp<0){
-				if(i.type > 3){
+				if(i.type > 2){
 					particles.addAll(Particle.Explosion(i.x,i.y,new Color(200,200,200),i.s));	
 				} else {
 					particles.addAll(Particle.Explosion(i.x,i.y,new Color(235,215,0),i.s));
@@ -222,7 +222,7 @@ public class Game implements State{
 			double rotation = Math.atan((this.y-y)/(this.x-x));  
 			if(x<this.x){rotation+=Math.PI;}
 			if (delay<0){
-				delay = 10;
+				delay = 12;
 				shoot(rotation);
 			}	
 		}
@@ -263,7 +263,7 @@ public class Game implements State{
 		death = false;
 		anim=0;
 		tier=0;
-		lives = 3;
+		lives = 2;
 		reduction = 0;
 	}
 	void death() {
@@ -285,6 +285,9 @@ public class Game implements State{
 				tier--;
 				if (tier == -1){tier = 0;}
 				if ((time - reduction)<0){reduction=(int)time;}
+				x=250;
+				y=800;
+				rot = -Math.PI/2;
 			} 
 			
 		}
@@ -326,7 +329,7 @@ public class Game implements State{
 		}
 		if (keys.contains(32)){
 			if (delay<0){
-				delay = 9;
+				delay = 11;
 				shoot(rot);
 			}
 		}
