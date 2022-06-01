@@ -11,7 +11,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -43,8 +42,7 @@ public class Game implements State{
 	private Rectangle[] Buttons = new Rectangle[2];
 	private BufferedImage[][] astAtlas = new BufferedImage[8][8];
 	private int tier = 0,Highscore,lives = 3;
-	int reduction = 0;
-    int inv=0;
+	int reduction = 0,inv=0;
 	long frameTime = 0;
 	private static final Logger log = LoggerFactory.getLogger(Main.class);
 	Game(){
@@ -270,7 +268,7 @@ public class Game implements State{
 		lives = 3;
 		reduction = 0;
 	}
-	void death() throws IOException{
+	void death(){
 		particles.addAll(Particle.Explosion(x, y, Color.orange, 15));
 		if (!death){
 			log.info("Died at "+(int) System.currentTimeMillis());
@@ -307,14 +305,14 @@ public class Game implements State{
 			g.drawString(String.valueOf((int)Math.floor(timer)), 200, 400);
 			timer -= 1d/60d;
 			if (timer<=0){
-				death = true;
+				death();
 			}
 		}
 	}
 	void keyboradcheck(){
 		if (keys.contains(38)){
-			xV += 1.25d*Math.cos(rot);
-			yV += 1.25d*Math.sin(rot);
+			xV += Main.INSTANCE.settings.V/4*Math.cos(rot);
+			yV += Main.INSTANCE.settings.V/4*Math.sin(rot);
 			particles.add(new Particle((int) colR.getCenterX()-10+new Random().nextInt(10),(int) colR.getCenterY(),(int) (-xV/2.5),(int) (-yV/2.5), 5, new Color(235,197,21,75)));
 		}
 		if (keys.contains(40)){
