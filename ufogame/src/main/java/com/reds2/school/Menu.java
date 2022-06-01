@@ -1,10 +1,6 @@
 package com.reds2.school;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import com.reds2.school.util.Util;
 
 import java.awt.Dimension;
@@ -40,9 +36,6 @@ public class Menu implements State{
         g.drawImage(start, 140,363,256,87,null);
         g.drawImage(settings,122,470,291,70,null);
         
-        
-        //g.setColor(Color.RED);
-        //g.fillRect(0, 0, size.width, size.height);
         return result;
     }
 
@@ -64,9 +57,10 @@ public class Menu implements State{
         //System.out.println(x);
         if (startR.contains(new Point(x,y))) {
             Main.INSTANCE.current = Main.INSTANCE.game;
+            Main.INSTANCE.game.init();
         }
         if(settingsR.contains(new Point(x,y))){
-            Main.INSTANCE.current = new Settings();
+            Main.INSTANCE.current = Main.INSTANCE.settings;
         }
     }
 

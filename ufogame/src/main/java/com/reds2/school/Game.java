@@ -40,11 +40,14 @@ public class Game implements State{
 	private List<Particle> particles = new ArrayList<Particle>();
 	private Rectangle[] Buttons = new Rectangle[2];
 	private BufferedImage[][] astAtlas = new BufferedImage[8][8];
-	private int tier = 0,Highscore,lives = 2;
+	private int tier = 0,Highscore;
+	int lives = Main.INSTANCE.settings.lives;
 	int reduction = 0;
     int inv=0;
 	long frameTime = 0;
 	private static final Logger log = LoggerFactory.getLogger(Main.class);
+
+
 	Game(){
 		try{Highscore = Main.INSTANCE.loadScore();}catch(Exception e){e.printStackTrace();}
 		Buttons[0] = new Rectangle(270,455,60,60);
@@ -88,6 +91,8 @@ public class Game implements State{
 		template[4][4] = new Beam(0,0,.265,0,0);
 		template[4][5] = new Beam(0,0,-.265,0,0);
 	}
+
+	void init() {lives = Main.INSTANCE.settings.lives;}
 
 	@Override
 	public BufferedImage draw() {
@@ -222,7 +227,7 @@ public class Game implements State{
 			double rotation = Math.atan((this.y-y)/(this.x-x));  
 			if(x<this.x){rotation+=Math.PI;}
 			if (delay<0){
-				delay = 12;
+				delay = Main.INSTANCE.settings.cooldown;
 				shoot(rotation);
 			}	
 		}
@@ -263,7 +268,7 @@ public class Game implements State{
 		death = false;
 		anim=0;
 		tier=0;
-		lives = 2;
+		lives = Main.INSTANCE.settings.lives;
 		reduction = 0;
 	}
 	void death() {
@@ -280,8 +285,8 @@ public class Game implements State{
 				}	
 			} else {
 				lives --;
-				inv = 120;
-				reduction += 60;
+				inv = Main.INSTANCE.settings.inv*10;
+				reduction += Main.INSTANCE.settings.red*10;
 				tier--;
 				if (tier == -1){tier = 0;}
 				if ((time - reduction)<0){reduction=(int)time;}
@@ -329,7 +334,7 @@ public class Game implements State{
 		}
 		if (keys.contains(32)){
 			if (delay<0){
-				delay = 11;
+				delay = Main.INSTANCE.settings.cooldown;
 				shoot(rot);
 			}
 		}
