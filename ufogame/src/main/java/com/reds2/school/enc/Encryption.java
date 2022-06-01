@@ -27,7 +27,7 @@ public class Encryption {
         
         StringBuilder sb = new StringBuilder();
         for (byte b : out) {
-            sb.append(String.format("%2x317a", b).replaceAll(" ", "0"));
+            sb.append(String.format("%2xh", b).replaceAll(" ", "0"));
         }
         return sb.toString();
     }

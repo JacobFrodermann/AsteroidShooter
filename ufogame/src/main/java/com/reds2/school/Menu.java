@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.reds2.school.util.Util;
+
 import java.awt.Dimension;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
@@ -22,15 +24,10 @@ public class Menu implements State{
     Rectangle startR = new Rectangle(140,363,256,87), settingsR = new Rectangle(122,470,291,70);
 	static final Logger log = LoggerFactory.getLogger(Main.class);
 
-    Menu(Dimension size){
-        int i = 0;
-        try {
-            bg = ImageIO.read(Menu.class.getClassLoader().getResourceAsStream("actionfieldBg1.png"));i++;
-            start = ImageIO.read(Menu.class.getClassLoader().getResourceAsStream("Start.png"));i++;
-            settings = ImageIO.read(Menu.class.getClassLoader().getResourceAsStream("Settings.png"));i++;
-        } catch (IOException e) {
-            log.error("Couldn't load Bg img" + i);
-        }
+    Menu(){
+        bg = Util.load("actionfieldBg1");
+        start = Util.load("Start");
+        settings =Util.load("Settings");
     }
 
     public BufferedImage draw(){

@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
 import java.awt.Rectangle;
 import java.awt.Font;
 
+import com.reds2.school.util.Util;
+
 public class Settings implements State{
     public int V=5,beamV=13;
     int[] values = {V,beamV};

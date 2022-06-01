@@ -50,13 +50,12 @@ public class Main {
     double width, height;
     State current;
     Settings settings = new Settings();
-    Menu menu;
+    Menu menu = new Menu();
     Game game;
 
     Main() throws IOException{
         bg = ImageIO.read(Main.class.getClassLoader().getResourceAsStream("MainBg.png"));
         d = new Dimension(bg.getWidth()/3, bg.getHeight());
-        menu = new Menu(d);
         current = menu;
     }
     void init(){
@@ -163,7 +162,7 @@ public class Main {
         w.close();
         return 0;
     }
-    void saveHighscore(int score){
+    void saveHighscore(int score) {
         BufferedWriter writer = null;
         try{
             File f = new File("Highscore.txt");
@@ -174,7 +173,7 @@ public class Main {
             writer.write(Encryption.getString(String.valueOf(score).getBytes(), String.valueOf(t)));
             writer.write("\nby "+System.getProperty("user.name"));
         } catch (Exception e ){}
-        try{writer.close();}catch(Exception e){}
+        try{writer.close();}catch (Exception e){}
     }
 
 }
