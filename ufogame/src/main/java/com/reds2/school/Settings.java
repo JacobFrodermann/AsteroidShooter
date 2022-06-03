@@ -13,15 +13,16 @@ import java.awt.Rectangle;
 import java.awt.Font;
 
 public class Settings implements State{
-    public int V=5,beamV=13,cooldown=15,inv=12,red=6,lives=2;
-    int[] values = {V,beamV,cooldown,inv,red,lives};
-    private static int[] MAX_VALUES = {10,20,25,20,10,4};
-    private Rectangle[] Buttons = new Rectangle[6];
-    String[] Labels = {"Ship Velocity:","Beam Velocity:","Beam Cooldown:","invincibility time:","Difficultyreduction on Death :","Extra Lives:"};
+    public int V=5,beamV=13,cooldown=5,inv=12,red=6,lives=2,astoids=4,particlesnumber=1;
+    int[] values = {V,beamV,cooldown,inv,red,lives,astoids,particlesnumber};
+    private static int[] MAX_VALUES = {10,20,25,20,10,4,8,1};
+    private Rectangle[] Buttons = new Rectangle[8];
+    String[] Labels = {"Ship Velocity:","Beam Velocity:","Beam Cooldown:","invincibility time:","Difficultyreduction on Death :","Extra Lives:","Asteroids:","Particles:"};
     Font font = new Font("h",Font.BOLD,15);
     BufferedImage done = Util.load("Done");
 
     Rectangle doneHitbox = new Rectangle(350,900,150,60);
+    public Boolean particles = true;
 
     Settings(){
         for (int i=0;i<Buttons.length;i++) {
@@ -42,6 +43,7 @@ public class Settings implements State{
         for (int i = 0;i<Buttons.length; i++){
             g.drawString(Labels[i],50,100*(i+1));
             g.drawString(String.valueOf(values[i]),320,100*(i+1));
+            g.draw(Buttons[i]);
         }
 
         g.drawImage(done,350,900,null);
@@ -54,12 +56,16 @@ public class Settings implements State{
         int x = (e.getX()-(d.width-d.height/2)/2)*1080/d.height;
 		int y = e.getY()*1080/d.height;
 
-        if (doneHitbox.contains(new java.awt.Point(x,y))) {
+        java.awt.Point p = new java.awt.Point(x,y);
+
+        if (doneHitbox.contains(p)) {
             Main.INSTANCE.current = Main.INSTANCE.menu;
         }
 
         for (int i = 0;i<Buttons.length;i++){
-            if (Buttons[i].contains(new java.awt.Point(x,y))){
+            System.out.println("yeet " + i);
+            if (Buttons[i].contains(p)){
+                System.out.println(i);
                 if(e.getButton() == 1){
                     values[i]++;
                 } else {
@@ -81,6 +87,9 @@ public class Settings implements State{
         inv = values[3];
         red = values[4];
         lives = values[5];
+        astoids = values[6];
+        particlesnumber  = values[7];
+        particles = 1 == particlesnumber;
     }
 
     @Override

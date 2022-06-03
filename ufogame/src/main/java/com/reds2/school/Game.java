@@ -31,7 +31,7 @@ public class Game implements State{
 	private	double xV = 0,yV=0,rot=-Math.PI/2, timer;
 	private List<Beam> beams = new ArrayList<Beam>();
 	Beam[][] template = new Beam[5][];
-	Boolean debug = false, death = false;
+	Boolean debug = false, death = false,renderParticles=false;
 	private int delay = 0;
 	int[] xP = new int[10] ,yP = new int[10];
 	Font f = new Font("h",Font.BOLD,150), f2 = new Font("g",Font.PLAIN,20);
@@ -92,7 +92,10 @@ public class Game implements State{
 		template[4][5] = new Beam(0,0,-.265,0,0);
 	}
 
-	void init() {lives = Main.INSTANCE.settings.lives;}
+	void init() {
+		lives = Main.INSTANCE.settings.lives;
+		renderParticles = Main.INSTANCE.settings.particles;
+	}
 
 	@Override
 	public BufferedImage draw() {
@@ -157,14 +160,14 @@ public class Game implements State{
 
 		asteroids.forEach((i)->{
 			if(i.hp<0){
-				if(i.type > 2){
-					particles.addAll(Particle.Explosion(i.x,i.y,new Color(200,200,200),i.s));	
-				} else {
-					particles.addAll(Particle.Explosion(i.x,i.y,new Color(235,215,0),i.s));
-				    if(tier !=4){tier++;}
+				if(renderParticles){
+					if(i.type > 2){
+						particles.addAll(Particle.Explosion(i.x,i.y,new Color(200,200,200),i.s));	
+					} else {
+						particles.addAll(Particle.Explosion(i.x,i.y,new Color(235,215,0),i.s));   
+					}
 				}
-
-
+				if(tier !=4 && i.type < 3){tier++;}
 			}
 		});
 		try{asteroids=asteroids.stream().filter(i->!(i.hp<0||i.y>1920)).collect(Collectors.toList());}catch(Exception e){}
@@ -227,7 +230,7 @@ public class Game implements State{
 			double rotation = Math.atan((this.y-y)/(this.x-x));  
 			if(x<this.x){rotation+=Math.PI;}
 			if (delay<0){
-				delay = Main.INSTANCE.settings.cooldown;
+				delay = Main.INSTANCE.settings.cooldown+5;
 				shoot(rotation);
 			}	
 		}
@@ -249,7 +252,7 @@ public class Game implements State{
 		asteroids.forEach(x -> {
 		try {
 			beams.forEach((Beam i)->{
-			if (x.col.intersects(i.r)){particles.add(new Particle(i.r.x-5,i.r.y,15,new Color(150,40,40))); beams.remove(i);}//true -> concurrent modification excetion
+			if (x.col.intersects(i.r)){if(renderParticles){particles.add(new Particle(i.r.x-5,i.r.y,15,new Color(150,40,40)));} beams.remove(i);}//true -> concurrent modification excetion
 		});
 		} catch (Exception e) {
 			x.hp --;
@@ -272,7 +275,7 @@ public class Game implements State{
 		reduction = 0;
 	}
 	void death() {
-		particles.addAll(Particle.Explosion(x+20, y+40, new Color(240, 140, 33), 120));
+		if(renderParticles)particles.addAll(Particle.Explosion(x+20, y+40, new Color(240, 140, 33), 120));
 		if (!death){
 			log.info("Died at "+(int) System.currentTimeMillis());
 			if (lives == 0) {
@@ -320,7 +323,7 @@ public class Game implements State{
 		if (keys.contains(38)){
 			xV += Main.INSTANCE.settings.V/4*Math.cos(rot);
 			yV += Main.INSTANCE.settings.V/4*Math.sin(rot);
-			particles.add(new Particle((int) colR.getCenterX()-10+new Random().nextInt(10),(int) colR.getCenterY(),(int) (-xV/2.5),(int) (-yV/2.5), 5, new Color(235,197,21,75)));
+			if(renderParticles)particles.add(new Particle((int) colR.getCenterX()-10+new Random().nextInt(10),(int) colR.getCenterY(),(int) (-xV/2.5),(int) (-yV/2.5), 5, new Color(235,197,21,75)));
 		}
 		if (keys.contains(40)){
 			xV /= 1.5;
@@ -334,7 +337,7 @@ public class Game implements State{
 		}
 		if (keys.contains(32)){
 			if (delay<0){
-				delay = Main.INSTANCE.settings.cooldown;
+				delay = Main.INSTANCE.settings.cooldown+5;
 				shoot(rot);
 			}
 		}
@@ -343,7 +346,7 @@ public class Game implements State{
 		if (new Random().nextInt(50)==1){anim++;anim =anim%4;}
 	}
 	void spawnAsteroid(){
-		if (new Random().nextInt(40)==1){
+		if (new Random().nextInt((10-Main.INSTANCE.settings.astoids)*10)==1){
 			asteroids.add(new Asteriod());
 		}
 	}

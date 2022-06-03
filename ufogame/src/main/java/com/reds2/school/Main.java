@@ -21,6 +21,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
+
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import com.reds2.school.enc.Encryption;
@@ -60,8 +62,8 @@ public class Main {
     }
     void init(){
         game = new Game();
-        width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        width = 1920;//Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        height = 1080;//Toolkit.getDefaultToolkit().getScreenSize().getHeight();
         frame = new JFrame(); 
         frame.setIconImage(game.ship[0]);                                                    
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);                     //Wenn geschlossen bennde Programm
@@ -146,9 +148,9 @@ public class Main {
             File f = new File("Highscore.txt");
             reader = new BufferedReader(new FileReader(f));
             int value = Integer.valueOf(reader.readLine());
-            String timestap = reader.readLine(),mac = reader.readLine();
+            String timestap = reader.readLine(),mac = reader.readLine(),user = reader.readLine(),settings = reader.readLine();
         
-            if (Encryption.getString(String.valueOf(value).getBytes(), timestap).equals(mac)) {
+            if (Encryption.getString(String.valueOf(value+user+settings).getBytes(), timestap).equals(mac)) {
                 reader.close();
                 return value;
             }
@@ -172,6 +174,8 @@ public class Main {
             writer.write(String.valueOf(t)+"\n");
             writer.write(Encryption.getString(String.valueOf(score).getBytes(), String.valueOf(t)));
             writer.write("\nby "+System.getProperty("user.name"));
+            writer.write("\nSettings:"+Main.INSTANCE.settings.V+Main.INSTANCE.settings.lives+Main.INSTANCE.settings.cooldown + Main.INSTANCE.settings.inv + Main.INSTANCE.settings.red);
+            writer.write("\nUm: "+new Date(t).toString());
         } catch (Exception e ){}
         try{writer.close();}catch (Exception e){}
     }
