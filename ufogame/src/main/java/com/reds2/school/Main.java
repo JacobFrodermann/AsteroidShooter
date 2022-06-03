@@ -68,6 +68,7 @@ public class Main {
         frame.setIconImage(game.ship[0]);                                                    
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);                     //Wenn geschlossen bennde Programm
         frame.setBackground(Color.WHITE);
+        frame.setUndecorated(true);
         frame.setBounds(0, 0, (int) width, (int) height);                       // setze Anzeigfläche größe auf maximum                     
         frame.setResizable(false);            
         canvas = new Canvas();

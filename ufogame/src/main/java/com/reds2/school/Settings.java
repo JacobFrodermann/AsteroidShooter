@@ -15,7 +15,7 @@ import java.awt.Font;
 public class Settings implements State{
     public int V=5,beamV=13,cooldown=5,inv=12,red=6,lives=2,astoids=4,particlesnumber=1;
     int[] values = {V,beamV,cooldown,inv,red,lives,astoids,particlesnumber};
-    private static int[] MAX_VALUES = {10,20,25,20,10,4,8,1};
+    private static int[] MAX_VALUES = {10,20,25,20,10,4,8,2};
     private Rectangle[] Buttons = new Rectangle[8];
     String[] Labels = {"Ship Velocity:","Beam Velocity:","Beam Cooldown:","invincibility time:","Difficultyreduction on Death :","Extra Lives:","Asteroids:","Particles:"};
     Font font = new Font("h",Font.BOLD,15);
@@ -55,6 +55,7 @@ public class Settings implements State{
     public void click(MouseEvent e, Dimension d) {
         int x = (e.getX()-(d.width-d.height/2)/2)*1080/d.height;
 		int y = e.getY()*1080/d.height;
+        System.out.println(y);
 
         java.awt.Point p = new java.awt.Point(x,y);
 
@@ -63,9 +64,7 @@ public class Settings implements State{
         }
 
         for (int i = 0;i<Buttons.length;i++){
-            System.out.println("yeet " + i);
             if (Buttons[i].contains(p)){
-                System.out.println(i);
                 if(e.getButton() == 1){
                     values[i]++;
                 } else {
