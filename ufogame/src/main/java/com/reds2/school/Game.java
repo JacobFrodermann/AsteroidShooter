@@ -11,11 +11,12 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-
+import java.util.stream.Collectors;
+import java.util.List;
 import javax.imageio.ImageIO;
 
 public class Game implements State{
-    private BufferedImage[] coin,asteriod,ship;
+    private BufferedImage[] ship;
     private BufferedImage bg;
     private int anim=0;
     private double SceneY=0;
@@ -24,7 +25,7 @@ public class Game implements State{
     private ArrayList<Integer> keys = new ArrayList<Integer>();
     private	double xV = 0,yV=0,rot=0;
     static final double HALF_PI=Math.PI/2;
-    private ArrayList<Beam> beams = new ArrayList<Beam>();
+    private List<Beam> beams = new ArrayList<Beam>();
     Color c = Color.red;
     Game(){
         ship = new BufferedImage[4];
@@ -85,8 +86,10 @@ public class Game implements State{
             c = new Color(Color.HSBtoRGB((float) (55.0+cV * 2)/100,(float)82.0/100,(float)56.0/100));
             cV++;
         }
-        if (keys.contains(92)){
-            beams.clear();
+        if (keys.contains(KeyEvent.VK_DELETE)){
+            beams.forEach(i -> {
+				i.moving = true;
+			});
         }
         if (keys.contains(90)){
             beams.remove(beams.size()-1);
@@ -95,7 +98,12 @@ public class Game implements State{
             g.setColor(i.c);
             g.setTransform(i.t);
             g.fill(i.r);
+			if (i.moving) {
+				i.r.x+=i.xV;
+				i.r.y+=i.yV;
+			}
         });
+		try{beams = beams.stream().filter(i->!(i.r.x<-35 || i.r.x>575 || i.r.y<-35 || i.r.y>1105)).collect(Collectors.toList());}catch (Exception e){}
         g.setTransform(new AffineTransform());
 
         return result;
@@ -133,6 +141,5 @@ public class Game implements State{
     public void m_release(MouseEvent e, Dimension d) {
         // TODO Auto-generated method stub
         
-    }
-    
+    }    
 }
