@@ -61,7 +61,7 @@ public class Game implements State{
 		BufferedImage atlas = Util.load("asteriodAtlas");
 		for (int i=0; i<astAtlas.length; i++) {
 			for (int j = 0; j<astAtlas[i].length; j++) {
-				astAtlas[i][j] = atlas.getSubimage(i*102+20, j*105+20, 107, 112);
+				astAtlas[i][j] = atlas.getSubimage(i*102+20, j*107+20, 107, 112);
 			} 
 		}
 		template[0] = new Beam[1];
