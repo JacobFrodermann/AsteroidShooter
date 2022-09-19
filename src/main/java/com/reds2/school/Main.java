@@ -175,7 +175,7 @@ public class Main {
             writer.write(String.valueOf(t)+"\n");
             writer.write(Encryption.getString(String.valueOf(score).getBytes(), String.valueOf(t)));
             writer.write("\nby "+System.getProperty("user.name"));
-            writer.write("\nSettings:"+Main.INSTANCE.settings.V+Main.INSTANCE.settings.lives+Main.INSTANCE.settings.cooldown + Main.INSTANCE.settings.inv + Main.INSTANCE.settings.red);
+            writer.write("\nSettings:"+Main.INSTANCE.settings.v+Main.INSTANCE.settings.lives+Main.INSTANCE.settings.cooldown + Main.INSTANCE.settings.inv + Main.INSTANCE.settings.red);
             writer.write("\nUm: "+new Date(t).toString());
         } catch (Exception e ){}
         try{writer.close();}catch (Exception e){}

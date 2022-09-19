@@ -13,10 +13,10 @@ import java.awt.Rectangle;
 import java.awt.Font;
 
 public class Settings implements State{
-    public int V=5,beamV=13,cooldown=5,inv=12,red=6,lives=2,astoids=4,particlesnumber=1;
-    int[] values = {V,beamV,cooldown,inv,red,lives,astoids,particlesnumber};
+    public int v=5,beamV=13,cooldown=5,inv=12,red=6,lives=2,astoids=4,particlesnumber=1;
+    int[] values = {v,beamV,cooldown,inv,red,lives,astoids,particlesnumber};
     private static int[] MAX_VALUES = {10,20,25,20,10,4,8,2};
-    private Rectangle[] Buttons = new Rectangle[8];
+    private Rectangle[] buttons = new Rectangle[7], switches = new Rectangle[1];
     String[] Labels = {"Ship Velocity:","Beam Velocity:","Beam Cooldown:","invincibility time:","Difficultyreduction on Death :","Extra Lives:","Asteroids:","Particles:"};
     Font font = new Font("h",Font.BOLD,15);
     BufferedImage done = Util.load("Done");
@@ -25,8 +25,12 @@ public class Settings implements State{
     public Boolean particles = true;
 
     Settings(){
-        for (int i=0;i<Buttons.length;i++) {
-            Buttons[i]=new Rectangle(300,100*(i+1)-20,50,25);
+        for (int i=0;i<buttons.length;i++) {
+            buttons[i]=new Rectangle(300,100*(i+1)-20,50,25);
+        }
+    
+        for (int i=buttons.length;i<buttons.length+switches.length;i++) {
+            switches[i-buttons.length]=new Rectangle(300,100*(i+1)-20,50,25);
         }
     }
     @Override
@@ -40,10 +44,19 @@ public class Settings implements State{
 
         g.setFont(font);
 
-        for (int i = 0;i<Buttons.length; i++){
+        for (int i = 0;i<buttons.length; i++){
             g.drawString(Labels[i],50,100*(i+1));
             g.drawString(String.valueOf(values[i]),320,100*(i+1));
-            g.draw(Buttons[i]);
+            g.draw(buttons[i]);
+        }
+        for (int i=buttons.length;i<buttons.length+switches.length;i++) {
+            g.drawString(Labels[i],50,100*(i+1));
+            g.draw(switches[i-buttons.length]);
+            if (particles) {
+                g.drawString("True", 310, 100*(i+1));
+            } else {
+                g.drawString("False", 310, 100*(i+1));
+            }
         }
 
         g.drawImage(done,350,900,null);
@@ -55,7 +68,6 @@ public class Settings implements State{
     public void click(MouseEvent e, Dimension d) {
         int x = (e.getX()-(d.width-d.height/2)/2)*1080/d.height;
 		int y = e.getY()*1080/d.height;
-        System.out.println(y);
 
         java.awt.Point p = new java.awt.Point(x,y);
 
@@ -63,8 +75,17 @@ public class Settings implements State{
             Main.INSTANCE.current = Main.INSTANCE.menu;
         }
 
-        for (int i = 0;i<Buttons.length;i++){
-            if (Buttons[i].contains(p)){
+        for (int i = 0;i<buttons.length;i++){
+            if (buttons[i].contains(p)){
+                if(e.getButton() == 1){
+                    values[i]++;
+                } else {
+                    values[i]--;
+                }
+            }
+        }
+        for (int i = buttons.length;i<switches.length+buttons.length;i++){
+            if (switches[i-buttons.length].contains(p)){
                 if(e.getButton() == 1){
                     values[i]++;
                 } else {
@@ -80,7 +101,7 @@ public class Settings implements State{
             }
         }
 
-        V = values[0];
+        v = values[0];
         beamV = values[1];
         cooldown = values[2];
         inv = values[3];

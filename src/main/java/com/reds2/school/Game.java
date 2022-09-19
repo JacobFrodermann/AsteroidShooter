@@ -321,8 +321,8 @@ public class Game implements State{
 	}
 	void keyboradcheck(){
 		if (keys.contains(38)){
-			xV += Main.INSTANCE.settings.V/4*Math.cos(rot);
-			yV += Main.INSTANCE.settings.V/4*Math.sin(rot);
+			xV += Main.INSTANCE.settings.v/4*Math.cos(rot);
+			yV += Main.INSTANCE.settings.v/4*Math.sin(rot);
 			if(renderParticles)particles.add(new Particle((int) colR.getCenterX()-10+new Random().nextInt(10),(int) colR.getCenterY(),(int) (-xV/2.5),(int) (-yV/2.5), 5, new Color(235,197,21,75)));
 		}
 		if (keys.contains(40)){
