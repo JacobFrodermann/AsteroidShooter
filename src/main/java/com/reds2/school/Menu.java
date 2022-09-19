@@ -13,14 +13,10 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class Menu implements State{
     String state = "Main";
     BufferedImage bg, start, settings, quit;
     Rectangle startR = new Rectangle(140,363,256,87), settingsR = new Rectangle(122,470,291,70), quitR = new Rectangle(160,560,150,87);
-	static final Logger log = LoggerFactory.getLogger(Main.class);
 
     Menu(){
         bg = Util.load("actionfieldBg1");

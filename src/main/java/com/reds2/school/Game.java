@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.reds2.school.util.Util;
 
@@ -45,7 +43,6 @@ public class Game implements State{
 	int reduction = 0;
     int inv=0;
 	long frameTime = 0;
-	private static final Logger log = LoggerFactory.getLogger(Main.class);
 
 
 	Game(){
@@ -277,12 +274,10 @@ public class Game implements State{
 	void death() {
 		if(renderParticles)particles.addAll(Particle.Explosion(x+20, y+40, new Color(240, 140, 33), 120));
 		if (!death){
-			log.info("Died at "+(int) System.currentTimeMillis());
 			if (lives == 0) {
 				death = true;
 				menu = new GameMenu(time,Highscore);
 				if(Highscore<time){
-					log.info("New Highscore "+(int)time);
 					Highscore = (int) Math.floor(time);
 					Main.INSTANCE.saveHighscore((int) Math.floor(time));
 				}	

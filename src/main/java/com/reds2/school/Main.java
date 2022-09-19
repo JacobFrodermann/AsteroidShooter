@@ -26,15 +26,11 @@ import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import com.reds2.school.enc.Encryption;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 
 
 public class Main {
     BufferedImage bg;
     public static Main INSTANCE;
-	private static final Logger log = LoggerFactory.getLogger(Main.class);
     int skin = 0;
     public Dimension d;
 
@@ -116,7 +112,6 @@ public class Main {
         frame.setVisible(true);
 		canvas.createBufferStrategy(2);
 		canvas.requestFocus();
-        log.debug("created Frame");
     }
 
     public static void render(Canvas canvas, BufferedImage img) {
