@@ -62,8 +62,8 @@ public class Main {
     }
     void init(){
         game = new Game();
-        width = 1920;//Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        height = 1080;//Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
         frame = new JFrame(); 
         frame.setIconImage(game.ship[0]);                                                    
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);                     //Wenn geschlossen bennde Programm

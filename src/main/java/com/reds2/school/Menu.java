@@ -1,6 +1,8 @@
 package com.reds2.school;
 
 import java.awt.image.BufferedImage;
+import java.lang.module.ResolutionException;
+
 import com.reds2.school.util.Util;
 
 import java.awt.Dimension;
@@ -16,14 +18,15 @@ import org.slf4j.LoggerFactory;
 
 public class Menu implements State{
     String state = "Main";
-    BufferedImage bg, start, settings;
-    Rectangle startR = new Rectangle(140,363,256,87), settingsR = new Rectangle(122,470,291,70);
+    BufferedImage bg, start, settings, quit;
+    Rectangle startR = new Rectangle(140,363,256,87), settingsR = new Rectangle(122,470,291,70), quitR = new Rectangle(160,560,150,87);
 	static final Logger log = LoggerFactory.getLogger(Main.class);
 
     Menu(){
         bg = Util.load("actionfieldBg1");
         start = Util.load("Start");
         settings =Util.load("Settings");
+        quit = Util.load("Quit");
     }
 
     public BufferedImage draw(){
@@ -35,6 +38,7 @@ public class Menu implements State{
         g.drawImage(bg, 0, 0, 540, 1080, null);
         g.drawImage(start, 140,363,256,87,null);
         g.drawImage(settings,122,470,291,70,null);
+        g.drawImage(quit, 180, 560, null);
         
         return result;
     }
@@ -61,6 +65,9 @@ public class Menu implements State{
         }
         if(settingsR.contains(new Point(x,y))){
             Main.INSTANCE.current = Main.INSTANCE.settings;
+        }
+        if (quitR.contains(new Point(x,y))){
+            System.exit(0);
         }
     }
 
