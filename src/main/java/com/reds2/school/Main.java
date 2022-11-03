@@ -128,13 +128,9 @@ public class Main {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
-		// hier kann man wie in SAS nur durch awt auf eine Bild im Buffer mahlen das in einer 1/60 s angezeigt wird
         g.drawImage(bg, 0, 0, size.width, size.height,null);
         g.drawImage(current.draw(),(size.width-size.height/2)/2,0,size.height/2,size.height,null);
-        
-        
-        //g.setColor(Color.red);
-        //g.fillRect(0,10,10,10);
+
 		return result;
 	}
 
