@@ -33,11 +33,11 @@ public class Game implements State{
 	private int delay = 0;
 	int[] xP = new int[10] ,yP = new int[10];
 	Font f = new Font("h",Font.BOLD,150), f2 = new Font("g",Font.PLAIN,20);
-	private List<Asteriod> asteroids = new ArrayList<Asteriod>();
+	//private List<Asteriod> asteroids = new ArrayList<Asteriod>();
 	Rectangle colR  = new Rectangle((int) x+29,(int) y+38, 24, 40);
 	private List<Particle> particles = new ArrayList<Particle>();
 	private Rectangle[] Buttons = new Rectangle[2];
-	private BufferedImage[][] astAtlas = new BufferedImage[8][8];
+	//private BufferedImage[][] astAtlas = new BufferedImage[8][8];
 	private int tier = 0,Highscore;
 	int lives = Main.INSTANCE.settings.lives;
 	int reduction = 0;
@@ -55,12 +55,12 @@ public class Game implements State{
 		}
 		bg  = Util.load("GameBG");
 		
-		BufferedImage atlas = Util.load("asteriodAtlas");
+		/*BufferedImage atlas = Util.load("asteriodAtlas");
 		for (int i=0; i<astAtlas.length; i++) {
 			for (int j = 0; j<astAtlas[i].length; j++) {
 				astAtlas[i][j] = atlas.getSubimage(i*102+20, j*107+20, 107, 112);
 			} 
-		}
+		}*/
 		template[0] = new Beam[1];
 		template[0][0] = new Beam(0,0,0,0,0);
 
@@ -139,7 +139,7 @@ public class Game implements State{
 		if(!death){
 			animate();
 			keyboradcheck();
-			spawnAsteroid();
+			//spawnAsteroid();
 			time += 1d/60d;	
 		} else{
 			anim = 4;
@@ -154,7 +154,7 @@ public class Game implements State{
 		delay--;
 
 		boundaryCheck(g);
-
+/*
 		asteroids.forEach((i)->{
 			if(i.hp<0){
 				if(renderParticles){
@@ -169,7 +169,7 @@ public class Game implements State{
 		});
 		try{asteroids=asteroids.stream().filter(i->!(i.hp<0||i.y>1920)).collect(Collectors.toList());}catch(Exception e){}
 		Asteriod.bulkDraw(asteroids,g,astAtlas);
-		bulkCol();
+		bulkCol();*/
 		
 		g.setFont(f2);
 		g.setColor(Color.white);
@@ -245,7 +245,7 @@ public class Game implements State{
 		
 	}
 	
-	void bulkCol(){
+	/*void bulkCol(){
 		asteroids.forEach(x -> {
 		try {
 			beams.forEach((Beam i)->{
@@ -255,10 +255,10 @@ public class Game implements State{
 			x.hp --;
 		}
 		});
-	}
+	}*/
 	void reset(){
 		time = 0;
-		asteroids.clear();
+		//asteroids.clear();
 		beams.clear();
 		x=250;
 		y=800;
@@ -340,9 +340,9 @@ public class Game implements State{
 	void animate(){
 		if (new Random().nextInt(50)==1){anim++;anim =anim%4;}
 	}
-	void spawnAsteroid(){
+	/*void spawnAsteroid(){
 		if (new Random().nextInt((10-Main.INSTANCE.settings.astoids)*10)==1){
 			asteroids.add(new Asteriod());
 		}
-	}
+	}*/
 }
