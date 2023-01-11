@@ -159,9 +159,9 @@ public class Game implements State{
 			if(i.hp<0){
 				if(renderParticles){
 					if(i.type > 2){
-						particles.addAll(Particle.Explosion(i.x,i.y,new Color(200,200,200),i.s));	
+						particles.addAll(Particle.Explosion(i.x,i.y,i.xV,i.yV,new Color(200,200,200),i.s));	
 					} else {
-						particles.addAll(Particle.Explosion(i.x,i.y,new Color(235,215,0),i.s));   
+						particles.addAll(Particle.Explosion(i.x,i.y,i.xV,i.yV,new Color(235,215,0),i.s));   
 					}
 				}
 				if(tier !=4 && i.type < 3){tier++;}
@@ -239,11 +239,7 @@ public class Game implements State{
 	}
 
 	@Override
-	public void m_release(MouseEvent e, Dimension d) {
-
-		// TODO Auto-generated method stub
-		
-	}
+	public void m_release(MouseEvent e, Dimension d) {}
 	
 	void bulkCol(){
 		asteroids.forEach(x -> {
@@ -272,7 +268,7 @@ public class Game implements State{
 		reduction = 0;
 	}
 	void death() {
-		if(renderParticles)particles.addAll(Particle.Explosion(x+20, y+40, new Color(240, 140, 33), 120));
+		if(renderParticles)particles.addAll(Particle.Explosion(x+20, y+40,xV,yV, new Color(240, 140, 33), 120));
 		if (!death){
 			if (lives == 0) {
 				death = true;
@@ -318,7 +314,11 @@ public class Game implements State{
 		if (keys.contains(38)){
 			xV += Main.INSTANCE.settings.v/4*Math.cos(rot);
 			yV += Main.INSTANCE.settings.v/4*Math.sin(rot);
-			if(renderParticles)particles.add(new Particle((int) colR.getCenterX()-10+new Random().nextInt(10),(int) colR.getCenterY(),(int) (-xV/2.5),(int) (-yV/2.5), 5, new Color(235,197,21,75)));
+			if(renderParticles)particles.add(new Particle(
+				(int) colR.getCenterX()-10+new Random().nextInt(10),
+				(int) colR.getCenterY(),(int) -xV,(int) -yV,
+				5,
+				 new Color(235,197,21,75)));
 		}
 		if (keys.contains(40)){
 			xV /= 1.5;
@@ -338,7 +338,7 @@ public class Game implements State{
 		}
 	}
 	void animate(){
-		if (new Random().nextInt(50)==1){anim++;anim =anim%4;}
+		if (new Random().nextInt(25)==1){anim++;anim =anim%4;}
 	}
 	void spawnAsteroid(){
 		if (new Random().nextInt((10-Main.INSTANCE.settings.astoids)*10)==1){

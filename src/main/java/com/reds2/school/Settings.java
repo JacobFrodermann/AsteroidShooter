@@ -113,16 +113,10 @@ public class Settings implements State{
     }
 
     @Override
-    public void drag(MouseEvent e, Dimension d) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void drag(MouseEvent e, Dimension d) {}
 
     @Override
-    public void m_release(MouseEvent e, Dimension d) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void m_release(MouseEvent e, Dimension d) {}
 
     @Override
     public void press(KeyEvent e) {
@@ -134,9 +128,5 @@ public class Settings implements State{
     }
 
     @Override
-    public void release(KeyEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
-    
+    public void release(KeyEvent e) {}
 }

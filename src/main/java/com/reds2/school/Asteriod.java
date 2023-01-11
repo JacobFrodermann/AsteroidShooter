@@ -33,7 +33,7 @@ class Asteriod{
         try {
             out.forEach((i)->{
                 if(i.y>1090||i.hp==0){
-                    particles.addAll(out.size(), Particle.Explosion((int)i.x,(int) i.y, new Color(50,50,50), i.s)); 
+                    particles.addAll(out.size(), Particle.Explosion((int)i.x,(int) i.y,i.xV,i.yV, new Color(50,50,50), i.s)); 
                     out.remove(i);
                 }});
                 return out;

@@ -1,10 +1,7 @@
 package com.reds2.school;
 
 import java.awt.image.BufferedImage;
-import java.lang.module.ResolutionException;
-
 import com.reds2.school.util.Util;
-
 import java.awt.Dimension;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
@@ -40,15 +37,9 @@ public class Menu implements State{
     }
 
     @Override
-    public void press(KeyEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void press(KeyEvent e) {}
     @Override
-    public void release(KeyEvent e) { 
-        // TODO Auto-generated method stub
-        
-    }
+    public void release(KeyEvent e) { }
 
     @Override
     public void click(MouseEvent e, Dimension d) {
@@ -68,14 +59,8 @@ public class Menu implements State{
     }
 
     @Override
-    public void drag(MouseEvent e, Dimension d) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void drag(MouseEvent e, Dimension d) {}
 
     @Override
-    public void m_release(MouseEvent e, Dimension d) {
-        // TODO Auto-generated method stub
-        
-    }
+    public void m_release(MouseEvent e, Dimension d) {}
 }

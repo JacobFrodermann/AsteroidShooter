@@ -33,6 +33,7 @@ public class Main {
     public static Main INSTANCE;
     int skin = 0;
     public Dimension d;
+    public Boolean logging = true;
 
     public static void main(String[] args) throws IOException, InterruptedException {
 		INSTANCE = new Main();
@@ -80,23 +81,17 @@ public class Main {
             }
 
             @Override
-            public void keyTyped(KeyEvent e) {
-                // TODO Auto-generated method stub
-                
-            }
+            public void keyTyped(KeyEvent e) {}
 		});
         canvas.addMouseListener(new MouseListener() {
 
             @Override
-            public void mouseClicked(MouseEvent e) {
-                // TODO Auto-generated method stub
-                
-            }
+            public void mouseClicked(MouseEvent e) {}
 
             @Override
             public void mouseEntered(MouseEvent e) {}
             @Override
-            public void mouseExited(MouseEvent e) {}//werde ich nicht nutzen
+            public void mouseExited(MouseEvent e) {}
 
             @Override
             public void mousePressed(MouseEvent e) {
@@ -176,4 +171,9 @@ public class Main {
         try{writer.close();}catch (Exception e){}
     }
 
+    public static void log(Object o) {
+        if (Main.INSTANCE.logging) {
+            System.out.println(o);
+        }
+    }
 }

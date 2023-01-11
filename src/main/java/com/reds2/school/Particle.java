@@ -24,11 +24,13 @@ public class Particle {
 		this.x = x;
 		this.y = y;
 	}
-	static List<Particle> Explosion(double x,double y,Color c,int size){
+	static List<Particle> Explosion(double x,double y,double StartX, double StartY,Color c,int size){
 		Random rng = new Random();
 		List<Particle>out = new ArrayList<Particle>();
 		for (int i = rng.nextInt(5);i<size/10;i++){
-			out.add(new Particle((int)x,(int) y,rng.nextInt(4)-2,rng.nextInt(4)-2, size/4, c));
+			double dir = new Random().nextDouble()*Math.PI*2;
+		    int speed = (new Random().nextInt(8)-4)*(size/10+1);
+			out.add(new Particle((int)x,(int) y,(int) (Math.cos(dir)*speed/3+StartX),(int) (Math.sin(dir)*speed/3+StartY), size/4, c));
 		}
 		return out;
 	}
