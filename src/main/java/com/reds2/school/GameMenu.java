@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 public class GameMenu extends BufferedImage {
     private BufferedImage bg = Util.load("GameMenuBG"),home = Util.load("HomeButton"),restart = Util.load("restart");
     private Font bigFont = new Font("h",1,35),font = new Font("g",1,20);
-        GameMenu(double score,int Highscore_){    
+        GameMenu(double score,int Highscore_, boolean dead){    
         super(300,250, BufferedImage.TYPE_INT_RGB);
         double time = Double.valueOf(score);//No References
         int Highscore = Integer.valueOf(Highscore_);
@@ -24,7 +24,7 @@ public class GameMenu extends BufferedImage {
 
         g.setFont(bigFont);
         g.setColor(Color.RED);
-        g.drawString("Game Over", 60, 40);
+        if(dead) g.drawString("Game Over", 60, 40);
 
         g.setFont(font);
         g.setColor(Color.white);

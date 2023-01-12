@@ -6,6 +6,11 @@ import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 
 import com.reds2.school.util.Util;
 
@@ -13,9 +18,10 @@ import java.awt.Rectangle;
 import java.awt.Font;
 
 public class Settings implements State{
-    public int v=5,beamV=13,cooldown=5,inv=12,red=6,lives=2,astoids=4,particlesnumber=1;
+    public int v=5,beamV=20,cooldown=5,inv=12,red=6,lives=2,astoids=4,particlesnumber=1;
     int[] values = {v,beamV,cooldown,inv,red,lives,astoids,particlesnumber};
-    private static int[] MAX_VALUES = {10,20,25,20,10,4,8,2};
+    private static int[] MAX_VALUES = {10,30,25,20,10,4,8,2};
+    private static int[] MIN_VALUES = {2 ,10,5 ,5 ,0 ,0,1,1};
     private Rectangle[] buttons = new Rectangle[7], switches = new Rectangle[1];
     String[] Labels = {"Ship Velocity:","Beam Velocity:","Beam Cooldown:","invincibility time:","Difficultyreduction on Death :","Extra Lives:","Asteroids:","Particles:"};
     Font font = new Font("h",Font.BOLD,15);
@@ -25,12 +31,15 @@ public class Settings implements State{
     public Boolean particles = true;
 
     Settings(){
+        font.deriveFont(Font.CENTER_BASELINE, 0f);
+        font.deriveFont(Font.TYPE1_FONT, 0f);
+
         for (int i=0;i<buttons.length;i++) {
-            buttons[i]=new Rectangle(300,100*(i+1)-20,50,25);
+            buttons[i]=new Rectangle(300,50*(i+1)+180,50,25);
         }
     
         for (int i=buttons.length;i<buttons.length+switches.length;i++) {
-            switches[i-buttons.length]=new Rectangle(300,100*(i+1)-20,50,25);
+            switches[i-buttons.length]=new Rectangle(300,50*(i+1)+180,50,25);
         }
     }
     @Override
@@ -45,17 +54,17 @@ public class Settings implements State{
         g.setFont(font);
 
         for (int i = 0;i<buttons.length; i++){
-            g.drawString(Labels[i],50,100*(i+1));
-            g.drawString(String.valueOf(values[i]),320,100*(i+1));
+            g.drawString(Labels[i],50,50*(i+1)+200);
+            g.drawString(String.valueOf(values[i]),320,50*(i+1)+200);
             g.draw(buttons[i]);
         }
         for (int i=buttons.length;i<buttons.length+switches.length;i++) {
-            g.drawString(Labels[i],50,100*(i+1));
+            g.drawString(Labels[i],50,50*(i+1)+200);
             g.draw(switches[i-buttons.length]);
             if (particles) {
-                g.drawString("True", 310, 100*(i+1));
+                g.drawString("True", 310, 50*(i+1)+200);
             } else {
-                g.drawString("False", 310, 100*(i+1));
+                g.drawString("False", 310, 50*(i+1)+200);
             }
         }
 
@@ -96,7 +105,7 @@ public class Settings implements State{
 
         for (int i = 0;i<values.length;i++){
             values[i] %= MAX_VALUES[i];
-            if (values[i] == 0) {
+            if (values[i] == MIN_VALUES[i]-1) {
                 values[i] = MAX_VALUES[i];
             }
         }
@@ -122,7 +131,12 @@ public class Settings implements State{
     public void press(KeyEvent e) {
         switch (e.getKeyCode()){
             case KeyEvent.VK_DELETE:
-                Main.INSTANCE.current = Main.INSTANCE.menu;
+            File f = new File("Settings.dat");
+            try {Writer writer = new BufferedWriter(new FileWriter(f));
+            for (int v : values) writer.write(String.valueOf(v*132+4)+"\n");
+            writer.close();} catch (Throwable t){}
+            
+            Main.INSTANCE.current = Main.INSTANCE.menu;
         }
         
     }

@@ -25,6 +25,7 @@ import javax.imageio.stream.ImageOutputStream;
 import com.reds2.school.util.Util;
 
 
+
 public class Game implements State{
 	BufferedImage[] ship;
 	private BufferedImage bg, menu;
@@ -49,6 +50,8 @@ public class Game implements State{
 	int reduction = 0;
     int inv=0;
 	long frameTime = 0;
+	Boolean paused = false;
+	int ptime = 0;
 
 
 	Game(){
@@ -120,6 +123,7 @@ public class Game implements State{
 		}
 
 		Particle.draw(g,particles);	
+		Asteriod.bulkDraw(asteroids,g,astAtlas);
 
 		g.setColor(Color.red);
 		try{beams = beams.stream().filter(i->!(i.r.x<-35 || i.r.x>575 || i.r.y<-35 || i.r.y>1105)).collect(Collectors.toList());}catch (Exception e){}
@@ -128,62 +132,34 @@ public class Game implements State{
 			trans.rotate(i.rot,i.r.getCenterX(),i.r.getCenterY());
 			g.setTransform(trans);
 			g.fill(i.r);
-			i.r.x += i.xV;
-			i.r.y += i.yV;
+			if(!paused){i.r.x += i.xV;
+			i.r.y += i.yV;}
 		});}catch(Exception e){}
 		g.setTransform(new AffineTransform());
 
-		if(!(inv>0 && inv%10<5)){
+		if(!(inv>0 && inv%10<5)){                      // Draw Ship
 			AffineTransform t = g.getTransform();
 			t.rotate(rot+Math.PI/2,x+40,y+60);
-
 			g.setTransform(t);
 			g.drawImage(ship[anim],(int)x,(int)y,80,120,null);
 			g.setTransform(new AffineTransform());
 		}
 
-		if(!death){
-			animate();
-			keyboradcheck();
-			spawnAsteroid();
-			time += 1d/60d;	
-		} else{
-			anim = 4;
-			if (keys.contains(10)){
-				reset();
-			}
-			g.drawImage(menu, 110, 400, null);
-		}
-
-		move();
-
-		delay--;
-
-		boundaryCheck(g);
-
-		asteroids.forEach((i)->{
-			if(i.hp<0){
-				if(renderParticles){
-					if(i.type > 2){
-						particles.addAll(Particle.Explosion(i.x,i.y,i.xV,i.yV,new Color(200,200,200),i.s));	
-					} else {
-						particles.addAll(Particle.Explosion(i.x,i.y,i.xV,i.yV,new Color(235,215,11),i.s));   
-					}
-				}
-				if(tier !=4 && i.type < 3){tier++;}
-			}
-		});
-		try{asteroids=asteroids.stream().filter(i->!(i.hp<0||i.y>1920)).collect(Collectors.toList());}catch(Exception e){}
-		Asteriod.bulkDraw(asteroids,g,astAtlas);
-		bulkCol();
+		if (!paused) tick(g);
 		
-		g.setFont(f2);
+		g.setFont(f2);                                  // Draw Highscore
 		g.setColor(Color.white);
 		g.drawString(String.valueOf((int)time), 460, 20);
 		g.drawString("Highscore: " + Highscore,15,20);
 
-		frameTime = System.currentTimeMillis()-frameTime;
+		keyboradcheck();
+		
+		if (paused) {
+			g.drawImage(menu, 110, 400, null);}
 
+		ptime --;
+
+		frameTime = System.currentTimeMillis()-frameTime;
 		return result;
 	}
 
@@ -213,7 +189,7 @@ public class Game implements State{
 	public void click(MouseEvent e, Dimension d) {
 		int x = (e.getX()-(d.width-d.height/2)/2)*1080/d.height;
 		int y = e.getY()*1080/d.height;
-		if(death){
+		if(death || paused){
 			int which=0;
 			Point p =new Point(x,y);
 			for (Rectangle i:Buttons){
@@ -222,13 +198,8 @@ public class Game implements State{
 				}
 				which++;
 			}
-			switch (which){
-				case 0:
-					Main.INSTANCE.current = Main.INSTANCE.menu;
-				case 1:
-					reset();
-					break;
-			}
+			if (which == 0) Main.INSTANCE.current = Main.INSTANCE.menu;
+			else reset();
 		} else {
 			double rotation = Math.atan((this.y-y)/(this.x-x));  
 			if(x<this.x){rotation+=Math.PI;}
@@ -249,6 +220,8 @@ public class Game implements State{
 	
 	void bulkCol(){
 		asteroids.forEach(x -> {
+		x.x += x.xV*2;
+		x.y += x.yV*2;
 		try {
 			beams.forEach((Beam i)->{
 			if (x.col.intersects(i.r)){if(renderParticles){particles.add(new Particle(i.r.x-5,i.r.y,15,new Color(150,40,40)));} beams.remove(i);}//true -> concurrent modification excetion
@@ -259,6 +232,7 @@ public class Game implements State{
 		});
 	}
 	void reset(){
+		paused = false;
 		time = 0;
 		asteroids.clear();
 		beams.clear();
@@ -278,7 +252,7 @@ public class Game implements State{
 		if (!death){
 			if (lives == 0) {
 				death = true;
-				menu = new GameMenu(time,Highscore);
+				menu = new GameMenu(time,Highscore,true);
 				if(Highscore<time){
 					Highscore = (int) Math.floor(time);
 					Main.INSTANCE.saveHighscore((int) Math.floor(time));
@@ -317,31 +291,32 @@ public class Game implements State{
 		} else {timer = 3d;}
 	}
 	void keyboradcheck(){
-		if (keys.contains(38)){
-			xV += Main.INSTANCE.settings.v/4*Math.cos(rot);
-			yV += Main.INSTANCE.settings.v/4*Math.sin(rot);
+		if (keys.contains(38)&&!paused){
+			xV += (double)Main.INSTANCE.settings.v/5.5*Math.cos(rot);
+			yV += (double)Main.INSTANCE.settings.v/5.5*Math.sin(rot);
 			if(renderParticles)particles.add(new Particle(
 				(int) colR.getCenterX()-10+new Random().nextInt(10),
 				(int) colR.getCenterY(),(int) -(Math.cos(rot)*Main.INSTANCE.settings.v*2),(int) -(Math.sin(rot)*Main.INSTANCE.settings.v*2),
 				5,
 				 new Color(235,197,21,75)));
 		}
-		if (keys.contains(40)){
+		if (keys.contains(40) &&!paused){
 			xV /= 1.5;
 			yV /= 1.5;
 		}
-		if (keys.contains(37)){
+		if (keys.contains(37) &&!paused){
 			rot -= 0.1;
 		}
-		if (keys.contains(39)){
+		if (keys.contains(39) &&!paused){
 			rot += 0.1;
 		}
-		if (keys.contains(32)){
+		if (keys.contains(32) &&!paused){
 			if (delay<0){
 				delay = Main.INSTANCE.settings.cooldown+5;
 				shoot(rot);
 			}
 		}
+		if (keys.contains(KeyEvent.VK_ESCAPE) && ptime < 0) {paused =! paused;menu = new GameMenu(time,Highscore,false);ptime = 10;}
 	}
 	void animate(){
 		if (new Random().nextInt(25)==1){anim++;anim =anim%4;}
@@ -350,5 +325,40 @@ public class Game implements State{
 		if (new Random().nextInt((10-Main.INSTANCE.settings.astoids)*10)==1){
 			asteroids.add(new Asteriod());
 		}
+	}
+	void tick(Graphics2D g) {
+		if(!death){
+			animate();
+			keyboradcheck();
+			spawnAsteroid();
+			time += 1d/60d;	
+		} else{
+			anim = 4;
+			if (keys.contains(10)){
+				reset();
+			}
+			g.drawImage(menu, 110, 400, null);
+		}
+
+		move();
+
+		delay--;
+
+		boundaryCheck(g);
+
+		asteroids.forEach((i)->{
+			if(i.hp<0){
+				if(renderParticles){
+					if(i.type > 2){
+						particles.addAll(Particle.Explosion(i.x,i.y,i.xV,i.yV,new Color(200,200,200),i.s));	
+					} else {
+						particles.addAll(Particle.Explosion(i.x,i.y,i.xV,i.yV,new Color(235,215,11),i.s));   
+					}
+				}
+				if(tier !=4 && i.type < 3){tier++;}
+			}
+		});
+		try{asteroids=asteroids.stream().filter(i->!(i.hp<0||i.y>1920)).collect(Collectors.toList());}catch(Exception e){}
+		bulkCol();
 	}
 }

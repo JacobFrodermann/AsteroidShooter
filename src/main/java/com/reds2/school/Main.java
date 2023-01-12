@@ -40,7 +40,7 @@ public class Main {
 		INSTANCE.init();
         while(true) {
             render(INSTANCE.canvas, INSTANCE.draw(INSTANCE.canvas.getSize()));
-            try{Thread.sleep(1000 / 60-Main.INSTANCE.game.frameTime);}catch(Exception e){}//Führe 60 mal/s Main.draw aus
+            try{Thread.sleep(1000 / 40-Main.INSTANCE.game.frameTime);}catch(Exception e){}//Führe 60 mal/s Main.draw aus
         }
     }
 
