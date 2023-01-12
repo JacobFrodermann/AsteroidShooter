@@ -12,4 +12,7 @@ public interface State {
     void m_release(MouseEvent e,Dimension d);
     void press(KeyEvent e);
     void release(KeyEvent e);
+    public int getScreenX();
+    public int getScreenY();
 }
+

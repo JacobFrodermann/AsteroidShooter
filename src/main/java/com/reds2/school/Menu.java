@@ -2,6 +2,7 @@ package com.reds2.school;
 
 import java.awt.image.BufferedImage;
 import com.reds2.school.util.Util;
+import lombok.Getter;
 import java.awt.Dimension;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
@@ -11,6 +12,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 public class Menu implements State{
+    @Getter int ScreenX = 540, ScreenY = 1080;
     String state = "Main";
     BufferedImage bg, start, settings, quit;
     Rectangle startR = new Rectangle(140,363,256,87), settingsR = new Rectangle(122,470,291,70), quitR = new Rectangle(160,560,150,87);
@@ -23,7 +25,7 @@ public class Menu implements State{
     }
 
     public BufferedImage draw(){
-        BufferedImage result = new BufferedImage(540, 1080, BufferedImage.TYPE_INT_RGB);
+        BufferedImage result = new BufferedImage(ScreenX,ScreenY, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = (Graphics2D) result.getGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);

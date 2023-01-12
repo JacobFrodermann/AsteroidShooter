@@ -9,11 +9,9 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.Writer;
-
 import com.reds2.school.util.Util;
-
+import lombok.Getter;
 import java.awt.Rectangle;
 import java.awt.Font;
 
@@ -25,9 +23,10 @@ public class Settings implements State{
     private Rectangle[] buttons = new Rectangle[7], switches = new Rectangle[1];
     String[] Labels = {"Ship Velocity:","Beam Velocity:","Beam Cooldown:","invincibility time:","Difficultyreduction on Death :","Extra Lives:","Asteroids:","Particles:"};
     Font font = new Font("h",Font.BOLD,15);
-    BufferedImage done = Util.load("Done");
+    BufferedImage done = Util.load("Done"), bg = Util.load("Settings_BG");
+    @Getter int ScreenX = 720, ScreenY = 1080;
 
-    Rectangle doneHitbox = new Rectangle(350,900,150,60);
+    Rectangle doneHitbox = new Rectangle(285,970,150,60);
     public Boolean particles = true;
 
     Settings(){
@@ -35,48 +34,48 @@ public class Settings implements State{
         font.deriveFont(Font.TYPE1_FONT, 0f);
 
         for (int i=0;i<buttons.length;i++) {
-            buttons[i]=new Rectangle(300,50*(i+1)+180,50,25);
+            buttons[i]=new Rectangle(480,40*(i+1)+605,50,35);
         }
     
         for (int i=buttons.length;i<buttons.length+switches.length;i++) {
-            switches[i-buttons.length]=new Rectangle(300,50*(i+1)+180,50,25);
+            switches[i-buttons.length]=new Rectangle(480,40*(i+1)+605,50,35);
         }
     }
-    @Override
+
     public BufferedImage draw() {
-        BufferedImage result = new BufferedImage(540, 1080, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage result = new BufferedImage(ScreenX, ScreenY, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) result.getGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-        g.setColor(java.awt.Color.white);
+        g.setColor(java.awt.Color.black);
+
+        g.drawImage(bg, 0, 0, 720, 1080, null);
 
         g.setFont(font);
 
         for (int i = 0;i<buttons.length; i++){
-            g.drawString(Labels[i],50,50*(i+1)+200);
-            g.drawString(String.valueOf(values[i]),320,50*(i+1)+200);
-            g.draw(buttons[i]);
+            g.drawString(Labels[i],150,40*(i+1)+630);
+            g.drawString(String.valueOf(values[i]),500,40*(i+1)+630);
         }
         for (int i=buttons.length;i<buttons.length+switches.length;i++) {
-            g.drawString(Labels[i],50,50*(i+1)+200);
-            g.draw(switches[i-buttons.length]);
+            g.drawString(Labels[i],150,40*(i+1)+630);
             if (particles) {
-                g.drawString("True", 310, 50*(i+1)+200);
+                g.drawString("True" , 485, 40*(i+1)+630);
             } else {
-                g.drawString("False", 310, 50*(i+1)+200);
+                g.drawString("False", 485, 40*(i+1)+630);
             }
         }
 
-        g.drawImage(done,350,900,null);
+        g.drawImage(done,doneHitbox.x,doneHitbox.y,null);
 
         return result;
     }
 
     @Override
     public void click(MouseEvent e, Dimension d) {
-        int x = (e.getX()-(d.width-d.height/2)/2)*1080/d.height;
-		int y = e.getY()*1080/d.height;
+        int x = e.getX()-(960-ScreenX/2);
+		int y = e.getY();
 
         java.awt.Point p = new java.awt.Point(x,y);
 

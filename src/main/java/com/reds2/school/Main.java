@@ -123,14 +123,10 @@ public class Main {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
-		// hier kann man wie in SAS nur durch awt auf eine Bild im Buffer mahlen das in einer 1/60 s angezeigt wird
         g.drawImage(bg, 0, 0, size.width, size.height,null);
-        g.drawImage(current.draw(),(size.width-size.height/2)/2,0,size.height/2,size.height,null);
-        
-        
-        //g.setColor(Color.red);
-        //g.fillRect(0,10,10,10);
-		return result;
+        g.drawImage(current.draw(), 960-current.getScreenX()/2,0,current.getScreenX(),1080,null);
+        //g.drawImage(current.draw(),(size.width-size.height/2)/2,0,size.height/2,size.height,null);
+        return result;
 	}
 
     int loadScore() throws InvalidKeyException, NoSuchAlgorithmException, IOException{

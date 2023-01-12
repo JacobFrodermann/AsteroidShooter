@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -12,21 +11,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageOutputStream;
-
 import com.reds2.school.util.Util;
+import lombok.Getter;
 
 
 
 public class Game implements State{
+	@Getter int ScreenX = 540, ScreenY = 1080;
 	BufferedImage[] ship;
 	private BufferedImage bg, menu;
 	private int anim=0;
@@ -109,7 +104,7 @@ public class Game implements State{
 		frameTime = System.currentTimeMillis();
 		colR.x=(int) x+29;
 		colR.y=(int) y+33;
-		BufferedImage result = new BufferedImage(540, 1080, BufferedImage.TYPE_INT_RGB);
+		BufferedImage result = new BufferedImage(ScreenX, ScreenY, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = (Graphics2D) result.getGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
