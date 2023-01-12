@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -11,10 +12,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
 
 import com.reds2.school.util.Util;
 
@@ -58,20 +64,20 @@ public class Game implements State{
 		BufferedImage atlas = Util.load("asteriodAtlas");
 		for (int i=0; i<astAtlas.length; i++) {
 			for (int j = 0; j<astAtlas[i].length; j++) {
-				astAtlas[i][j] = atlas.getSubimage(i*102+20, j*107+20, 107, 112);
+				astAtlas[i][j] = atlas.getSubimage(i*102+20, j*102+30, 107, 112);
 			} 
 		}
 		template[0] = new Beam[1];
 		template[0][0] = new Beam(0,0,0,0,0);
-
+ 
 		template[1] = new Beam[2];
 		template[1][0] = new Beam(0,0,0,0,0);
 		template[1][1] = new Beam(0,0,0,0,0);
 
 		template[2] = new Beam[3];
 		template[2][0] = new Beam(0,0,0,0,0);
-		template[2][1] = new Beam(0,0,.261799,0,0);
-		template[2][2] = new Beam(0,0,-.261799,0,0);
+		template[2][1] = new Beam(0,0,.26,0,0);
+		template[2][2] = new Beam(0,0,-.26,0,0);
 
 		template[3] = new Beam[5];
 		template[3][0] = new Beam(0,0,0,0,0);
@@ -161,7 +167,7 @@ public class Game implements State{
 					if(i.type > 2){
 						particles.addAll(Particle.Explosion(i.x,i.y,i.xV,i.yV,new Color(200,200,200),i.s));	
 					} else {
-						particles.addAll(Particle.Explosion(i.x,i.y,i.xV,i.yV,new Color(235,215,0),i.s));   
+						particles.addAll(Particle.Explosion(i.x,i.y,i.xV,i.yV,new Color(235,215,11),i.s));   
 					}
 				}
 				if(tier !=4 && i.type < 3){tier++;}
@@ -316,7 +322,7 @@ public class Game implements State{
 			yV += Main.INSTANCE.settings.v/4*Math.sin(rot);
 			if(renderParticles)particles.add(new Particle(
 				(int) colR.getCenterX()-10+new Random().nextInt(10),
-				(int) colR.getCenterY(),(int) -xV,(int) -yV,
+				(int) colR.getCenterY(),(int) -(Math.cos(rot)*Main.INSTANCE.settings.v*2),(int) -(Math.sin(rot)*Main.INSTANCE.settings.v*2),
 				5,
 				 new Color(235,197,21,75)));
 		}
