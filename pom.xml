@@ -3,8 +3,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>reds2.school</groupId>
-    <artifactId>ufogame</artifactId>
+    <groupId>reds2.games</groupId>
+    <artifactId>asteriodshooter</artifactId>
     <version>1</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,7 +48,8 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.reds2.school.Main</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>com.reds2.AsteriodShooter.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
