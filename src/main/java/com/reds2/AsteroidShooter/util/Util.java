@@ -16,4 +16,12 @@ public class Util {
         }
         return null;
     }
+
+    public static BufferedImage[] loadAnim(String name, int i) {
+        BufferedImage[] arr = new BufferedImage[i];
+        for (int l = 0; l < i; l++) {
+            arr[l] = load(name + l);
+        }
+        return arr;
+    }
 }

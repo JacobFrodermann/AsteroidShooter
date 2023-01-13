@@ -39,7 +39,7 @@ class Asteriod{
                 return out;
             } catch (Exception e){return out;}    
     };
-    public static void bulkDraw(List<Asteriod> asteroids, Graphics2D g,BufferedImage[][] imgAr) {
+    public static void drawAll(List<Asteriod> asteroids, Graphics2D g,BufferedImage[][] imgAr) {
         try{asteroids.forEach((i)->{
             BufferedImage img = imgAr[(int)Math.floor(i.type/8)][i.type%8];
             AffineTransform tr = new AffineTransform();
@@ -48,7 +48,7 @@ class Asteriod{
             g.setTransform(tr);
             g.drawImage(img, (int)i.x, (int)i.y,i.s,i.s, null);
             i.col.setFrame(i.x, i.y,(int) i.s,(int) i.s);
-            if (i.col.intersects(Main.INSTANCE.game.colR) && Main.INSTANCE.game.inv<0){
+            if (i.col.intersects(Main.INSTANCE.game.ShipCol) && Main.INSTANCE.game.inv<0){
                 try {
                     Main.INSTANCE.game.death();
                 } catch (Exception e) {}

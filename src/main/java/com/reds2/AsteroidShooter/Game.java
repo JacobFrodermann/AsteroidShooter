@@ -38,17 +38,18 @@ public class Game implements State{
 	int[] xP = new int[10] ,yP = new int[10];
 	Font f = new Font("h",Font.BOLD,150), f2 = new Font("g",Font.PLAIN,20);
 	private List<Asteriod> asteroids = new ArrayList<Asteriod>();
-	Rectangle colR  = new Rectangle((int) x+29,(int) y+38, 24, 40);
+	Rectangle ShipCol  = new Rectangle((int) x+29,(int) y+38, 24, 40);
 	private List<Particle> particles = new ArrayList<Particle>();
 	private Rectangle[] Buttons = new Rectangle[2];
 	private BufferedImage[][] astAtlas = new BufferedImage[8][8];
-	private int tier = 0,Highscore;
+	private int tier = 2,Highscore;
 	int lives = Main.INSTANCE.settings.lives;
 	int reduction = 0;
     int inv=0;
 	long frameTime = 0;
 	Boolean paused = false;
 	int ptime = 0;
+	List<Coin> coins = new ArrayList<Coin>();
 
 
 	Game(){
@@ -104,8 +105,8 @@ public class Game implements State{
 	public BufferedImage draw() {
 		inv --;
 		frameTime = System.currentTimeMillis();
-		colR.x=(int) x+29;
-		colR.y=(int) y+33;
+		ShipCol.x=(int) x+29;
+		ShipCol.y=(int) y+33;
 		BufferedImage result = new BufferedImage(ScreenX, ScreenY, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = (Graphics2D) result.getGraphics();
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -120,7 +121,11 @@ public class Game implements State{
 		}
 
 		Particle.draw(g,particles);	
-		Asteriod.bulkDraw(asteroids,g,astAtlas);
+		Asteriod.drawAll(asteroids,g,astAtlas);
+		Coin.drawAll(g,coins);
+
+		try{coins = coins.stream().filter(c->!(c.y<-35)).collect(Collectors.toList());}catch (Exception e){}
+
 
 		g.setColor(Color.red);
 		try{beams = beams.stream().filter(i->!(i.r.x<-35 || i.r.x>575 || i.r.y<-35 || i.r.y>1105)).collect(Collectors.toList());}catch (Exception e){}
@@ -186,9 +191,10 @@ public class Game implements State{
 	public void click(MouseEvent e, Dimension d) {
 		int x = (e.getX()-(d.width-d.height/2)/2)*1080/d.height;
 		int y = e.getY()*1080/d.height;
-		if(death || paused){
+		Point p = new Point(x,y);
+
+		if(death) {
 			int which=0;
-			Point p =new Point(x,y);
 			for (Rectangle i:Buttons){
 				if (i.contains(p)){
 					break;
@@ -197,7 +203,13 @@ public class Game implements State{
 			}
 			if (which == 0) Main.INSTANCE.current = Main.INSTANCE.menu;
 			else reset();
-		} else {
+		} else if (paused){
+			if (Buttons[0].contains(p)) {
+				Main.INSTANCE.current = Main.INSTANCE.menu;
+			} else if (Buttons[1].contains(p)) reset();
+			else paused = false;
+		} 
+		else {
 			double rotation = Math.atan((this.y-y)/(this.x-x));  
 			if(x<this.x){rotation+=Math.PI;}
 			if (delay<0){
@@ -277,7 +289,7 @@ public class Game implements State{
 	void boundaryCheck(Graphics2D g){
 		if(x<-75 || x>610 || y < -100 || y>1020){//Timer
 			g.setColor(Color.red);
-			g.drawLine((int)colR.getCenterX(),(int)colR.getCenterY(), 270, 540);
+			g.drawLine((int)ShipCol.getCenterX(),(int)ShipCol.getCenterY(), 270, 540);
 			g.setFont(f);
 			g.drawString(String.valueOf((int)Math.floor(timer)), 200, 400);
 			timer -= 1d/60d;
@@ -288,29 +300,31 @@ public class Game implements State{
 		} else {timer = 3d;}
 	}
 	void keyboradcheck(){
-		if (keys.contains(38)&&!paused){
-			xV += (double)Main.INSTANCE.settings.v/5.5*Math.cos(rot);
-			yV += (double)Main.INSTANCE.settings.v/5.5*Math.sin(rot);
-			if(renderParticles)particles.add(new Particle(
-				(int) colR.getCenterX()-10+new Random().nextInt(10),
-				(int) colR.getCenterY(),(int) -(Math.cos(rot)*Main.INSTANCE.settings.v*2),(int) -(Math.sin(rot)*Main.INSTANCE.settings.v*2),
-				5,
-				 new Color(235,197,21,75)));
-		}
-		if (keys.contains(40) &&!paused){
-			xV /= 1.5;
-			yV /= 1.5;
-		}
-		if (keys.contains(37) &&!paused){
-			rot -= 0.1;
-		}
-		if (keys.contains(39) &&!paused){
-			rot += 0.1;
-		}
-		if (keys.contains(32) &&!paused){
-			if (delay<0){
-				delay = Main.INSTANCE.settings.cooldown+5;
-				shoot(rot);
+		if (!paused && !death) {
+			if (keys.contains(38)){
+				xV += (double)Main.INSTANCE.settings.v/5.5*Math.cos(rot);
+				yV += (double)Main.INSTANCE.settings.v/5.5*Math.sin(rot);
+				if(renderParticles)particles.add(new Particle(
+					(int) ShipCol.getCenterX()-10+new Random().nextInt(10),
+					(int) ShipCol.getCenterY(),(int) -(Math.cos(rot)*Main.INSTANCE.settings.v*2),(int) -(Math.sin(rot)*Main.INSTANCE.settings.v*2),
+					5,
+					new Color(235,197,21,75)));
+			}
+			if (keys.contains(40)){
+				xV /= 1.5;
+				yV /= 1.5;
+			}
+			if (keys.contains(37)){
+				rot -= 0.1;
+			}
+			if (keys.contains(39)){
+				rot += 0.1;
+			}
+			if (keys.contains(32)){
+				if (delay<0){
+					delay = Main.INSTANCE.settings.cooldown+5;
+					shoot(rot);
+				}
 			}
 		}
 		if (keys.contains(KeyEvent.VK_ESCAPE) && ptime < 0) {paused =! paused;menu = new GameMenu(time,Highscore,false);ptime = 10;}
@@ -343,6 +357,12 @@ public class Game implements State{
 
 		boundaryCheck(g);
 
+		coins.forEach((Coin c) -> {
+			if (c.getCol().intersects(ShipCol)) {
+				//TODO Add Sparkling
+			}
+		});		
+
 		asteroids.forEach((i)->{
 			if(i.hp<0){
 				if(renderParticles){
@@ -352,10 +372,16 @@ public class Game implements State{
 						particles.addAll(Particle.Explosion(i.x,i.y,i.xV,i.yV,new Color(235,215,11),i.s));   
 					}
 				}
-				if(tier !=4 && i.type < 3){tier++;}
+				if(tier !=4 && i.type < 3){
+					tier++;
+					coins.add(new Coin((int) i.x,(int) i.y));
+				}
 			}
 		});
 		try{asteroids=asteroids.stream().filter(i->!(i.hp<0||i.y>1920)).collect(Collectors.toList());}catch(Exception e){}
+
+		try{coins=coins.stream().filter(i->i.getCol().intersects(ShipCol)).collect(Collectors.toList());}catch(Exception e){}
+
 		bulkCol();
 	}
 }

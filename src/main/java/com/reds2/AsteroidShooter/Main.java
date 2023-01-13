@@ -22,12 +22,9 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-
 import com.reds2.AsteroidShooter.enc.Encryption;
-
+import com.reds2.AsteroidShooter.util.Util;
 
 public class Main {
     BufferedImage bg;
@@ -36,10 +33,13 @@ public class Main {
     public Dimension d;
     public Boolean logging = true;
 
+    public int Cash = 0;
+    
+
     public static void main(String[] args) throws IOException, InterruptedException {
 		INSTANCE = new Main();
 		INSTANCE.init();
-        while(true) {
+        while(true) { 
             render(INSTANCE.canvas, INSTANCE.draw(INSTANCE.canvas.getSize()));
             try{Thread.sleep(1000 / 40-Main.INSTANCE.game.frameTime);}catch(Exception e){}// run at 40 fps
         }
@@ -52,9 +52,10 @@ public class Main {
     Settings settings = new Settings();
     Menu menu = new Menu();
     Game game;
+    Ship ship = new Ship();
 
-    Main() throws IOException{
-        bg = ImageIO.read(Main.class.getClassLoader().getResourceAsStream("MainBg.png"));
+    Main() {
+        bg = Util.load("MainBg");
         d = new Dimension(bg.getWidth()/3, bg.getHeight());
         current = menu;
     }
@@ -70,7 +71,7 @@ public class Main {
         frame.setBounds(0, 0, (int) width, (int) height);                       // setze Anzeigfläche größe auf maximum                     
         frame.setResizable(false);            
         canvas = new Canvas();
-        frame.add(canvas);                                                        //füge Malfläche zu Anzeige hinzu
+        frame.add(canvas);  
         canvas.addKeyListener(new KeyListener() {                                 //Tastatur abfrage erstellen
             @Override
             public void keyPressed(KeyEvent e) {
@@ -136,7 +137,9 @@ public class Main {
             File f = new File("Highscore.txt");
             reader = new BufferedReader(new FileReader(f));
             int value = Integer.valueOf(reader.readLine());
-            String timestap = reader.readLine(),mac = reader.readLine(),user = reader.readLine(),settings = reader.readLine();
+            String timestap = reader.readLine(),mac = reader.readLine(),user = reader.readLine(),settings = reader.readLine();//, CashMac = reader.readLine();
+
+            //int Cash = Integer.valueOf(reader.readLine());
         
             if (Encryption.getString(String.valueOf(value+user+settings).getBytes(), timestap).equals(mac)) {
                 reader.close();
@@ -164,6 +167,7 @@ public class Main {
             writer.write("\nby "+System.getProperty("user.name"));
             writer.write("\nSettings:"+Main.INSTANCE.settings.v+Main.INSTANCE.settings.lives+Main.INSTANCE.settings.cooldown + Main.INSTANCE.settings.inv + Main.INSTANCE.settings.red);
             writer.write("\nUm: "+new Date(t).toString());
+            //writer.write(Encryption.getString(String.valueOf(Cash).getBytes(), String.valueOf(t)));
         } catch (Exception e ){}
         try{writer.close();}catch (Exception e){}
     }

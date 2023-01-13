@@ -10,9 +10,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
-
 import com.reds2.AsteroidShooter.util.Util;
-
 import lombok.Getter;
 import java.awt.Rectangle;
 import java.awt.Font;
@@ -27,11 +25,13 @@ public class Settings implements State{
     Font font = new Font("h",Font.BOLD,15);
     BufferedImage done = Util.load("Done"), bg = Util.load("Settings_BG");
     @Getter int ScreenX = 720, ScreenY = 1080;
+    private int clickT = 0;
 
     Rectangle doneHitbox = new Rectangle(285,970,150,60);
     public Boolean particles = true;
 
     Settings(){
+        
         font.deriveFont(Font.CENTER_BASELINE, 0f);
         font.deriveFont(Font.TYPE1_FONT, 0f);
 
@@ -70,56 +70,58 @@ public class Settings implements State{
         }
 
         g.drawImage(done,doneHitbox.x,doneHitbox.y,null);
+        clickT --;
 
         return result;
     }
 
     @Override
     public void click(MouseEvent e, Dimension d) {
-        int x = e.getX()-(960-ScreenX/2);
-		int y = e.getY();
+        if (clickT < 0){
+            clickT = 3;
+            int x = e.getX()-(960-ScreenX/2);
+            int y = e.getY();
 
-        java.awt.Point p = new java.awt.Point(x,y);
+            java.awt.Point p = new java.awt.Point(x,y);
 
-        if (doneHitbox.contains(p)) {
-            Main.INSTANCE.current = Main.INSTANCE.menu;
-        }
+            if (doneHitbox.contains(p)) {
+                Main.INSTANCE.current = Main.INSTANCE.menu;
+            }
 
-        for (int i = 0;i<buttons.length;i++){
-            if (buttons[i].contains(p)){
-                if(e.getButton() == 1){
-                    values[i]++;
-                } else {
-                    values[i]--;
+            for (int i = 0;i<buttons.length;i++){
+                if (buttons[i].contains(p)){
+                    if(e.getButton() == 1){
+                        values[i]++;
+                    } else {
+                        values[i]--;
+                    }
                 }
             }
-        }
-        for (int i = buttons.length;i<switches.length+buttons.length;i++){
-            if (switches[i-buttons.length].contains(p)){
-                if(e.getButton() == 1){
-                    values[i]++;
-                } else {
-                    values[i]--;
+            for (int i = buttons.length;i<switches.length+buttons.length;i++){
+                if (switches[i-buttons.length].contains(p)){
+                    if(e.getButton() == 1){
+                        values[i]++;
+                    } else {
+                        values[i]--;
+                    }
                 }
             }
-        }
 
-        for (int i = 0;i<values.length;i++){
-            values[i] %= MAX_VALUES[i];
-            if (values[i] == MIN_VALUES[i]-1) {
-                values[i] = MAX_VALUES[i];
+            for (int i = 0;i<values.length;i++){
+                if (values[i] > MAX_VALUES[i]) values[i] = MIN_VALUES[i];
+                if (values[i] < MIN_VALUES[i]) values[i] = MAX_VALUES[i];
             }
-        }
 
-        v = values[0];
-        beamV = values[1];
-        cooldown = values[2];
-        inv = values[3];
-        red = values[4];
-        lives = values[5];
-        astoids = values[6];
-        particlesnumber  = values[7];
-        particles = 1 == particlesnumber;
+            v = values[0];
+            beamV = values[1];
+            cooldown = values[2];
+            inv = values[3];
+            red = values[4];
+            lives = values[5];
+            astoids = values[6];
+            particlesnumber  = values[7];
+            particles = 1 == particlesnumber;
+        }
     }
 
     @Override
