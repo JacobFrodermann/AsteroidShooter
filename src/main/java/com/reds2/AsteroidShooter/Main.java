@@ -11,6 +11,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
@@ -32,15 +34,21 @@ public class Main {
     int skin = 0;
     public Dimension d;
     public Boolean logging = true;
-
-    public int Cash = 0;
+    public int Coins = 0;
     
+    boolean fps = true;
+    long[] frameTimes = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
     public static void main(String[] args) throws IOException, InterruptedException {
 		INSTANCE = new Main();
 		INSTANCE.init();
+        int i = 0;
         while(true) { 
+            long t = System.currentTimeMillis();
             render(INSTANCE.canvas, INSTANCE.draw(INSTANCE.canvas.getSize()));
+            if (INSTANCE.fps) {i ++;
+            i %= INSTANCE.frameTimes.length;
+            INSTANCE.frameTimes[i]=System.currentTimeMillis()-t;}
             try{Thread.sleep(1000 / 40-Main.INSTANCE.game.frameTime);}catch(Exception e){}// run at 40 fps
         }
     }
@@ -103,6 +111,14 @@ public class Main {
             @Override
             public void mouseReleased(MouseEvent e) {
                 current.m_release(e, new Dimension((int) width,(int) height));
+            }
+            
+        });
+        canvas.addMouseWheelListener(new MouseWheelListener() {
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                current.onMouseWheel(e, new Dimension((int) width,(int) height));
             }
             
         });

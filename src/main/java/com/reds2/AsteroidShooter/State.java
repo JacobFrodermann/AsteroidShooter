@@ -2,6 +2,7 @@ package com.reds2.AsteroidShooter;
 
 import java.awt.image.BufferedImage;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.awt.event.KeyEvent;
 import java.awt.Dimension;
 
@@ -14,5 +15,6 @@ public interface State {
     void release(KeyEvent e);
     public int getScreenX();
     public int getScreenY();
+    void onMouseWheel(MouseWheelEvent e, Dimension dimension);
 }
 

@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -104,7 +105,6 @@ public class Game implements State{
 	@Override
 	public BufferedImage draw() {
 		inv --;
-		frameTime = System.currentTimeMillis();
 		ShipCol.x=(int) x+29;
 		ShipCol.y=(int) y+33;
 		BufferedImage result = new BufferedImage(ScreenX, ScreenY, BufferedImage.TYPE_INT_RGB);
@@ -125,7 +125,6 @@ public class Game implements State{
 		Coin.drawAll(g,coins);
 
 		try{coins = coins.stream().filter(c->!(c.y<-35)).collect(Collectors.toList());}catch (Exception e){}
-
 
 		g.setColor(Color.red);
 		try{beams = beams.stream().filter(i->!(i.r.x<-35 || i.r.x>575 || i.r.y<-35 || i.r.y>1105)).collect(Collectors.toList());}catch (Exception e){}
@@ -160,8 +159,17 @@ public class Game implements State{
 			g.drawImage(menu, 110, 400, null);}
 
 		ptime --;
-
-		frameTime = System.currentTimeMillis()-frameTime;
+		
+		if (Main.INSTANCE.fps) {
+			g.setColor(Color.white);
+			System.out.println(Main.INSTANCE.frameTimes[0] + "," + Main.INSTANCE.frameTimes[1]);
+			int avg = 0;
+			for (long i : Main.INSTANCE.frameTimes) {
+				avg += i;
+			}
+			avg /= Main.INSTANCE.frameTimes.length;
+			if (avg != 0)g.drawString(String.valueOf((int) 1000/avg), 10, 100);
+		}
 		return result;
 	}
 
@@ -333,7 +341,7 @@ public class Game implements State{
 		if (new Random().nextInt(25)==1){anim++;anim =anim%4;}
 	}
 	void spawnAsteroid(){
-		if (new Random().nextInt((10-Main.INSTANCE.settings.astoids)*10)==1){
+		if (new Random().nextInt((10-Main.INSTANCE.settings.asteroids)*10)==1){
 			asteroids.add(new Asteriod());
 		}
 	}
@@ -359,6 +367,7 @@ public class Game implements State{
 
 		coins.forEach((Coin c) -> {
 			if (c.getCol().intersects(ShipCol)) {
+				Main.INSTANCE.Coins ++;
 				//TODO Add Sparkling
 			}
 		});		
@@ -383,5 +392,10 @@ public class Game implements State{
 		try{coins=coins.stream().filter(i->i.getCol().intersects(ShipCol)).collect(Collectors.toList());}catch(Exception e){}
 
 		bulkCol();
+	}
+
+	@Override
+	public void onMouseWheel(MouseWheelEvent e, Dimension d) {
+		// TODO Auto-generated method stub
 	}
 }

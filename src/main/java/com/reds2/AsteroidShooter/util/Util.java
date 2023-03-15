@@ -8,9 +8,10 @@ public class Util {
     public static BufferedImage load(String name){
         name = name+".png";
         try{
-            return ImageIO.read(Util.class.getClassLoader().getResourceAsStream(name));   
+            Object h = ImageIO.read(Util.class.getClassLoader().getResourceAsStream(name));
+            assert h == null;
+            return (BufferedImage) h;   
         } catch (Exception e){
-            
             e.printStackTrace();
             System.out.println("while loading: "+name);
         }

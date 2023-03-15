@@ -9,16 +9,17 @@ import java.awt.Dimension;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 
 public class Menu implements State{
-    @Getter int ScreenX = 540, ScreenY = 1080;
+    int ScreenX = 540, ScreenY = 1080;
     String state = "Main";
     BufferedImage bg, start, settings, quit;
     Rectangle startR = new Rectangle(140,363,256,87), settingsR = new Rectangle(122,470,291,70), quitR = new Rectangle(160,560,150,87);
-
+    
     Menu(){
         bg = Util.load("actionfieldBg1");
         start = Util.load("Start");
@@ -66,4 +67,15 @@ public class Menu implements State{
 
     @Override
     public void m_release(MouseEvent e, Dimension d) {}
+    public int getScreenX() {
+        return ScreenX;
+    }
+    public int getScreenY() {
+        return ScreenY;
+    }
+
+    @Override
+    public void onMouseWheel(MouseWheelEvent e, Dimension d) {
+        // TODO Auto-generated method stub
+    }
 }
