@@ -36,9 +36,6 @@ public class Main {
     public Boolean logging = true;
     public int Coins = 0;
     
-    boolean fps = true;
-    long[] frameTimes = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-
     public static void main(String[] args) throws IOException, InterruptedException {
 		INSTANCE = new Main();
 		INSTANCE.init();
@@ -46,9 +43,6 @@ public class Main {
         while(true) { 
             long t = System.currentTimeMillis();
             render(INSTANCE.canvas, INSTANCE.draw(INSTANCE.canvas.getSize()));
-            if (INSTANCE.fps) {i ++;
-            i %= INSTANCE.frameTimes.length;
-            INSTANCE.frameTimes[i]=System.currentTimeMillis()-t;}
             try{Thread.sleep(1000 / 40-Main.INSTANCE.game.frameTime);}catch(Exception e){}// run at 40 fps
         }
     }
@@ -69,8 +63,10 @@ public class Main {
     }
     void init(){
         game = new Game();
-        width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        //width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        //height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        width = 1920;
+        height = 1080;
         frame = new JFrame(); 
         frame.setIconImage(game.ship[0]);                                                    
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);                     //Wenn geschlossen bennde Programm

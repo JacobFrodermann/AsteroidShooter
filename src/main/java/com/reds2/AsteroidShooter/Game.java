@@ -158,15 +158,6 @@ public class Game implements State{
 
 		ptime --;
 		
-		if (Main.INSTANCE.fps) {
-			g.setColor(Color.white);
-			int avg = 0;
-			for (long i : Main.INSTANCE.frameTimes) {
-				avg += i;
-			}
-			avg /= Main.INSTANCE.frameTimes.length;
-			if (avg != 0)g.drawString(String.valueOf((int) 1000/avg), 10, 100);
-		}
 		return result;
 	}
 
