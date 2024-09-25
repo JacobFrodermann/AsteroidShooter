@@ -19,12 +19,10 @@ import java.util.stream.Collectors;
 
 import com.reds2.AsteroidShooter.util.Util;
 
-import lombok.Getter;
-
 
 
 public class Game implements State{
-	@Getter int ScreenX = 540, ScreenY = 1080;
+	int ScreenX = 540, ScreenY = 1080;
 	BufferedImage[] ship;
 	private BufferedImage bg, menu;
 	private int anim=0;
@@ -162,7 +160,6 @@ public class Game implements State{
 		
 		if (Main.INSTANCE.fps) {
 			g.setColor(Color.white);
-			System.out.println(Main.INSTANCE.frameTimes[0] + "," + Main.INSTANCE.frameTimes[1]);
 			int avg = 0;
 			for (long i : Main.INSTANCE.frameTimes) {
 				avg += i;
@@ -397,5 +394,13 @@ public class Game implements State{
 	@Override
 	public void onMouseWheel(MouseWheelEvent e, Dimension d) {
 		// TODO Auto-generated method stub
+	}
+
+	public int getScreenX() {
+		return ScreenX;
+	}
+
+	public int getScreenY() {
+		return ScreenY;
 	}
 }

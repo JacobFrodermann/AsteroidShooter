@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 
 import com.reds2.AsteroidShooter.util.Util;
 
-import lombok.Getter;
 import java.awt.Dimension;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;

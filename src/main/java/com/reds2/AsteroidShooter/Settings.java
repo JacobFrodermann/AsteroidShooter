@@ -1,6 +1,5 @@
 package com.reds2.AsteroidShooter;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -14,7 +13,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
 import com.reds2.AsteroidShooter.util.Util;
-import lombok.Getter;
 import java.awt.Rectangle;
 import java.awt.Font;
 
@@ -27,7 +25,7 @@ public class Settings implements State{
     String[] Labels = {"Ship Velocity:","Beam Velocity:","Beam Cooldown:","invincibility time:","Difficultyreduction on Death :","Extra Lives:","Asteroids:","Particles:"};
     Font font = new Font("h",Font.BOLD,15);
     BufferedImage done = Util.load("Done"), bg = Util.load("Settings_BG");
-    @Getter int ScreenX = 720, ScreenY = 1080;
+    int ScreenX = 720, ScreenY = 1080;
     private int clickT = 0;
 
     Rectangle doneHitbox = new Rectangle(285,970,150,60);
@@ -165,4 +163,12 @@ public class Settings implements State{
             particles = 1 == particlesnumber;
         }
     }
+
+	public int getScreenX() {
+		return ScreenX;
+	}
+
+	public int getScreenY() {
+		return ScreenY;
+	}
 }
